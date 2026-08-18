@@ -1,0 +1,70 @@
+import { Directive, OnInit, AfterViewInit, Inject, PLATFORM_ID, inject } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { GLOSSARY_IS_OVERLAY } from '../../shared/glossary-overlay/glossary-is-overlay.token';
+
+
+
+declare global {
+    interface Window {
+        MathJax: any;
+    }
+}
+
+
+
+@Directive()
+export abstract class GlossaryBase implements OnInit, AfterViewInit {
+    showBackButton = true;
+    protected isBrowser: boolean;
+    private mathRendered = false;
+
+
+    constructor(
+        @Inject(PLATFORM_ID) protected platformId: Object,
+        protected route: ActivatedRoute
+    ) {
+        this.isBrowser = isPlatformBrowser(platformId);
+        // When rendered inside a CDK Dialog the token is provided as true.
+        if (inject(GLOSSARY_IS_OVERLAY, { optional: true })) {
+            this.showBackButton = false;
+        }
+    }
+
+
+    ngOnInit() {
+        // Check if accessed from learning module via URL param (non-overlay path).
+        if (this.showBackButton) {
+            const fromParam = this.route.snapshot.queryParamMap.get('from');
+            this.showBackButton = fromParam !== 'module';
+        }
+        
+        // Call child's content initialization
+        this.initContent();
+    }
+
+
+    ngAfterViewInit() {
+        // Render math after view is initialized
+        if (!this.mathRendered) {
+            this.renderMath();
+            this.mathRendered = true;
+        }
+    }
+
+
+    // child classes must implement this
+    abstract initContent(): void;
+
+
+    // math rendering (shared across all glossary pages)
+    protected renderMath() {
+        if (this.isBrowser) {
+            setTimeout(() => {
+                if (window.MathJax) {
+                    window.MathJax.typesetPromise();
+                }
+            }, 100);
+        }
+    }
+}
