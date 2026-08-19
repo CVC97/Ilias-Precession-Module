@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID, HostListener } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../core/services/theme';
 import { Session } from '../../core/services/session';
@@ -10,7 +10,6 @@ import { DevModeService } from '../../core/services/dev-mode';
 @Component({
     selector: 'app-header',
     standalone: true,
-    imports: [CommonModule],
     templateUrl: './header.html',
     styleUrl: './header.css'
 })
