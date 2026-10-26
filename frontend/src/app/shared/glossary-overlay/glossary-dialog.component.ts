@@ -5,10 +5,32 @@ import { GLOSSARY_IS_OVERLAY } from './glossary-is-overlay.token';
 
 import { AngularMomentum }     from '../../features/glossary_features/angular-momentum/angular-momentum';
 import { MomentOfInertia }     from '../../features/glossary_features/moment-of-inertia/moment-of-inertia';
+import { NewtonNotation }      from '../../features/glossary_features/newton-notation/newton-notation';
+import { Torque }              from '../../features/glossary_features/torque/torque';
+import { AngularVelocity     } from '../../features/glossary_features/angular-velocity/angular-velocity';
+import { CrossProduct        } from '../../features/glossary_features/cross-product/cross-product';
+import { FigureAxis          } from '../../features/glossary_features/figure-axis/figure-axis';
+import { InstantaneousAxis   } from '../../features/glossary_features/instantaneous-axis/instantaneous-axis';
+import { Nutation            } from '../../features/glossary_features/nutation/nutation';
+import { Precession          } from '../../features/glossary_features/precession/precession';
+import { ParallelAxis        } from '../../features/glossary_features/parallel-axis/parallel-axis';
+import { PhysicalPendulum    } from '../../features/glossary_features/physical-pendulum/physical-pendulum';
+import { Cones               } from '../../features/glossary_features/cones/cones';
 
 const TERM_MAP: Record<string, Type<any>> = {
     'angular-momentum':     AngularMomentum,
     'moment-of-inertia':    MomentOfInertia,
+    'newton-notation':      NewtonNotation,
+    'torque':               Torque,
+    'angular-velocity':     AngularVelocity,
+    'cross-product':        CrossProduct,
+    'figure-axis':          FigureAxis,
+    'instantaneous-axis':   InstantaneousAxis,
+    'nutation':             Nutation,
+    'precession':           Precession,
+    'parallel-axis':        ParallelAxis,
+    'physical-pendulum':    PhysicalPendulum,
+    'cones':                Cones,
 };
 
 @Component({

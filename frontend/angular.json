@@ -25,7 +25,11 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/styles_glossary.css"
+              "src/styles_glossary.css",
+              "src/styles_evaluation.css",
+              "src/styles_target.css",
+              "src/styles_summary.css",
+              "src/styles_simulation.css"
             ],
             "server": "src/main.server.ts",
             "outputMode": "server",
@@ -38,13 +42,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "900kB",
-                  "maximumError": "1.5MB"
+                  "maximumWarning": "1.5MB",
+                  "maximumError": "2MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "5kB",
+                  "maximumError": "10kB"
                 }
               ],
               "outputHashing": "all"
@@ -73,7 +77,10 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "providersFile": "src/test-providers.ts"
+          }
         }
       }
     }

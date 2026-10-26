@@ -1,0 +1,264 @@
+/* ── Sidebar container ─────────────────────────────────────────────────── */
+
+/* outer: sticky shell — must NOT have overflow or stickiness breaks */
+.nav-bar {
+    position: sticky;
+    top: 1.5rem;
+    height: 100vh;
+    align-self: flex-start;
+    background: var(--bg-primary);
+    border-right: 2px solid var(--border-color);
+    z-index: 100;
+}
+
+/* inner: handles overflow so nav content can scroll when it exceeds 100vh */
+.nav-bar-container {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 2rem;
+}
+
+/* ── Startseite / Anleitung endpoints ──────────────────────────────────── */
+.nav-endpoint-btn {
+    width: 100%;
+    padding: 1rem 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    cursor: default;
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.nav-endpoint-btn-dev:hover {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+.nav-endpoint-btn-dev:active {
+    transform: scalex(0.98);
+    transition: none; /* snaps down instantly */
+    touch-action: manipulation;
+}
+
+.nav-endpoint-active {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-primary);
+    font-weight: 700;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* cursor: pointer only when the endpoint is actually navigable */
+.nav-endpoint-dev {
+    cursor: pointer;
+}
+
+/* ── Strand section ────────────────────────────────────────────────────── */
+.strand-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* ── Path label (Pohl's strand switcher, reduced to the one active tab) ── */
+.strand-switcher {
+    display: flex;
+    gap: 0px;
+    background: var(--card-bg);
+    border: 3px solid var(--button-border-color);
+    border-radius: 5px;
+    /* padding: 1px; */
+    margin: 2rem 3rem 2rem 3rem;
+}
+
+.strand-tab {
+    border: none;
+    border-radius: 5px;
+    padding: 0.45rem 0.5rem;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.02em;
+    cursor: default;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+/* inverted colours matching the seg-active palette */
+.strand-tab-active {
+    flex: 1;
+    background: var(--uni-blau-4);
+    color: var(--bg-primary);
+}
+
+/* ── Segment column ────────────────────────────────────────────────────── */
+.strand-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+/* ── Segment buttons ───────────────────────────────────────────────────── */
+.seg-btn {
+    width: 100%;
+    padding: 1rem 0.25rem 1rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: left;
+    cursor: default;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    /* margin-top: 2rem; */
+}
+
+/* hover always visible — cursor is the signal that the item is/isn't clickable */
+.seg-btn-dev:hover {
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border-color: var(--text-primary);
+}
+
+.seg-btn-dev:active {
+    transform: scalex(0.98);
+    transition: none; /* snaps down instantly */
+    touch-action: manipulation;
+}
+
+/* active segment: inverted, non-interactive */
+.seg-active {
+    background: var(--text-primary);
+    border-color: var(--text-primary);
+    color: var(--bg-primary);
+    font-weight: 700;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* dev-mode non-active: pointer cursor (hover already applies to all) */
+.seg-dev {
+    cursor: pointer;
+}
+
+/* ── Dropdown ──────────────────────────────────────────────────────────── */
+.seg-dropdown {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.2rem 0 0.2rem 0.35rem;
+    border-left: 2px solid var(--text-primary);
+    margin-left: 0.15rem;
+    margin-bottom: 2rem;
+}
+
+.sub-btn {
+    width: 100%;
+    padding: 0.28rem 0.4rem 0.28rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 1rem;
+    text-align: left;
+    cursor: default;
+    transition: background 0.12s, color 0.12s;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+/* hover always visible */
+.sub-btn-dev:hover {
+    background: var(--text-primary);
+    color: var(--card-bg);
+}
+
+.sub-btn-dev:active {
+    transform: scalex(0.98);
+    transition: none; /* snaps down instantly */
+    touch-action: manipulation;
+}
+
+.sub-btn-active {
+    border: 2px solid var(--button-border-color);
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* active sub-btn stays stable on hover */
+.sub-btn-active:hover {
+    background: transparent;
+    color: var(--text-primary);
+}
+
+/* dev-mode: unlocked dropdown gets pointer cursor */
+.seg-dropdown:not(.seg-dropdown-locked) .sub-btn {
+    cursor: pointer;
+}
+
+/* ── Dark mode ─────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .seg-btn {
+        border-color: var(--border-color);
+    }
+}
+
+/* narrower sidebar: let the path label use the full width */
+@media (max-width: 1200px) {
+    .strand-switcher {
+        margin: 1.5rem 0;
+    }
+}
+
+/* ── Responsive: sidebar becomes a slide-in drawer on narrow screens ───── */
+.nav-backdrop {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .nav-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        height: 100dvh;
+        width: min(85vw, 360px);
+        z-index: 1001;
+        transform: translateX(-100%);
+        visibility: hidden;
+        /* delay hiding until the slide-out has finished */
+        transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    }
+
+    .nav-bar--open {
+        transform: none;
+        visibility: visible;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.25);
+        transition: transform 0.25s ease, visibility 0s;
+    }
+
+    .nav-bar-container {
+        padding: 1.25rem;
+    }
+
+    .nav-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.45);
+    }
+}

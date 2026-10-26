@@ -1,0 +1,136 @@
+<div class="container">
+    <div class="card">
+        @if (currentView === 'precession1') {
+            <h1>Präzession (1/3)</h1>
+            <p class="page-subheadline">Drehmoment senkrecht zum Drehimpuls</p>
+        } @else if (currentView === 'precession2') {
+            <h1>Präzession (2/3)</h1>
+            <p class="page-subheadline">Präzession im Versuch</p>
+        } @else {
+            <h1>Präzession (3/3)</h1>
+            <p class="page-subheadline">Präzession in der Simulation</p>
+        }
+
+        <!-- Content sections -->
+        <div class="content">
+            @if (currentView === 'precession1') {
+                <div>
+                    <p [innerHTML]="precessionText1a"></p>
+                    <div class="full-width-image-container">
+                        <img src="assets/images/p5_precession/praezession_skizze.png" alt="Versuchsskizze mit Drehimpuls, Drehmoment und Präzessionsgeschwindigkeit" class="full-width-image">
+                        <p class="image-description" [innerHTML]="precessionText1b"></p>
+                    </div>
+
+                    <app-single-choice
+                        [questionId]="question1.questionId"
+                        [question]="question1.question"
+                        [options]="question1.options"
+                        [correctAnswer]="question1.correctAnswer"
+                        [answerFeedback]="question1.answerFeedback"
+                        [containerId]="question1.containerId"
+                        [successMessage]="question1.successMessage"
+                        [incorrectMessage]="question1.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion1Answered($event)">
+                    </app-single-choice>
+
+                    <p [innerHTML]="precessionText1c"></p>
+                    <div class="learning-lamp">
+                        <div class="learning-lamp-text" [innerHTML]="precessionText1d"></div>
+                    </div>
+
+                    <app-single-choice
+                        [questionId]="question2.questionId"
+                        [question]="question2.question"
+                        [options]="question2.options"
+                        [correctAnswer]="question2.correctAnswer"
+                        [answerFeedback]="question2.answerFeedback"
+                        [containerId]="question2.containerId"
+                        [successMessage]="question2.successMessage"
+                        [incorrectMessage]="question2.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion2Answered($event)">
+                    </app-single-choice>
+                </div>
+            }
+
+            @if (currentView === 'precession2') {
+                <div>
+                    <p [innerHTML]="precessionText2a"></p>
+                    <div class="learning-lamp">
+                        <div class="learning-lamp-text" [innerHTML]="precessionText2b"></div>
+                    </div>
+                    <p [innerHTML]="precessionText2c"></p>
+
+                    <app-single-choice
+                        [questionId]="question3.questionId"
+                        [question]="question3.question"
+                        [options]="question3.options"
+                        [correctAnswer]="question3.correctAnswer"
+                        [answerFeedback]="question3.answerFeedback"
+                        [containerId]="question3.containerId"
+                        [successMessage]="question3.successMessage"
+                        [incorrectMessage]="question3.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion3Answered($event)">
+                    </app-single-choice>
+
+                    <app-single-choice
+                        [questionId]="question4.questionId"
+                        [question]="question4.question"
+                        [options]="question4.options"
+                        [correctAnswer]="question4.correctAnswer"
+                        [answerFeedback]="question4.answerFeedback"
+                        [containerId]="question4.containerId"
+                        [successMessage]="question4.successMessage"
+                        [incorrectMessage]="question4.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion4Answered($event)">
+                    </app-single-choice>
+
+                    <div class="glossary-write">
+                        <div class="glossary-text" [innerHTML]="precessionText2d"></div>
+                    </div>
+                </div>
+            }
+
+            @if (currentView === 'precession3') {
+                <div>
+                    <div [innerHTML]="precessionText3a"></div>
+
+                    <app-sim-placeholder presetId="p5-precession"></app-sim-placeholder>
+
+                    <p [innerHTML]="precessionText3b"></p>
+
+                    <app-multiple-choice
+                        [questionId]="question5.questionId"
+                        [question]="question5.question"
+                        [options]="question5.options"
+                        [correctAnswers]="question5.correctAnswers"
+                        [answerFeedback]="question5.answerFeedback"
+                        [containerId]="question5.containerId"
+                        [successMessage]="question5.successMessage"
+                        [incompleteMessage]="question5.incompleteMessage"
+                        [incorrectMessage]="question5.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion5Answered($event)">
+                    </app-multiple-choice>
+
+                    <p [innerHTML]="precessionText3c"></p>
+                </div>
+            }
+        </div>
+
+        <!-- navigation buttons -->
+        <div class="button-container">
+            @if (isFirstPage) {
+                @if (devMode.isEnabled) {
+                    <button class="btn btn-back" (click)="goBack()">← Zurück zum Kreisel</button>
+                }
+            } @else {
+                <button class="btn btn-back" (click)="goBack()">← Zurück</button>
+            }
+
+            @if (isLastPage) {
+                <button class="btn" (click)="goForward()">Weiter zur Nutation →</button>
+            } @else {
+                <button class="btn" (click)="goForward()">Weiter →</button>
+            }
+        </div>
+    </div>
+</div>

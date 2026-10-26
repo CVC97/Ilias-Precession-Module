@@ -29,20 +29,25 @@ export class AngularMomentum extends GlossaryBase {
 
 
 	// bypassing math rendering errors
-    initContent() {        
+    initContent() {
         this.angular_momentumText = this.sanitizer.bypassSecurityTrustHtml(`
-			Das Drehmoment beschreibt die Drehwirkung einer Kraft auf einen Körper. 
-			Es verhält sich analog zur Kraft in geradlinigen Bewegungen und kann somit beschleunigend oder abbremsend wirken.
-			Ein Drehmoment entsteht, wenn eine Kraft im Abstand $r$ von der Drehachse angreift. Je größer dieser Abstand und je größer die Kraft, desto größer ist das Drehmoment.
+			Der Drehimpuls $\\vec{L}$ ist das Gegenstück zum Impuls bei Drehbewegungen.
+			Er ist ein Vektor: Sein Betrag gibt an, wie viel Rotation in einem Körper steckt, seine Richtung gibt an, um welche Achse er rotiert.
+			Wirkt kein äußeres Drehmoment, bleibt der Drehimpuls nach Betrag und Richtung erhalten.
         `);
 
         this.angular_momentumFormulaText = this.sanitizer.bypassSecurityTrustHtml(`
-			Beim Pohlschen Rad wirken mehrere Drehmomente gleichzeitig:
-			<ol>
-				<li><strong>Rückstellmoment der Spiralfeder</strong><br> $M_{\\text{Rück}} = D \\cdot \\varphi$</li>
-				<li><strong>Dämpfungs- bzw. Reibungsmoment</strong><br> $M_{\\text{Dämpf}} = \\rho \\dot{\\varphi}$</li>
-				<li><strong>Äußeres, periodisches Anregungsmoment</strong><br> $M_{\\text{ext}} = M_0 \\cos(\\omega t)$</li>
-			</ol>
+			Für einen Massenpunkt mit Ortsvektor $\\vec{r}$ und Impuls $\\vec{p} = m\\vec{v}$ gilt
+			$$\\vec{L} = \\vec{r} \\times \\vec{p}.$$
+			Für einen starren Körper, der um eine seiner Symmetrieachsen rotiert, ist der Drehimpuls das Produkt aus
+			Trägheitsmoment $I$ bezüglich dieser Achse
+			und Winkelgeschwindigkeit $\\vec{\\omega}$:
+			$$\\vec{L} = I\\,\\vec{\\omega}.$$
+			In diesem Fall zeigen $\\vec{L}$ und $\\vec{\\omega}$ in dieselbe Richtung. Dreht sich der Körper nicht um eine Symmetrieachse,
+			sind die beiden Vektoren im Allgemeinen nicht parallel.<br><br>
+
+			Ein äußeres Drehmoment $\\vec{D}$ ändert den Drehimpuls:
+			$$\\frac{\\mathrm{d}\\vec{L}}{\\mathrm{d}t} = \\vec{D}.$$
         `);
     }
 }

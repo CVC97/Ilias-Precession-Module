@@ -1,0 +1,15 @@
+<div class="container">
+    <div class="card">
+        <div class="glossary-lamp">
+            <h1 class="glossary-lamp-title">Nutation</h1>
+            <p class="glossary-lamp-text" [innerHTML]="nutationText"></p>
+        </div>
+        <div class="glossary-write">
+            <div class="glossary-text" [innerHTML]="nutationFormulaText"></div>
+        </div>
+        <!-- conditional back button -->
+        <div class="button-container" *ngIf="showBackButton">
+            <a routerLink="/glossary" class="btn">← Zurück zu den Begriffen</a>
+        </div>
+    </div>
+</div>
