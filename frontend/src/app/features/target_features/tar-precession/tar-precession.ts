@@ -107,6 +107,6 @@ export class TarPrecession implements OnInit {
 
     goBack(): void {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        this.router.navigate(['/learning/p7-measurement']);
+        this.router.navigate(['/learning/p7-measurement'], { queryParams: { page: '3' } });
     }
 }
