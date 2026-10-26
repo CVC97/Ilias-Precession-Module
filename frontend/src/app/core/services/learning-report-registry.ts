@@ -1,6 +1,7 @@
 import * as p1Content from '../../features/learning_features/p1-setup/p1-setup-content';
 import * as p2Content from '../../features/learning_features/p2-rotation/p2-rotation-content';
 import * as p3Content from '../../features/learning_features/p3-pendulum/p3-pendulum-content';
+import * as p4Content from '../../features/learning_features/p4-gyroscope/p4-gyroscope-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -121,6 +122,40 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'question', questionId: 'p3-pendulum-4-zehn-perioden' },
             { type: 'text', html: p3Content.pendulumText2b, style: 'lamp' },
             { type: 'text', html: p3Content.pendulumText2c },
+        ],
+    },
+
+    // ── 4: Der Kreisel ────────────────────────────────────────────────────
+    {
+        route: '/learning/p4-gyroscope', page: 1,
+        title: '[4] Der Kreisel', subtitle: 'Drei Achsen',
+        blocks: [
+            { type: 'text',  html: p4Content.gyroText1a },
+            { type: 'image', src: 'assets/images/p4_gyroscope/kreiselachsen.png',
+              alt: 'Figurenachse, Impulsachse und Drehachse', caption: p4Content.gyroText1b },
+            { type: 'text',  html: p4Content.gyroText1c },
+            { type: 'text',  html: p4Content.gyroText1d, style: 'lamp' },
+            { type: 'question', questionId: 'p4-gyroscope-1-l-richtung' },
+        ],
+    },
+    {
+        route: '/learning/p4-gyroscope', page: 2,
+        title: '[4] Der Kreisel', subtitle: 'Der schnelle Kreisel',
+        blocks: [
+            { type: 'text', html: p4Content.gyroText2a },
+            { type: 'text', html: p4Content.gyroText2b },
+            { type: 'text', html: p4Content.gyroText2c, style: 'lamp' },
+            { type: 'question', questionId: 'p4-gyroscope-2-schneller-kreisel' },
+        ],
+    },
+    {
+        route: '/learning/p4-gyroscope', page: 3,
+        title: '[4] Der Kreisel', subtitle: 'Raumfestes und körperfestes System',
+        blocks: [
+            { type: 'text', html: p4Content.gyroText3a },
+            { type: 'text', html: p4Content.gyroText3b, style: 'lamp' },
+            { type: 'text', html: p4Content.gyroText3c },
+            { type: 'question', questionId: 'p4-gyroscope-3-raumfest' },
         ],
     },
 ];

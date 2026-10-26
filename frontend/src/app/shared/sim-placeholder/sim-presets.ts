@@ -38,4 +38,13 @@ export const SIM_PRESETS: Record<string, SimPresetPlan> = {
         controls: ['rpm', 'pause', 'restart'],
         task: 'Verändern Sie die Drehzahl. Wie ändern sich die Längen der beiden Pfeile?',
     },
+    'p4-axes': {
+        id: 'p4-axes',
+        page: '/learning/p4-gyroscope?page=2',
+        description: 'L und ω eingeblendet; kleine Drehzahl mit großer Anfangs-Präzessionsgeschwindigkeit, damit L, ω und Figurenachse sichtbar auseinanderliegen.',
+        settings: { rpm: 300, theta0: 45, phiDot0: 5, showL: true, showOmega: true, showTorque: false },
+        controls: ['rpm', 'phiDot0', 'pause', 'restart'],
+        task: 'Kleine Drehzahl, große Anfangsgeschwindigkeit der Achse: Richtungen von L, ω und Figurenachse vergleichen; dann Drehzahl schrittweise erhöhen.',
+        gate: 'Weiter erst nach mindestens zwei verschiedenen Drehzahlen (interactionThresholdReached).',
+    },
 };

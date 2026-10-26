@@ -6,6 +6,7 @@ import { describe, expect, it } from 'vitest';
 import * as p1Questions from './p1-setup/p1-setup-questions';
 import * as p2Questions from './p2-rotation/p2-rotation-questions';
 import * as p3Questions from './p3-pendulum/p3-pendulum-questions';
+import * as p4Questions from './p4-gyroscope/p4-gyroscope-questions';
 import { PAGE_REGISTRY } from '../../core/services/learning-report-registry';
 import { AdaptiveAnswerHint, AnyQuestion } from '../../shared/evaluation/question.types';
 import { buildSelectionErrorMessage } from '../../shared/evaluation/multiple-choice-feedback';
@@ -23,6 +24,7 @@ const PAGES: { directory: string; prefix: string; questions: Record<string, AnyQ
     { directory: 'p1-setup', prefix: 'p1-setup-', questions: p1Questions },
     { directory: 'p2-rotation', prefix: 'p2-rotation-', questions: p2Questions },
     { directory: 'p3-pendulum', prefix: 'p3-pendulum-', questions: p3Questions },
+    { directory: 'p4-gyroscope', prefix: 'p4-gyroscope-', questions: p4Questions },
 ];
 
 const definitions = PAGES.flatMap(page => Object.values(page.questions));

@@ -45,6 +45,14 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(2/2) - Messung und Fehlerquellen', route: '/learning/p3-pendulum', queryParams: { page: '2' } },
         ]
     },
+    {
+        id: 'p4-gyroscope', label: '4. Der Kreisel',
+        subpages: [
+            { label: '(1/3) - Drei Achsen', route: '/learning/p4-gyroscope', queryParams: { page: '1' } },
+            { label: '(2/3) - Der schnelle Kreisel', route: '/learning/p4-gyroscope', queryParams: { page: '2' } },
+            { label: '(3/3) - Raum- und Körpersystem', route: '/learning/p4-gyroscope', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -99,6 +107,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p1')) return 'p1-setup';
         if (path.startsWith('/learning/p2')) return 'p2-rotation';
         if (path.startsWith('/learning/p3')) return 'p3-pendulum';
+        if (path.startsWith('/learning/p4')) return 'p4-gyroscope';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }
