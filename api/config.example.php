@@ -7,6 +7,6 @@ return [
     'db_user'     => 'your_db_user',
     'db_password' => 'your_db_password',
     'db_name'     => 'interapt',
-    'module_name' => 'pohl',
+    'module_name' => 'precession',
     'module_key'  => 'your_course_key',
 ];

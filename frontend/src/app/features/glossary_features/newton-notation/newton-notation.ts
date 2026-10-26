@@ -40,7 +40,7 @@ export class NewtonNotation extends GlossaryBase {
             dem Formelzeichen. Ein Punkt steht für die erste Zeitableitung und zwei Punkte stehen für die
             zweite Zeitableitung:
             $$\\dot{x}=\\frac{dx}{dt}, \\qquad \\ddot{x}=\\frac{d^2x}{dt^2}$$
-            Für die Winkelauslenkung $\\varphi$ gilt entsprechend:
+            Für einen Drehwinkel $\\varphi$ gilt entsprechend:
             $$\\dot{\\varphi}=\\frac{d\\varphi}{dt}, \\qquad
             \\ddot{\\varphi}=\\frac{d^2\\varphi}{dt^2}$$
             Dabei bezeichnet $\\dot{\\varphi}$ die Winkelgeschwindigkeit und $\\ddot{\\varphi}$ die

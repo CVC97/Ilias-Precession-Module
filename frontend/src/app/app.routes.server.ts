@@ -5,7 +5,7 @@ export const serverRoutes: ServerRoute[] = [
   { path: '',                    renderMode: RenderMode.Prerender },
   { path: 'glossary',            renderMode: RenderMode.Prerender },
   { path: 'glossary/**',         renderMode: RenderMode.Prerender },
-  { path: 'target/tar-experiment', renderMode: RenderMode.Prerender },
+  { path: 'target/tar-precession', renderMode: RenderMode.Prerender },
 
   // All other routes use browser APIs (canvas, MathJax, CanActivateFn redirects).
   // Angular SSR serves the CSR shell so the client-side router takes over.

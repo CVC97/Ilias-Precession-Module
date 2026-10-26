@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID, HostBinding, HostListener } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, OnDestroy, HostBinding, HostListener } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -20,107 +20,8 @@ interface SegmentDef {
 }
 
 
-const E_SEGMENTS: SegmentDef[] = [
-    {
-        id: 'e1-intro', label: '1. Einstieg Versuchaufbau',
-        subpages: [
-            { label: '(1/4) - Einführung', route: '/learning/e1-intro-experiment', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/4) - Komponenten', route: '/learning/e1-intro-experiment', queryParams: { page: '2', path: 'learn' } },
-            { label: '(3/4) - Direktionsmoment', route: '/learning/e1-intro-experiment', queryParams: { page: '3', path: 'learn' } },
-            { label: '(4/4) - Winkel-Zeit', route: '/learning/e1-intro-experiment', queryParams: { page: '4', path: 'learn' } },
-        ]
-    },
-    {
-        id: 'e2-damped', label: '2. Gedämpfte Schwingungen',
-        subpages: [
-            { label: '(1/3) - Grundlagen', route: '/learning/e2-damped-oscillations', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/3) - Lösung der Differentialgleichung', route: '/learning/e2-damped-oscillations', queryParams: { page: '2', path: 'learn' } },
-            { label: '(3/3) - Logarithmisches Dekrement', route: '/learning/e2-damped-oscillations', queryParams: { page: '3', path: 'learn' } },
-            { label: 'Simulation', route: '/simulation/sim-e-damped', queryParams: { path: 'sim' } },
-            { label: 'Test', route: '/test/test-e-damped', queryParams: { path: 'test' } },
-        ]
-    },
-    {
-        id: 'e3-driven', label: '3. Getriebene Schwingungen',
-        subpages: [
-            { label: '(1/7) - Versuchsaufbau', route: '/learning/e3-driven-oscillations', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/7) - Lösungsansatz', route: '/learning/e3-driven-oscillations', queryParams: { page: '2', path: 'learn' } },
-            { label: '(3/7) - Einschwingvorgang', route: '/learning/e3-driven-oscillations', queryParams: { page: '3', path: 'learn' } },
-            { label: '(4/7) - Amplitude im Stationärzustand', route: '/learning/e3-driven-oscillations', queryParams: { page: '4', path: 'learn' } },
-            { label: '(5/7) - Resonanz', route: '/learning/e3-driven-oscillations', queryParams: { page: '5', path: 'learn' } },
-            { label: '(6/7) - Vorbereitung', route: '/learning/e3-driven-oscillations', queryParams: { page: '6', path: 'learn' } },
-            { label: '(7/7) - Phasenverschiebung', route: '/learning/e3-driven-oscillations', queryParams: { page: '7', path: 'learn' } },
-            { label: 'Simulation', route: '/simulation/sim-e-driven', queryParams: { path: 'sim' } },
-            { label: 'Test', route: '/test/test-e-driven', queryParams: { path: 'test' } },
-        ]
-    },
-];
-
-const T_SEGMENTS: SegmentDef[] = [
-    {
-        id: 't1-intro', label: '1. Einstieg Theorie',
-        subpages: [
-            { label: '(1/1) - Grundlagen', route: '/learning/t1-intro-theory' },
-        ]
-    },
-    {
-        id: 't2-free', label: '2. Freie Schwingungen',
-        subpages: [
-            { label: '(1/2) - Differentialgleichung und Lösungsansatz', route: '/learning/t2-free-oscillations', queryParams: { page: '1' } },
-            { label: '(2/2) - Phasenraum', route: '/learning/t2-free-oscillations', queryParams: { page: '2' } },
-            { label: 'Simulation', route: '/simulation/sim-t-free' },
-        ]
-    },
-    {
-        id: 't3-damped', label: '3. Gedämpfte Schwingungen',
-        subpages: [
-            { label: '(1/5) - Exponentialansatz', route: '/learning/t3-damped-oscillations', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/5) - Schwingfall', route: '/learning/t3-damped-oscillations', queryParams: { page: '2', path: 'learn' } },
-            { label: '(3/5) - Kriechfall', route: '/learning/t3-damped-oscillations', queryParams: { page: '3', path: 'learn' } },
-            { label: '(4/5) - Aperiodischer Grenzfall', route: '/learning/t3-damped-oscillations', queryParams: { page: '4', path: 'learn' } },
-            { label: '(5/5) - Zusammenfassung', route: '/learning/t3-damped-oscillations', queryParams: { page: '5', path: 'learn' } },
-            { label: 'Simulation', route: '/simulation/sim-t-damped', queryParams: { path: 'sim' } },
-            { label: 'Test', route: '/test/test-t-damped', queryParams: { path: 'test' } },
-        ]
-    },
-    {
-        id: 't4-driven', label: '4. Getriebene Schwingungen',
-        subpages: [
-            { label: '(1/8) - Differentialgleichung', route: '/learning/t4-driven-oscillations', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/8) - Gesamtlösung', route: '/learning/t4-driven-oscillations', queryParams: { page: '2', path: 'learn' } },
-            { label: '(3/8) - Stationäre Lösung', route: '/learning/t4-driven-oscillations', queryParams: { page: '3', path: 'learn' } },
-            { label: '(4/8) - Partikuläre Lösung', route: '/learning/t4-driven-oscillations', queryParams: { page: '4', path: 'learn' } },
-            { label: '(5/8) - Dämpfungsfälle', route: '/learning/t4-driven-oscillations', queryParams: { page: '5', path: 'learn' } },
-            { label: '(6/8) - Einschwingvorgang', route: '/learning/t4-driven-oscillations', queryParams: { page: '6', path: 'learn' } },
-            { label: '(7/8) - Resonanzamplitude', route: '/learning/t4-driven-oscillations', queryParams: { page: '7', path: 'learn' } },
-            { label: '(8/8) - Phasenverschiebung', route: '/learning/t4-driven-oscillations', queryParams: { page: '8', path: 'learn' } },
-            { label: 'Simulation', route: '/simulation/sim-t-driven', queryParams: { path: 'sim' } },
-            { label: 'Test', route: '/test/test-t-driven', queryParams: { path: 'test' } },
-        ]
-    },
-];
-
-// Optional deep dives — reachable from both strands, shown as their own group.
-const OPTIONAL_SEGMENTS: SegmentDef[] = [
-    {
-        id: 'opt-chaos', label: 'Chaos',
-        subpages: [
-            { label: '(1/2) - Nichtlineares Pendel', route: '/learning/opt-chaos', queryParams: { page: '1', path: 'learn' } },
-            { label: '(2/2) - Bewegungsgleichung', route: '/learning/opt-chaos', queryParams: { page: '2', path: 'learn' } },
-        ]
-    },
-    {
-        id: 'opt-simulation', label: 'Simulation',
-        subpages: [
-            { label: '(1/1) - Numerische Methoden', route: '/learning/opt-simulation' },
-        ]
-    },
-    {
-        id: 'opt-setup', label: 'Aufbau',
-        subpages: [
-            { label: '(1/1) Versuchsaufbau', route: '/learning/opt-setup' },
-        ]
-    },
+// The module's single learning path, in order.
+const SEGMENTS: SegmentDef[] = [
 ];
 
 
@@ -133,30 +34,18 @@ const OPTIONAL_SEGMENTS: SegmentDef[] = [
 })
 export class NavBar implements OnInit, OnDestroy {
     activeSegment: string | null = null;
-    chosenStrand: 'e' | 't' | null = null;
-    private segmentFlow: Map<string, 'learn' | 'sim' | 'test'> = new Map();
-    private previousUrl: string = '';
 
-    readonly eSegments = E_SEGMENTS;
-    readonly tSegments = T_SEGMENTS;
-    readonly optionalSegments = OPTIONAL_SEGMENTS;
+    readonly segments = SEGMENTS;
 
     private routerSub: Subscription | null = null;
-    private readonly STRAND_KEY = 'nav-chosen-strand';
 
     constructor(
         public router: Router,
         public devMode: DevModeService,
-        public drawer: NavDrawerService,
-        @Inject(PLATFORM_ID) private platformId: Object
+        public drawer: NavDrawerService
     ) {}
 
     ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            const strand = localStorage.getItem(this.STRAND_KEY);
-            if (strand === 'e' || strand === 't') this.chosenStrand = strand;
-        }
-
         this.updateFromUrl(this.router.url);
 
         this.routerSub = this.router.events
@@ -177,85 +66,15 @@ export class NavBar implements OnInit, OnDestroy {
     }
 
     private updateFromUrl(url: string) {
-        const prevPath = this.previousUrl.split('?')[0];
         this.activeSegment = this.segmentFromUrl(url);
-        this.previousUrl = url;
-
-        const currentPath = url.split('?')[0];
-        let flow: 'learn' | 'sim' | 'test' | undefined;
-        if (currentPath.startsWith('/simulation/')) flow = 'sim';
-        else if (currentPath.startsWith('/test/')) flow = 'test';
-        else if (currentPath.startsWith('/learning/')) flow = 'learn';
-
-        const cameFromDecision = prevPath.startsWith('/decision/');
-        const isFirstVisit = this.activeSegment !== null && !this.segmentFlow.has(this.activeSegment);
-        if (this.activeSegment && flow && (cameFromDecision || isFirstVisit)) {
-            this.segmentFlow.set(this.activeSegment, flow);
-        }
-
-        const strand = this.strandFromSegment(this.activeSegment);
-        if (strand) {
-            this.chosenStrand = strand;
-            if (isPlatformBrowser(this.platformId)) {
-                localStorage.setItem(this.STRAND_KEY, strand);
-            }
-        }
     }
 
     segmentFromUrl(url: string): string | null {
         const path = url.split('?')[0];
         if (path === '/' || path === '') return 'home';
         if (path.includes('/glossary')) return 'glossary';
-        // Experimental strand
-        if (path.startsWith('/learning/e1')) return 'e1-intro';
-        if (path.startsWith('/learning/e2') || path === '/decision/dec-e-damped' ||
-            path === '/test/test-e-damped' || path === '/simulation/sim-e-damped') return 'e2-damped';
-        if (path.startsWith('/learning/e3') || path === '/decision/dec-e-driven' ||
-            path === '/test/test-e-driven' || path === '/simulation/sim-e-driven') return 'e3-driven';
-        // Theory strand
-        if (path.startsWith('/learning/t1')) return 't1-intro';
-        if (path.startsWith('/learning/t2') || path === '/simulation/sim-t-free') return 't2-free';
-        if (path.startsWith('/learning/t3') || path === '/decision/dec-t-damped' ||
-            path === '/test/test-t-damped' || path === '/simulation/sim-t-damped') return 't3-damped';
-        if (path.startsWith('/learning/t4') || path === '/decision/dec-t-driven' ||
-            path === '/test/test-t-driven' || path === '/simulation/sim-t-driven' ||
-            path === '/simulation/sim-t-driven-advanced') return 't4-driven';
-        if (path.startsWith('/learning/opt-chaos')) return 'opt-chaos';
-        if (path.startsWith('/learning/opt-simulation')) return 'opt-simulation';
-        if (path.startsWith('/learning/opt-setup')) return 'opt-setup';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
-    }
-
-    private strandFromSegment(seg: string | null): 'e' | 't' | null {
-        if (!seg) return null;
-        if (seg.startsWith('e')) return 'e';
-        if (seg.startsWith('t')) return 't';
-        return null;
-    }
-
-    getVisibleSubpages(seg: SegmentDef): SubpageItem[] {
-        if (this.devMode.isEnabled) return seg.subpages;
-        const flow = this.segmentFlow.get(seg.id) ?? 'learn';
-        if (flow === 'test') {
-            return seg.subpages.filter(s => s.queryParams?.['path'] === 'test');
-        }
-        if (flow === 'sim') {
-            const sim   = seg.subpages.filter(s => s.queryParams?.['path'] === 'sim');
-            const learn = seg.subpages.filter(s => s.queryParams?.['path'] !== 'sim' && s.queryParams?.['path'] !== 'test');
-            return [...sim, ...learn];
-        }
-        // 'learn' (default): learn + sim items, no test
-        return seg.subpages.filter(s => s.queryParams?.['path'] !== 'test');
-    }
-
-    // outside dev mode an optional segment (and its group headline) only shows while it is open
-    isOptionalVisible(seg: SegmentDef): boolean {
-        return this.devMode.isEnabled || this.activeSegment === seg.id;
-    }
-
-    get hasVisibleOptional(): boolean {
-        return this.optionalSegments.some(seg => this.isOptionalVisible(seg));
     }
 
     getSegmentClass(seg: SegmentDef): Record<string, boolean> {
@@ -289,13 +108,6 @@ export class NavBar implements OnInit, OnDestroy {
         if (first) this.navigateToSubpage(first);
     }
 
-    switchStrand(strand: 'e' | 't') {
-        if (!this.devMode.isEnabled) return;
-        const segments = strand === 'e' ? this.eSegments : this.tSegments;
-        const firstSub = segments[0]?.subpages[0];
-        if (firstSub) this.navigateToSubpage(firstSub);
-    }
-
     goHome() {
         if (!this.devMode.isEnabled) return;
         this.router.navigate(['/']);
@@ -306,12 +118,8 @@ export class NavBar implements OnInit, OnDestroy {
         this.router.navigate(['/glossary']);
     }
 
-    get isOnDecisionPage(): boolean {
-        return this.router.url.split('?')[0].startsWith('/decision/');
-    }
-
     get anleitungRoute(): string {
-        return this.chosenStrand === 't' ? '/target/tar-theory' : '/target/tar-experiment';
+        return '/target/tar-precession';
     }
 
     @HostBinding('style.visibility')

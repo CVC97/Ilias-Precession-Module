@@ -23,45 +23,18 @@
         </button>   
         }
 
-        <!-- Strand section -->
+        <!-- Learning path -->
         <div class="strand-section">
 
-            <!-- Strand switcher: always visible; inactive tab clickable only in dev-mode -->
             <div class="strand-switcher">
-                <button class="strand-tab"
-                    [class.strand-tab-active]="chosenStrand === 'e'"
-                    [class.strand-tab-inactive]="chosenStrand !== 'e'"
-                    [class.strand-tab-dev]="devMode.isEnabled && chosenStrand !== 'e'"
-                    (click)="switchStrand('e')">
-                    {{ chosenStrand === 'e' ? 'Struktur Experiment' : 'EXP' }}
-                </button>
-                <button class="strand-tab"
-                    [class.strand-tab-active]="chosenStrand === 't'"
-                    [class.strand-tab-inactive]="chosenStrand !== 't'"
-                    [class.strand-tab-dev]="devMode.isEnabled && chosenStrand !== 't'"
-                    (click)="switchStrand('t')">
-                    {{ chosenStrand === 't' ? 'Struktur Theorie' : 'THEO' }}
-                </button>
+                <div class="strand-tab strand-tab-active">Lernweg</div>
             </div>
 
-            <!-- Active strand segments only -->
             <div class="strand-col">
-                @for (seg of (chosenStrand === 't' ? tSegments : chosenStrand === 'e' ? eSegments : []); track seg.id) {
+                @for (seg of segments; track seg.id) {
                     <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg }"></ng-container>
                 }
             </div>
-
-            <!-- Optional deep dives: shared by both strands; outside dev mode only while one is open -->
-            @if (hasVisibleOptional) {
-                <div class="seg-group-title">Optionale Vertiefungen</div>
-                <div class="strand-col">
-                    @for (seg of optionalSegments; track seg.id) {
-                        @if (isOptionalVisible(seg)) {
-                            <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg }"></ng-container>
-                        }
-                    }
-                </div>
-            }
         </div>
 
         <!-- Anleitung -->
@@ -83,9 +56,9 @@
         (click)="onSegmentClick(seg)">
         {{ seg.label }}
     </button>
-    @if (activeSegment === seg.id && (devMode.isEnabled || !isOnDecisionPage)) {
+    @if (activeSegment === seg.id) {
         <div class="seg-dropdown" [class.seg-dropdown-locked]="!devMode.isEnabled">
-            @for (sub of getVisibleSubpages(seg); track sub.route + (sub.queryParams?.['page'] ?? '')) {
+            @for (sub of seg.subpages; track sub.route + (sub.queryParams?.['page'] ?? '')) {
                 <button class="sub-btn"
                     [class.sub-btn-dev]="devMode.isEnabled"
                     [class.sub-btn-active]="isSubpageActive(sub)"

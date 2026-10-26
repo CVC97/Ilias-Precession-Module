@@ -3,18 +3,13 @@
     /* max-width: 60rem; */
 }
 
-.home-paths-title {
-    margin-top: 2rem;
-    text-align: center;
-}
-
-/* ── Two path cards ──────────────────────────────────────────────────────── */
+/* ── Path card ───────────────────────────────────────────────────────────── */
 .home-paths {
     --path-accent: var(--uni-blau-3);
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2rem;
-    margin: 3.5rem 0 3rem;
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 520px;
+    margin: 3.5rem auto 3rem;
 }
 
 .path-card {
@@ -27,17 +22,6 @@
     box-shadow: 0 2px 12px var(--shadow-color);
     overflow: hidden;
     text-align: left;
-}
-
-.path-card--exp  { --path-accent: var(--physik-gelb); }
-.path-card--theo { --path-accent: var(--uni-blau-3); }
-
-.path-card-img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: center 60%;
 }
 
 .path-card-body {
@@ -71,7 +55,6 @@
     font-weight: 700;
 }
 
-/* push the button to the card bottom so both buttons line up */
 .path-card-btn,
 .path-card-btn:hover {
     margin-top: auto;
@@ -79,27 +62,10 @@
     border: 3px solid var(--path-accent);
 }
 
-/* ── Shared core + goal ──────────────────────────────────────────────────── */
-.home-shared,
+/* ── Goal ────────────────────────────────────────────────────────────────── */
 .home-goal {
     text-align: center;
-    margin: 0.5rem auto;
+    margin: 0.5rem auto 2rem;
     max-width: 60rem;
-}
-
-.home-goal {
-    margin-bottom: 2rem;
     color: var(--text-secondary);
-}
-
-/* .home-goal::before {
-    content: '↓ ';
-} */
-
-@media (max-width: 900px) {
-    .home-paths {
-        grid-template-columns: minmax(0, 1fr);
-        max-width: 480px;
-        margin-inline: auto;
-    }
 }

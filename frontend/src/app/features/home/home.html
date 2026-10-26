@@ -4,20 +4,24 @@
         <p class="home-intro">
             In diesem Versuch sollen Sie die Bewegungsgleichungen starrer, rotierender Körper kennenlernen.
             Dafür werden Sie die Rotation(en) eines Kreisels, insbesondere seiner Präzession, untersuchen.
+            Das Lernmodul führt Sie Schritt für Schritt vom Versuchsaufbau über die Physik der Rotation bis zur Messstrategie.
+            Am Ende erhalten Sie die Versuchsanleitung und eine Zusammenstellung aller besuchten Seiten.
         </p>
 
         <details class="spoiler">
             <summary class="spoiler-summary">Worum geht es physikalisch?</summary>
             <div class="spoiler-content">
                 <p>
-                    Periodische Schwingungen bilden die Grundlage vieler physikalischer Phänomene: die Schaukel,
-                    Atome in einem Festkörper, ein elektrischer Schwingkreis oder die Stimmlippen in Ihrem Kehlkopf.
-                    Unter geeigneten Bedingungen lassen sie sich in guter Näherung als harmonische Schwingungen beschreiben -
-                    mit sehr ähnlich aussehenden Differentialgleichungen.
+                    Ein schnell rotierender Kreisel verhält sich auf den ersten Blick widersinnig: Hängt man an seine
+                    Achse ein Gewicht, kippt er nicht nach unten, sondern weicht seitlich aus und dreht sich langsam
+                    um die Senkrechte. Diese Bewegung heißt Präzession.
                 </p>
                 <p>
-                    Am Pohlschen Rad untersuchen Sie exemplarisch ein klassisches System einer getriebenen, gedämpften Schwingung.
-                    Die Prinzipien von Resonanz und Phasenverschiebung begegnen Ihnen später auch in der Atom-, Festkörper- und Astrophysik.
+                    Der Schlüssel liegt im Vektorcharakter der Rotation: Winkelgeschwindigkeit, Drehimpuls und
+                    Drehmoment sind Vektoren, und ein Drehmoment ändert den Drehimpuls in seine eigene Richtung.
+                    Dasselbe Prinzip erklärt die Präzession der Erdachse, die Stabilität eines rollenden Fahrrads
+                    oder eines Kreiselkompasses und die Präzession von Kernspins im Magnetfeld, die der
+                    Kernspinresonanz (MRT) zugrunde liegt.
                 </p>
             </div>
         </details>
@@ -26,60 +30,38 @@
             <summary class="spoiler-summary">Wie funktioniert das Lernmodul?</summary>
             <div class="spoiler-content">
                 <p>
-                    Dieser Versuch weicht in der Vorbereitung von den anderen Versuchen ab: Sie werden anhand Ihrer eigenen
-                    Entscheidungen und Ihres Vorwissens durch das Lernmodul geleitet. Unterwegs beantworten Sie Fragen,
-                    arbeiten mit Simulationen und bearbeiten Tests.
+                    Das Lernmodul ist ein linearer Weg aus sieben Abschnitten. Unterwegs beantworten Sie Fragen,
+                    die Sie beliebig oft wiederholen können, und arbeiten mit einer 3D-Simulation des Kreisels,
+                    in der Sie die Vektoren direkt beobachten können.
                 </p>
                 <p>
-                    Je nachdem, wie Sie sich entscheiden, erhalten Sie am Ende eine Versuchsanleitung mit einem etwas anders
-                    gelagerten Schwerpunkt. Auf dem Weg dorthin können Sie optional auch Vertiefungen zu Chaos, numerischer
-                    Simulation und zum Versuchsaufbau öffnen.
-                </p>
-                <p>
-                    Begriffe, die im Text hervorgehoben sind, werden im Glossar erklärt.
+                    Begriffe, die im Text hervorgehoben sind, werden im Glossar erklärt. Ein Klick darauf öffnet
+                    die Erklärung, ohne dass Sie die Seite verlassen.
                 </p>
             </div>
         </details>
 
-        <!-- <h2 class="home-paths-title">Zwei Einstiege – dieselben Inhalte</h2> -->
-
         <div class="home-paths">
-            <section class="path-card path-card--exp">
-                <img class="path-card-img" src="assets/images/home/module_selector_experiment.png" alt="Versuchsaufbau des Pohlschen Rads">
+            <section class="path-card">
                 <div class="path-card-body">
-                    <h3 class="path-card-title">Struktur: Experiment</h3>
-                    <p class="path-card-focus">Vom realen Aufbau zur Formel</p>
+                    <h3 class="path-card-title">Ihr Weg durch das Lernmodul</h3>
+                    <p class="path-card-focus">Vom Versuchsaufbau über die Physik zur Messung</p>
                     <ol class="path-card-steps">
-                        <li>Einstieg Versuchsaufbau</li>
-                        <li>Gedämpfte Schwingungen</li>
-                        <li>Getriebene Schwingungen</li>
+                        <li>Einstieg: Versuchsaufbau</li>
+                        <li>Grundlagen der Rotation</li>
+                        <li>Trägheitsmoment: physikalisches Pendel</li>
+                        <li>Der Kreisel</li>
+                        <li>Präzession</li>
+                        <li>Nutation</li>
+                        <li>Messstrategie und Fehlerquellen</li>
                     </ol>
-                    <a routerLink="/learning/e1-intro-experiment" class="btn path-card-btn">Experiment starten</a>
-                </div>
-            </section>
-
-            <section class="path-card path-card--theo">
-                <img class="path-card-img" src="assets/images/home/module_selector_theory.png" alt="Messrechner am Versuchsplatz">
-                <div class="path-card-body">
-                    <h3 class="path-card-title">Struktur: Theorie</h3>
-                    <p class="path-card-focus">Von der Gleichung zum Aufbau</p>
-                    <ol class="path-card-steps">
-                        <li>Einstieg Theorie</li>
-                        <li>Freie Schwingungen</li>
-                        <li>Gedämpfte Schwingungen</li>
-                        <li>Getriebene Schwingungen</li>
-                    </ol>
-                    <a routerLink="/learning/t1-intro-theory" class="btn path-card-btn">Theorie starten</a>
+                    <a routerLink="/learning/p1-setup" class="btn path-card-btn">Lernmodul starten</a>
                 </div>
             </section>
         </div>
 
-        <p class="home-shared">
-            <strong>Gemeinsamer Kern - nur aus einem anderen Blickwinkel:</strong><br>
-            Differentialgleichung · Eigenfrequenz ω₀ · Dämpfung · Resonanz · Phasenverschiebung
-        </p>
         <p class="home-goal">
-            Ziel beider Wege: <strong>Ihre Versuchsanleitung</strong> und <strong>Ihre persönliche Zusammenfassung</strong>
+            Ziel: <strong>Ihre Versuchsanleitung</strong> und <strong>Ihre persönliche Zusammenfassung</strong>
         </p>
     </div>
 </div>
