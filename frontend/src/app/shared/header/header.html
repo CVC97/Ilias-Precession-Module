@@ -6,7 +6,7 @@
             <!-- Debug: Show session ID -->
             @if (sessionService.hasValidSession()) {
                 <div class="session-debug">
-                    Session: {{ sessionService.getSessionId() }}
+                    Session: {{ sessionService.sessionId() }}
                 </div>
             }
             <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">

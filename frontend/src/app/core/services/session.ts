@@ -1,7 +1,8 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, signal, computed, effect } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { isPlatformBrowser } from '@angular/common';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 
 
@@ -11,9 +12,20 @@ import { filter } from 'rxjs/operators';
 
 
 export class Session {
-    private sessionId: string | null = null;
+    private readonly _sessionId = signal<string | null>(null);
     private isBrowser: boolean;
     private readonly SESSION_STORAGE_KEY = 'framework_session_id';
+
+    readonly sessionId = this._sessionId.asReadonly();
+
+    readonly hasValidSession = computed(() => {
+        const id = this.sessionId();
+        return id !== null && id.length > 0;
+    });
+
+    readonly isRogueUser = computed(() =>
+        this.sessionId()?.startsWith('rogue_user_') ?? false
+    );
 
     constructor(
         @Inject(PLATFORM_ID) platformId: Object,
@@ -30,45 +42,52 @@ export class Session {
 
         // priority 1: check if session already exists in storage (from another tab)
         const storedSessionId = this.loadFromStorage();
-        
+
         // priority 2: check URL for session_id parameter
         const urlSessionId = this.getSessionIdFromUrl();
-        
+
         if (urlSessionId) {
 			// URL has session_id - this takes priority (new framework access)
 			if (urlSessionId !== storedSessionId) {
 				// different session from URL - update storage
-                this.sessionId = urlSessionId;
+                this._sessionId.set(urlSessionId);
                 this.saveToStorage(urlSessionId);
                 console.log('New session from framework:', urlSessionId);
             } else {
                 // same session - just use it
-                this.sessionId = urlSessionId;
-                console.log('Session ID from URL (matches storage):', this.sessionId);
+                this._sessionId.set(urlSessionId);
+                console.log('Session ID from URL (matches storage):', urlSessionId);
             }
         } else if (storedSessionId) {
             // no URL param, but we have stored session - use it (new tab scenario)
-            this.sessionId = storedSessionId;
-            console.log('Session ID from storage (new tab):', this.sessionId);
+            this._sessionId.set(storedSessionId);
+            console.log('Session ID from storage (new tab):', storedSessionId);
         } else {
             // no URL param AND no storage - generate new (standalone access)
             console.warn('No session ID found in URL or storage.');
-            this.sessionId = this.generateSessionId();
-            this.saveToStorage(this.sessionId);
-            console.log('Session ID generated and stored:', this.sessionId);
+            const generatedSessionId = this.generateSessionId();
+            this._sessionId.set(generatedSessionId);
+            this.saveToStorage(generatedSessionId);
+            console.log('Session ID generated and stored:', generatedSessionId);
         }
 
+        // resolved session_id query param, refreshed after every completed navigation
+        const urlSessionIdSignal = toSignal(
+            this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd),
+                map(() => this.getSessionIdFromUrl())
+            ),
+            { initialValue: this.getSessionIdFromUrl() }
+        );
 
-		// listen for route changes to catch session_id in future navigations
-        this.router.events.pipe(
-            filter(event => event instanceof NavigationEnd)
-        ).subscribe(() => {
-            const newSessionId = this.getSessionIdFromUrl();
-            if (newSessionId && newSessionId !== this.sessionId) {
+        // react whenever a new navigation carries a (different) session_id
+        effect(() => {
+            const newSessionId = urlSessionIdSignal();
+            if (newSessionId && newSessionId !== this._sessionId()) {
                 // new session from URL
-                this.sessionId = newSessionId;
+                this._sessionId.set(newSessionId);
                 this.saveToStorage(newSessionId);
-                console.log('Session ID updated from navigation:', this.sessionId);
+                console.log('Session ID updated from navigation:', newSessionId);
             }
         });
 
@@ -78,9 +97,9 @@ export class Session {
                 if (event.key === this.SESSION_STORAGE_KEY && event.newValue) {
                     // another tab updated the session
                     const newSessionId = event.newValue;
-                    if (newSessionId !== this.sessionId) {
+                    if (newSessionId !== this._sessionId()) {
                         console.log('Session ID updated from another tab:', newSessionId);
-                        this.sessionId = newSessionId;
+                        this._sessionId.set(newSessionId);
                     }
                 }
             });
@@ -117,32 +136,16 @@ export class Session {
         }
         return null;
     }
-	
-	
+
+
 	// generate a session if no session detected
 	private generateSessionId(): string {
 		return 'rogue_user_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
 	}
 
 
-    // public API
-    getSessionId(): string | null {
-        return this.sessionId;
-    }
-
-
-    hasValidSession(): boolean {
-        return this.sessionId !== null && this.sessionId.length > 0;
-    }
-
-
-    isRogueUser(): boolean {
-        return this.sessionId !== null && this.sessionId.startsWith('rogue_user_');
-    }
-
-
     clearSession() {
-        this.sessionId = null;
+        this._sessionId.set(null);
         if (this.isBrowser) {
             localStorage.removeItem(this.SESSION_STORAGE_KEY);
             sessionStorage.removeItem(this.SESSION_STORAGE_KEY);
