@@ -11,6 +11,15 @@ import { AngularMomentum } from './features/glossary_features/angular-momentum/a
 import { MomentOfInertia } from './features/glossary_features/moment-of-inertia/moment-of-inertia';
 import { NewtonNotation } from './features/glossary_features/newton-notation/newton-notation';
 import { Torque } from './features/glossary_features/torque/torque';
+import { AngularVelocity } from './features/glossary_features/angular-velocity/angular-velocity';
+import { CrossProduct } from './features/glossary_features/cross-product/cross-product';
+import { FigureAxis } from './features/glossary_features/figure-axis/figure-axis';
+import { InstantaneousAxis } from './features/glossary_features/instantaneous-axis/instantaneous-axis';
+import { Nutation } from './features/glossary_features/nutation/nutation';
+import { Precession } from './features/glossary_features/precession/precession';
+import { ParallelAxis } from './features/glossary_features/parallel-axis/parallel-axis';
+import { PhysicalPendulum } from './features/glossary_features/physical-pendulum/physical-pendulum';
+import { Cones } from './features/glossary_features/cones/cones';
 
 // learning features
 import { P1Setup } from './features/learning_features/p1-setup/p1-setup';
@@ -35,6 +44,15 @@ export const routes: Routes = [
     { path: 'glossary/torque',              component: Torque,              title: 'Drehmoment' },
     { path: 'glossary/newton-notation',     component: NewtonNotation,      title: 'Newtonsche Notation' },
     { path: 'glossary/moment-of-inertia',   component: MomentOfInertia,     title: 'Trägheitsmoment' },
+    { path: 'glossary/angular-velocity',    component: AngularVelocity,     title: 'Winkelgeschwindigkeit' },
+    { path: 'glossary/cross-product',       component: CrossProduct,        title: 'Kreuzprodukt und Rechte-Hand-Regel' },
+    { path: 'glossary/figure-axis',         component: FigureAxis,          title: 'Figurenachse' },
+    { path: 'glossary/instantaneous-axis',  component: InstantaneousAxis,   title: 'Momentane Drehachse' },
+    { path: 'glossary/nutation',            component: Nutation,            title: 'Nutation' },
+    { path: 'glossary/precession',          component: Precession,          title: 'Präzession' },
+    { path: 'glossary/parallel-axis',       component: ParallelAxis,        title: 'Steinerscher Satz' },
+    { path: 'glossary/physical-pendulum',   component: PhysicalPendulum,    title: 'Physikalisches Pendel' },
+    { path: 'glossary/cones',               component: Cones,               title: 'Nutations-, Rastpol- und Gangpolkegel' },
 
     // learning pages
     { path: 'learning/p1-setup',           component: P1Setup,             title: 'Einstieg: Versuchsaufbau' },
