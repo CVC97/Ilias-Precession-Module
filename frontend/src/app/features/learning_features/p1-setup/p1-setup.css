@@ -19,6 +19,11 @@
     max-width: 560px;
 }
 
+/* drawn figures (SVG) and small script figures */
+.full-width-image-container.figure-small {
+    max-width: 420px;
+}
+
 .full-width-image {
     width: 100%;
     height: auto;

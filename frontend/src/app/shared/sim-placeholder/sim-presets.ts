@@ -30,4 +30,12 @@ export const SIM_PRESETS: Record<string, SimPresetPlan> = {
         task: 'Lassen Sie den Kreisel zuerst mit hoher, dann mit immer kleinerer Drehzahl laufen und beobachten Sie die Bewegung der Achse.',
         gate: 'Weiter erst nach mindestens zwei verschiedenen Drehzahlen (interactionThresholdReached).',
     },
+    'p2-vectors': {
+        id: 'p2-vectors',
+        page: '/learning/p2-rotation?page=2',
+        description: 'L und ω als Pfeile, kein Drehmomentpfeil. phiDot0 so wählen, dass möglichst reine Präzession entsteht (in Phase 6 bestimmen).',
+        settings: { rpm: 2000, theta0: 45, showL: true, showOmega: true, showTorque: false },
+        controls: ['rpm', 'pause', 'restart'],
+        task: 'Verändern Sie die Drehzahl. Wie ändern sich die Längen der beiden Pfeile?',
+    },
 };

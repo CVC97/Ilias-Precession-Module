@@ -4,6 +4,7 @@
 // Add each new learning page to PAGES.
 import { describe, expect, it } from 'vitest';
 import * as p1Questions from './p1-setup/p1-setup-questions';
+import * as p2Questions from './p2-rotation/p2-rotation-questions';
 import { PAGE_REGISTRY } from '../../core/services/learning-report-registry';
 import { AdaptiveAnswerHint, AnyQuestion } from '../../shared/evaluation/question.types';
 import { buildSelectionErrorMessage } from '../../shared/evaluation/multiple-choice-feedback';
@@ -19,6 +20,7 @@ function isFeedbackQuestion(question: AnyQuestion): question is FeedbackQuestion
 
 const PAGES: { directory: string; prefix: string; questions: Record<string, AnyQuestion> }[] = [
     { directory: 'p1-setup', prefix: 'p1-setup-', questions: p1Questions },
+    { directory: 'p2-rotation', prefix: 'p2-rotation-', questions: p2Questions },
 ];
 
 const definitions = PAGES.flatMap(page => Object.values(page.questions));

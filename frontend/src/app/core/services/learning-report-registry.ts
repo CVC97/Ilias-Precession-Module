@@ -1,4 +1,5 @@
 import * as p1Content from '../../features/learning_features/p1-setup/p1-setup-content';
+import * as p2Content from '../../features/learning_features/p2-rotation/p2-rotation-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -52,6 +53,46 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'question', questionId: 'p1-setup-4-erwartung' },
             { type: 'text', html: p1Content.setupText3d },
             { type: 'text', html: p1Content.setupText3e },
+        ],
+    },
+
+    // ── 2: Grundlagen der Rotation ────────────────────────────────────────
+    {
+        route: '/learning/p2-rotation', page: 1,
+        title: '[2] Grundlagen der Rotation', subtitle: 'Winkelgeschwindigkeit',
+        blocks: [
+            { type: 'text',  html: p2Content.rotationText1a },
+            { type: 'image', src: 'assets/images/p2_rotation/omega_vektor.svg',
+              alt: 'Winkelgeschwindigkeit als Vektor', caption: p2Content.rotationText1b },
+            { type: 'text',  html: p2Content.rotationText1c, style: 'lamp' },
+            { type: 'question', questionId: 'p2-rotation-1-omega-richtung' },
+        ],
+    },
+    {
+        route: '/learning/p2-rotation', page: 2,
+        title: '[2] Grundlagen der Rotation', subtitle: 'Drehimpuls',
+        blocks: [
+            { type: 'text',  html: p2Content.rotationText2a },
+            { type: 'text',  html: p2Content.rotationText2b, style: 'lamp' },
+            { type: 'image', src: 'assets/images/p2_rotation/drehimpuls_vektor.svg',
+              alt: 'Drehimpuls und Winkelgeschwindigkeit' },
+            { type: 'text',  html: p2Content.rotationText2c },
+            { type: 'question', questionId: 'p2-rotation-2-drehzahl-drehimpuls' },
+            { type: 'question', questionId: 'p2-rotation-3-ring-scheibe' },
+            { type: 'text',  html: p2Content.rotationText2d },
+        ],
+    },
+    {
+        route: '/learning/p2-rotation', page: 3,
+        title: '[2] Grundlagen der Rotation', subtitle: 'Drehmoment',
+        blocks: [
+            { type: 'text', html: p2Content.rotationText3a },
+            { type: 'text', html: p2Content.rotationText3b, style: 'lamp' },
+            { type: 'text', html: p2Content.rotationText3c },
+            { type: 'text', html: p2Content.rotationText3d, style: 'glossary' },
+            { type: 'question', questionId: 'p2-rotation-4-antriebsschnur' },
+            { type: 'question', questionId: 'p2-rotation-5-drehmoment-aussagen' },
+            { type: 'text', html: p2Content.rotationText3e },
         ],
     },
 ];

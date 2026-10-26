@@ -30,6 +30,14 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Messprogramm', route: '/learning/p1-setup', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p2-rotation', label: '2. Grundlagen der Rotation',
+        subpages: [
+            { label: '(1/3) - Winkelgeschwindigkeit', route: '/learning/p2-rotation', queryParams: { page: '1' } },
+            { label: '(2/3) - Drehimpuls', route: '/learning/p2-rotation', queryParams: { page: '2' } },
+            { label: '(3/3) - Drehmoment', route: '/learning/p2-rotation', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -82,6 +90,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path === '/' || path === '') return 'home';
         if (path.includes('/glossary')) return 'glossary';
         if (path.startsWith('/learning/p1')) return 'p1-setup';
+        if (path.startsWith('/learning/p2')) return 'p2-rotation';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }
