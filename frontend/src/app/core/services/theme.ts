@@ -1,5 +1,5 @@
 import { Injectable, Inject, PLATFORM_ID, signal, computed } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
 
 
@@ -11,17 +11,19 @@ import { isPlatformBrowser } from '@angular/common';
 export class ThemeService {
     private readonly darkMode = signal(false);
     private isBrowser: boolean;
-
+    
     readonly isDarkMode = this.darkMode.asReadonly();
     readonly themeIconPath = computed(() =>
         this.darkMode() ? 'assets/icons/moon.svg' : 'assets/icons/sun.svg'
     );
 
+
     constructor(
-        @Inject(PLATFORM_ID) platformId: Object
+        @Inject(PLATFORM_ID) platformId: Object,
+        @Inject(DOCUMENT) private doc: Document
     ) {
         this.isBrowser = isPlatformBrowser(platformId);
-
+        
         if (this.isBrowser) {
             // Load saved preference only in browser
             const savedTheme = localStorage.getItem('theme');
@@ -41,7 +43,7 @@ export class ThemeService {
 
     private enableDarkMode() {
         if (this.isBrowser) {
-            document.documentElement.setAttribute('data-theme', 'dark');
+            this.doc.documentElement.setAttribute('data-theme', 'dark');
             localStorage.setItem('theme', 'dark');
         }
         this.darkMode.set(true);
@@ -49,7 +51,7 @@ export class ThemeService {
 
     private disableDarkMode() {
         if (this.isBrowser) {
-            document.documentElement.removeAttribute('data-theme');
+            this.doc.documentElement.removeAttribute('data-theme');
             localStorage.setItem('theme', 'light');
         }
         this.darkMode.set(false);

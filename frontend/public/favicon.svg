@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+    <!-- Outer ring -->
+    <circle cx="50" cy="50" r="43" fill="none" stroke="rgb(80, 165, 210)" stroke-width="12"/>
+
+    <!-- Inner rotor: tilted -->
+    <ellipse cx="50" cy="55" rx="29" ry="10" fill="none" stroke="white" stroke-width="8" transform="rotate(12 50 55)"/>
+
+    <!-- Rotor axis -->
+    <line x1="50" y1="27" x2="50" y2="79" stroke="white" stroke-width="6" stroke-linecap="round"/>
+
+    <!-- Center -->
+    <circle cx="50" cy="55" r="6" fill="rgb(80, 165, 210)" stroke="white" stroke-width="4"/>
+
+    <!-- Precession -->
+    <path d="M 27 36 C 35 25, 57 22, 73 30 C 81 34, 85 39, 86 45" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 5"/>
+
+    <!-- Direction arrow -->
+    <path d="M 80 40 L 87 45 L 79 47" fill="none" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+</svg>

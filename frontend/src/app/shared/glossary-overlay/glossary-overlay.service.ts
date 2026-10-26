@@ -2,17 +2,9 @@ import { Injectable } from '@angular/core';
 import { Dialog } from '@angular/cdk/dialog';
 import { GlossaryDialogComponent } from './glossary-dialog.component';
 
-
-
-@Injectable({ 
-    providedIn: 'root' 
-})
-
-
+@Injectable({ providedIn: 'root' })
 export class GlossaryOverlay {
-    constructor(
-        private dialog: Dialog
-    ) {}
+    constructor(private dialog: Dialog) {}
 
     open(term: string): void {
         this.dialog.open(GlossaryDialogComponent, {

@@ -1,0 +1,69 @@
+export const introExpText1a = `
+    In diesem Versuch werden Sie Schwingungsphänomene (gedämpfte und getriebene Schwingungen) untersuchen
+    und sich die Zusammenhänge zwischen unterschiedlichen experimentellen Parametern anschauen.
+    Diese Phänome werden Sie mit einem sogenannten Pohlschen Rad untersuchen.
+    Machen Sie sich hier zunächst mit dem Versuchsaufbau vertraut.
+`;
+
+export const introExpText1b = `
+    Vergleichendes Bild Aufbau und Skizze des Versuchsaufbaus
+`;
+
+export const introExpText1c = `
+    Mit diesem Versuchsaufbau können Sie unterschiedliche Schwingungsverhalten analysieren.
+    Sie können den Einfluss der Dämpfung untersuchen, ebenso wie das Verhalten bei einem externen Antrieb.<br><br>
+    Betrachten Sie den Versuchsaufbau und vergleichen Sie ihn mit der Skizze.<br>
+    Überlegen und diskutieren Sie, wofür die unterschiedlichen Elemente des Versuchsaufbaus notwendig sind.
+    Auf den nächsten Seiten werden diese Bauteile weiter spezifiziert und Ihnen werden hierzu Fragen gestellt.
+`;
+
+export const introExpText2a = `
+    Aus physikalischer Sicht essentielle Elemente des Versuchsaufbaus sind das Schwungrad, die Feder, die Wirbelstrombremse und der Anreger.<br><br>
+    Wo sehen Sie diese Elemente im Aufbau?<br>
+    Aus technischer und experimenteller Sicht sind darüber hinaus die Winkelskala, der Schrittmotor und weitere Mess- und Steuerungselemente,
+    die in der Abbildung nicht explizit gezeigt sind, relevant.<br><br>
+    Zur Erläuterung des Aufbaus:<br>
+    Die Feder und das Schwungrad sind im Mittelpunkt des Rades miteinander verbunden.
+    Am anderen Ende ist die Feder über den Anreger mit dem Schrittmotor verbunden.
+    Ohne externen Antrieb dient der Anreger als fester Ankerpunkt der Feder (vergleichbar zu dem Aufhängungspunkt einer "klassischen" Feder).
+    <br><br>
+    Für Ableitungen nach der Zeit verwenden wir die
+    <a data-glossary="newton-notation" class="glossary-link"><strong>Newtonsche Notation</strong></a>:
+    Ein Punkt über einer Größe bezeichnet ihre erste, zwei Punkte ihre zweite Zeitableitung,
+    zum Beispiel $\\dot{\\varphi}$ für die Winkelgeschwindigkeit und $\\ddot{\\varphi}$ für die Winkelbeschleunigung.
+`;
+
+export const introExpText3a = `
+    Das Schwungrad ist in dem Versuch im Schwerpunkt aufgehängt. Durch das Anbringen zusätzliche
+    Massestücke wirkt ein zusätzliches
+    <a data-glossary="angular-momentum" class="glossary-link">Drehmoment</a>,
+    über das die Feder näher charakterisiert werden kann.
+    Um diesen Zusammenhang nachzuvollziehen, betrachten wir zunächst das Schwungrad ohne den zusätzlichen
+    Antrieb (s. Abbildung).
+    <br><br>
+    Auf ein zusätzliches Massestück mit der Masse $m_{zm}$ wirkt die Kraft $\\vec{F}_{zm} = m_{zm}\\vec{g}$,
+    wodurch auf das Schwungrad das
+    <a data-glossary="angular-momentum" class="glossary-link">Drehmoment</a>
+    $\\vec{M}_{zm} = \\vec{r} \\times \\vec{F}_{zm}$, bzw.
+    $|\\vec{M}_{zm}| = m_{zm}gR|\\sin\\varphi|$ wirkt. Hier bezeichnet $R$ den radialen Abstand des Aufhängepunkts von der Drehachse. In der Skizze ist $\\varphi$ der Winkel dieses Radius zur nach oben gerichteten Vertikalen. Der senkrechte Hebelarm der vertikalen Gewichtskraft ist daher $R_\\perp=R|\\sin\\varphi|$, nicht $R$ selbst.
+    <br><br>
+    Im stationären Fall gleichen sich das zusätzliche
+    <a data-glossary="angular-momentum" class="glossary-link">Drehmoment</a>
+    und das rücktreibende
+    <a data-glossary="angular-momentum" class="glossary-link">Drehmoment</a>  der
+    Feder aus. Für die Feder gilt $M_{\\text{Feder}}=-D\\varphi$; für die gezeigte positive Gleichgewichtsauslenkung folgt $D\\varphi=m_{zm}gR\\sin\\varphi$. Winkel werden dabei im Bogenmaß eingesetzt.
+`;
+
+export const introExpText3b = `
+    Der Versuchsaufbau kann noch weiter charakterisiert werden.<br>
+    Beispielsweise kann das
+    <a data-glossary="moment-of-inertia" class="glossary-link">Trägheitsmoment</a>
+    des Schwungrads bestimmt oder die Wirkung der Wirbelstrombremse untersucht werden.<br>
+    Beide Eigenschaften des Versuchsaufbaus beziehen sich auf das dynamische Verhalten des Systems.
+    Daher setzen Sie sich auf den folgenden Seiten zunächst mit der Dynamik des gedämpften Systems auseinander,
+    bevor Sie sich mit der Auswirkung des externen Motors beschäftigen.
+`;
+
+export const wheelPrerequisite = "Das Schwungrad bildet den trägen Teil des Systems. Seine Masseverteilung bestimmt das Trägheitsmoment und beeinflusst damit die Eigenfrequenz. Ob die Bewegung harmonisch ist, hängt dagegen davon ab, ob das rückstellende Drehmoment proportional zur Auslenkung ist.";
+
+export const eddyCurrentPrerequisite = "Bewegt sich ein elektrisch leitender Körper durch ein Magnetfeld, können im Material Wirbelströme entstehen. Ihre magnetische Wirkung bremst die Bewegung. Bei einem ruhenden Rad entstehen durch diese Bewegung keine Wirbelströme.";

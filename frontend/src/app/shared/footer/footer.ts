@@ -14,9 +14,7 @@ export class Footer implements OnInit {
     isAtBottom = false;
 
 	
-    constructor(
-        @Inject(PLATFORM_ID) private platformId: Object
-    ) {}
+    constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
 
     ngOnInit() {

@@ -12,10 +12,11 @@ import { filter, map } from 'rxjs/operators';
 
 
 export class Session {
+    // _sessionId is the writable signal
     private readonly _sessionId = signal<string | null>(null);
     private isBrowser: boolean;
     private readonly SESSION_STORAGE_KEY = 'framework_session_id';
-
+    //  sessionId is the readonly facade returning the _sessionId from above
     readonly sessionId = this._sessionId.asReadonly();
 
     readonly hasValidSession = computed(() => {
@@ -42,10 +43,10 @@ export class Session {
 
         // priority 1: check if session already exists in storage (from another tab)
         const storedSessionId = this.loadFromStorage();
-
+        
         // priority 2: check URL for session_id parameter
         const urlSessionId = this.getSessionIdFromUrl();
-
+        
         if (urlSessionId) {
 			// URL has session_id - this takes priority (new framework access)
 			if (urlSessionId !== storedSessionId) {
@@ -56,12 +57,12 @@ export class Session {
             } else {
                 // same session - just use it
                 this._sessionId.set(urlSessionId);
-                console.log('Session ID from URL (matches storage):', urlSessionId);
+                console.log('Session ID from URL (matches storage):', this.sessionId);
             }
         } else if (storedSessionId) {
             // no URL param, but we have stored session - use it (new tab scenario)
             this._sessionId.set(storedSessionId);
-            console.log('Session ID from storage (new tab):', storedSessionId);
+            console.log('Session ID from storage (new tab):', this.sessionId);
         } else {
             // no URL param AND no storage - generate new (standalone access)
             console.warn('No session ID found in URL or storage.');
@@ -71,6 +72,7 @@ export class Session {
             console.log('Session ID generated and stored:', generatedSessionId);
         }
 
+
         // resolved session_id query param, refreshed after every completed navigation
         const urlSessionIdSignal = toSignal(
             this.router.events.pipe(
@@ -79,6 +81,7 @@ export class Session {
             ),
             { initialValue: this.getSessionIdFromUrl() }
         );
+
 
         // react whenever a new navigation carries a (different) session_id
         effect(() => {
@@ -90,6 +93,7 @@ export class Session {
                 console.log('Session ID updated from navigation:', newSessionId);
             }
         });
+
 
         // listen for storage changes from other tabs
         if (typeof window !== 'undefined') {
@@ -136,8 +140,8 @@ export class Session {
         }
         return null;
     }
-
-
+	
+	
 	// generate a session if no session detected
 	private generateSessionId(): string {
 		return 'rogue_user_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);

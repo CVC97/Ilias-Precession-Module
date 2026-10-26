@@ -1,13 +1,46 @@
+@if (showBridgeConfirm) {
+    <div class="bridge-overlay" (click)="closeBridgeConfirm()">
+        <div class="bridge-dialog" (click)="$event.stopPropagation()">
+            <button class="bridge-dialog-close" (click)="closeBridgeConfirm()">✕</button>
+            <p class="bridge-dialog-text">Sie werden zur Verifikation nun Ihre jetzige Session verlassen.</p>
+            <div class="bridge-dialog-actions">
+                <button class="bridge-dialog-confirm" (click)="confirmBridge()">Weiter zur Verifikation</button>
+            </div>
+        </div>
+    </div>
+}
+
 <div class="header-wrapper">
     <header>
-        <div class="header-content">
-            <div class="header-title" [class.header-title--clickable]="devMode.isEnabled" (click)="devMode.isEnabled && router.navigate(['/'])">Kreiselpräzession</div>
+        <div class="header-content" [class.header-content--with-menu]="showMenuButton">
+            @if (showMenuButton) {
+                <button class="menu-toggle"
+                    (click)="drawer.toggle()"
+                    [attr.aria-expanded]="drawer.isOpen()"
+                    aria-controls="app-nav"
+                    aria-label="Navigation öffnen">
+                    <span></span><span></span><span></span>
+                </button>
+            }
+            <div class="header-title">
+                <span [class.header-title--clickable]="devMode.isEnabled" (click)="devMode.isEnabled && router.navigate(['/'])">Kreiselpräzession
+                    @if (devMode.isEnabled) {
+                        <i>(Build: {{ buildTimestamp }})</i>
+                    }
+                </span>
+            </div>
             <div class="header-subtitle">Praktikum zu Experimentalphysik I</div>
             <!-- Debug: Show session ID -->
             @if (sessionService.hasValidSession()) {
-                <div class="session-debug">
-                    Session: {{ sessionService.sessionId() }}
-                </div>
+                @if (sessionService.isRogueUser()) {
+                    <div class="session-debug">
+                        <span class="session-debug--bridge" (click)="goToBridge()">Session: {{ sessionService.sessionId() }}</span>
+                    </div>
+                } @else {
+                    <div class="session-debug">
+                        Session: {{ sessionService.sessionId() }}
+                    </div>
+                }
             }
             <button class="theme-toggle" (click)="toggleTheme()" [attr.aria-label]="themeService.isDarkMode() ? 'Switch to light mode' : 'Switch to dark mode'">
                 <img [src]="themeService.themeIconPath()" [alt]="themeService.isDarkMode() ? 'Dark mode' : 'Light mode'">

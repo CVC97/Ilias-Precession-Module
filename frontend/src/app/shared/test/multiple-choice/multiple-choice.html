@@ -1,0 +1,49 @@
+<div class="test-container" [id]="containerId" [class.submitted]="isSubmitted">
+    <div class="test-content">
+        <h3 class="test-question" [innerHTML]="question"></h3>
+        <p class="test-instruction" *ngIf="questionInstruction" [innerHTML]="questionInstruction"></p>
+
+        <div class="choice-options">
+            <label
+                *ngFor="let option of shuffledOptions"
+                class="choice-option"
+                [class.selected]="isSelected(option.value) && !isSubmitted"
+                [class.correct]="isSubmitted && isSelected(option.value) && isCorrectAnswer(option.value)"
+                [class.missed-correct]="isSubmitted && !isSelected(option.value) && isCorrectAnswer(option.value)"
+                [class.incorrect]="isSubmitted && isSelected(option.value) && !isCorrectAnswer(option.value)"
+                [class.disabled]="isSubmitted">
+
+                <input
+                    type="checkbox"
+                    [value]="option.value"
+                    [checked]="isSelected(option.value)"
+                    [disabled]="isSubmitted"
+                    (change)="toggleOption(option.value)">
+
+                <span class="option-label">{{ option.label }}</span>
+
+                <span *ngIf="isSubmitted && isSelected(option.value) && isCorrectAnswer(option.value)" class="indicator correct-indicator">✓</span>
+                <span *ngIf="isSubmitted && isSelected(option.value) && !isCorrectAnswer(option.value)" class="indicator incorrect-indicator">✗</span>
+                <span *ngIf="isSubmitted && !isSelected(option.value) && isCorrectAnswer(option.value)" class="richtige-antwort-badge">Richtige Antwort</span>
+                <span *ngIf="isSubmitted && !isSelected(option.value) && !isCorrectAnswer(option.value)" class="falsche-antwort-badge">Falsche Antwort</span>
+            </label>
+        </div>
+
+        <button
+            class="test-btn test-submit-btn"
+            (click)="submitAnswer()"
+            [disabled]="isSubmitted">
+            {{ isSubmitted ? 'Bereits abgegeben' : 'Abgeben' }}
+        </button>
+
+        <div
+            *ngIf="isSubmitted"
+            class="test-result"
+            [class.correct]="isCorrect"
+            [class.partial]="!isCorrect && pointsAwarded > 0"
+            [class.incorrect]="pointsAwarded === 0">
+            <p>{{ feedbackMessage }}</p>
+            <div class="points-breakdown" [innerHTML]="pointsBreakdown"></div>
+        </div>
+    </div>
+</div>
