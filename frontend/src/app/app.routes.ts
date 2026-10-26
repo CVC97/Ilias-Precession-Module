@@ -15,6 +15,7 @@ import { Torque } from './features/glossary_features/torque/torque';
 // learning features
 import { P1Setup } from './features/learning_features/p1-setup/p1-setup';
 import { P2Rotation } from './features/learning_features/p2-rotation/p2-rotation';
+import { P3Pendulum } from './features/learning_features/p3-pendulum/p3-pendulum';
 
 // target features
 import { TarPrecession } from './features/target_features/tar-precession/tar-precession';
@@ -34,6 +35,7 @@ export const routes: Routes = [
     // learning pages
     { path: 'learning/p1-setup',           component: P1Setup,             title: 'Einstieg: Versuchsaufbau' },
     { path: 'learning/p2-rotation',        component: P2Rotation,          title: 'Grundlagen der Rotation' },
+    { path: 'learning/p3-pendulum',        component: P3Pendulum,          title: 'Trägheitsmoment: physikalisches Pendel' },
 
     // target pages
     { path: 'target/tar-precession', component: TarPrecession, title: 'Anleitung: Kreiselpräzession' },

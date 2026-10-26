@@ -38,6 +38,13 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Drehmoment', route: '/learning/p2-rotation', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p3-pendulum', label: '3. Physikalisches Pendel',
+        subpages: [
+            { label: '(1/2) - Das Rad als Pendel', route: '/learning/p3-pendulum', queryParams: { page: '1' } },
+            { label: '(2/2) - Messung und Fehlerquellen', route: '/learning/p3-pendulum', queryParams: { page: '2' } },
+        ]
+    },
 ];
 
 
@@ -91,6 +98,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.includes('/glossary')) return 'glossary';
         if (path.startsWith('/learning/p1')) return 'p1-setup';
         if (path.startsWith('/learning/p2')) return 'p2-rotation';
+        if (path.startsWith('/learning/p3')) return 'p3-pendulum';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }

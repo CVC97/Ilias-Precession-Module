@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="card">
+        @if (currentView === 'pendulum1') {
+            <h1>Trägheitsmoment: physikalisches Pendel (1/2)</h1>
+            <p class="page-subheadline">Das Rad als Pendel</p>
+        } @else {
+            <h1>Trägheitsmoment: physikalisches Pendel (2/2)</h1>
+            <p class="page-subheadline">Messung und Fehlerquellen</p>
+        }
+
+        <!-- Content sections -->
+        <div class="content">
+            @if (currentView === 'pendulum1') {
+                <div>
+                    <p [innerHTML]="pendulumText1a"></p>
+                    <div class="full-width-image-container figure-small">
+                        <img src="assets/images/p3_pendulum/pendel_skizze.svg" alt="Rad mit ausgelenktem Pendelgewicht" class="full-width-image">
+                        <p class="image-description" [innerHTML]="pendulumText1b"></p>
+                    </div>
+                    <p [innerHTML]="pendulumText1c"></p>
+                    <div class="learning-lamp">
+                        <div class="learning-lamp-text" [innerHTML]="pendulumText1d"></div>
+                    </div>
+                    <p [innerHTML]="pendulumText1e"></p>
+
+                    <app-single-choice
+                        [questionId]="question1.questionId"
+                        [question]="question1.question"
+                        [options]="question1.options"
+                        [correctAnswer]="question1.correctAnswer"
+                        [answerFeedback]="question1.answerFeedback"
+                        [containerId]="question1.containerId"
+                        [successMessage]="question1.successMessage"
+                        [incorrectMessage]="question1.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion1Answered($event)">
+                    </app-single-choice>
+
+                    <app-multiple-choice
+                        [questionId]="question2.questionId"
+                        [question]="question2.question"
+                        [options]="question2.options"
+                        [correctAnswers]="question2.correctAnswers"
+                        [answerFeedback]="question2.answerFeedback"
+                        [containerId]="question2.containerId"
+                        [successMessage]="question2.successMessage"
+                        [incompleteMessage]="question2.incompleteMessage"
+                        [incorrectMessage]="question2.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion2Answered($event)">
+                    </app-multiple-choice>
+                </div>
+            }
+
+            @if (currentView === 'pendulum2') {
+                <div>
+                    <div [innerHTML]="pendulumText2a"></div>
+
+                    <app-single-choice
+                        [questionId]="question3.questionId"
+                        [question]="question3.question"
+                        [options]="question3.options"
+                        [correctAnswer]="question3.correctAnswer"
+                        [answerFeedback]="question3.answerFeedback"
+                        [containerId]="question3.containerId"
+                        [successMessage]="question3.successMessage"
+                        [incorrectMessage]="question3.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion3Answered($event)">
+                    </app-single-choice>
+
+                    <app-single-choice
+                        [questionId]="question4.questionId"
+                        [question]="question4.question"
+                        [options]="question4.options"
+                        [correctAnswer]="question4.correctAnswer"
+                        [answerFeedback]="question4.answerFeedback"
+                        [containerId]="question4.containerId"
+                        [successMessage]="question4.successMessage"
+                        [incorrectMessage]="question4.incorrectMessage"
+                        (onAnswerEvaluated)="onQuestion4Answered($event)">
+                    </app-single-choice>
+
+                    <div class="learning-lamp">
+                        <div class="learning-lamp-text" [innerHTML]="pendulumText2b"></div>
+                    </div>
+                    <p [innerHTML]="pendulumText2c"></p>
+                </div>
+            }
+        </div>
+
+        <!-- navigation buttons -->
+        <div class="button-container">
+            @if (isFirstPage) {
+                @if (devMode.isEnabled) {
+                    <button class="btn btn-back" (click)="goBack()">← Zurück zu den Grundlagen der Rotation</button>
+                }
+            } @else {
+                <button class="btn btn-back" (click)="goBack()">← Zurück</button>
+            }
+
+            @if (isLastPage) {
+                <button class="btn" (click)="goForward()">Weiter zum Kreisel →</button>
+            } @else {
+                <button class="btn" (click)="goForward()">Weiter →</button>
+            }
+        </div>
+    </div>
+</div>

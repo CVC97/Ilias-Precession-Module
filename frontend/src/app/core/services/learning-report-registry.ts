@@ -1,5 +1,6 @@
 import * as p1Content from '../../features/learning_features/p1-setup/p1-setup-content';
 import * as p2Content from '../../features/learning_features/p2-rotation/p2-rotation-content';
+import * as p3Content from '../../features/learning_features/p3-pendulum/p3-pendulum-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -93,6 +94,33 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'question', questionId: 'p2-rotation-4-antriebsschnur' },
             { type: 'question', questionId: 'p2-rotation-5-drehmoment-aussagen' },
             { type: 'text', html: p2Content.rotationText3e },
+        ],
+    },
+
+    // ── 3: Trägheitsmoment: physikalisches Pendel ─────────────────────────
+    {
+        route: '/learning/p3-pendulum', page: 1,
+        title: '[3] Trägheitsmoment: physikalisches Pendel', subtitle: 'Das Rad als Pendel',
+        blocks: [
+            { type: 'text',  html: p3Content.pendulumText1a },
+            { type: 'image', src: 'assets/images/p3_pendulum/pendel_skizze.svg',
+              alt: 'Rad mit ausgelenktem Pendelgewicht', caption: p3Content.pendulumText1b },
+            { type: 'text',  html: p3Content.pendulumText1c },
+            { type: 'text',  html: p3Content.pendulumText1d, style: 'lamp' },
+            { type: 'text',  html: p3Content.pendulumText1e },
+            { type: 'question', questionId: 'p3-pendulum-1-traegheitsmoment' },
+            { type: 'question', questionId: 'p3-pendulum-2-annahmen' },
+        ],
+    },
+    {
+        route: '/learning/p3-pendulum', page: 2,
+        title: '[3] Trägheitsmoment: physikalisches Pendel', subtitle: 'Messung und Fehlerquellen',
+        blocks: [
+            { type: 'text', html: p3Content.pendulumText2a },
+            { type: 'question', questionId: 'p3-pendulum-3-gegenueber' },
+            { type: 'question', questionId: 'p3-pendulum-4-zehn-perioden' },
+            { type: 'text', html: p3Content.pendulumText2b, style: 'lamp' },
+            { type: 'text', html: p3Content.pendulumText2c },
         ],
     },
 ];

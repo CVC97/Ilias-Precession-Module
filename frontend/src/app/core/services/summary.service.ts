@@ -59,6 +59,7 @@ export class SummaryService {
     private readonly MODULE_LABELS: Record<string, string> = {
         'p1-setup-module':                      '[1] Einstieg: Versuchsaufbau',
         'p2-rotation-module':                   '[2] Grundlagen der Rotation',
+        'p3-pendulum-module':                   '[3] Trägheitsmoment: physikalisches Pendel',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
@@ -67,12 +68,14 @@ export class SummaryService {
     private readonly PAGE_TOTALS: Record<string, number> = {
         '/learning/p1-setup':                   3,
         '/learning/p2-rotation':                3,
+        '/learning/p3-pendulum':                2,
     };
 
     private readonly PAGE_LABELS: Record<string, string> = {
         '/':                                                            'Startseite: Kreiselpräzession',
         '/learning/p1-setup':                                           '[1] Einstieg: Versuchsaufbau',
         '/learning/p2-rotation':                                        '[2] Grundlagen der Rotation',
+        '/learning/p3-pendulum':                                        '[3] Trägheitsmoment: physikalisches Pendel',
 
         '/target/tar-precession':                                       '[Tar] Anleitung Kreiselpräzession',
     };
