@@ -65,4 +65,13 @@ export const SIM_PRESETS: Record<string, SimPresetPlan> = {
         task: 'Mit phiDot0 = 0 starten, Bahn der Achse beobachten; Drehzahl schrittweise erhöhen: Frequenz und Größe der Nutation?',
         gate: 'Weiter erst nach mindestens zwei verschiedenen Drehzahlen.',
     },
+    'p7-release': {
+        id: 'p7-release',
+        page: '/learning/p7-measurement?page=2',
+        description: 'Vergleich zweier Starts bei gleicher Drehzahl: phiDot0 = 0 vs. phiDot0 ≈ stationäres ω_P. Zwei Preset-Knöpfe („losgelassen“ / „geführt“) im Panel wären ideal; Spur der Achsenspitze hilfreich.',
+        settings: { rpm: 1500, theta0: 60, phiDot0: 0, showL: false, showOmega: false, showTorque: false },
+        controls: ['phiDot0', 'pause', 'restart'],
+        task: 'Zweimal starten: ohne Anfangsgeschwindigkeit der Achse und mit ungefähr der Präzessionsgeschwindigkeit; Bewegung vergleichen.',
+        gate: 'Weiter erst nach beiden Startvarianten.',
+    },
 };

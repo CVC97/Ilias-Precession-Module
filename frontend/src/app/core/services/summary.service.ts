@@ -63,6 +63,7 @@ export class SummaryService {
         'p4-gyroscope-module':                  '[4] Der Kreisel',
         'p5-precession-module':                 '[5] Präzession',
         'p6-nutation-module':                   '[6] Nutation',
+        'p7-measurement-module':                '[7] Messstrategie und Fehlerquellen',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
@@ -75,6 +76,7 @@ export class SummaryService {
         '/learning/p4-gyroscope':               3,
         '/learning/p5-precession':              3,
         '/learning/p6-nutation':                3,
+        '/learning/p7-measurement':             3,
     };
 
     private readonly PAGE_LABELS: Record<string, string> = {
@@ -85,6 +87,7 @@ export class SummaryService {
         '/learning/p4-gyroscope':                                       '[4] Der Kreisel',
         '/learning/p5-precession':                                      '[5] Präzession',
         '/learning/p6-nutation':                                        '[6] Nutation',
+        '/learning/p7-measurement':                                     '[7] Messstrategie und Fehlerquellen',
 
         '/target/tar-precession':                                       '[Tar] Anleitung Kreiselpräzession',
     };

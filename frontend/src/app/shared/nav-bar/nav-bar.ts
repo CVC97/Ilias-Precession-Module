@@ -69,6 +69,14 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Nutation im Versuch', route: '/learning/p6-nutation', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p7-measurement', label: '7. Messstrategie',
+        subpages: [
+            { label: '(1/3) - Reibung und Drehzahl', route: '/learning/p7-measurement', queryParams: { page: '1' } },
+            { label: '(2/3) - Präzession sauber starten', route: '/learning/p7-measurement', queryParams: { page: '2' } },
+            { label: '(3/3) - Weitere Fehlerquellen', route: '/learning/p7-measurement', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -126,6 +134,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p4')) return 'p4-gyroscope';
         if (path.startsWith('/learning/p5')) return 'p5-precession';
         if (path.startsWith('/learning/p6')) return 'p6-nutation';
+        if (path.startsWith('/learning/p7')) return 'p7-measurement';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }

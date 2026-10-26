@@ -4,6 +4,7 @@ import * as p3Content from '../../features/learning_features/p3-pendulum/p3-pend
 import * as p4Content from '../../features/learning_features/p4-gyroscope/p4-gyroscope-content';
 import * as p5Content from '../../features/learning_features/p5-precession/p5-precession-content';
 import * as p6Content from '../../features/learning_features/p6-nutation/p6-nutation-content';
+import * as p7Content from '../../features/learning_features/p7-measurement/p7-measurement-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -228,6 +229,38 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'text', html: p6Content.nutationText3b },
             { type: 'question', questionId: 'p6-nutation-3-drehzahl' },
             { type: 'text', html: p6Content.nutationText3c, style: 'glossary' },
+        ],
+    },
+
+    // ── 7: Messstrategie und Fehlerquellen ────────────────────────────────
+    {
+        route: '/learning/p7-measurement', page: 1,
+        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Reibung und Drehzahl',
+        blocks: [
+            { type: 'text', html: p7Content.measureText1a },
+            { type: 'question', questionId: 'p7-measurement-1-tr-vorher-nachher' },
+            { type: 'text', html: p7Content.measureText1b, style: 'lamp' },
+            { type: 'question', questionId: 'p7-measurement-2-halbe-umdrehung' },
+        ],
+    },
+    {
+        route: '/learning/p7-measurement', page: 2,
+        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Die Präzession sauber starten',
+        blocks: [
+            { type: 'text',  html: p7Content.measureText2a },
+            { type: 'image', src: 'assets/images/p7_measurement/achsenbahn.svg',
+              alt: 'Bahn des Achsenendes', caption: p7Content.measureText2b },
+            { type: 'text',  html: p7Content.measureText2c },
+            { type: 'question', questionId: 'p7-measurement-3-sanft-einleiten' },
+        ],
+    },
+    {
+        route: '/learning/p7-measurement', page: 3,
+        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Weitere Fehlerquellen',
+        blocks: [
+            { type: 'text', html: p7Content.measureText3a },
+            { type: 'question', questionId: 'p7-measurement-4-fehlerquellen' },
+            { type: 'text', html: p7Content.measureText3b },
         ],
     },
 ];
