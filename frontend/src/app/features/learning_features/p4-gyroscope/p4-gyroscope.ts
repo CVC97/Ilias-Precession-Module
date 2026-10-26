@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multiple-choice';
@@ -17,7 +17,7 @@ import * as p4Content from './p4-gyroscope-content';
 
 @Component({
 	selector: 'app-p4-gyroscope',
-	imports: [CommonModule, RouterLink, MultipleChoice, SingleChoice, SimPlaceholder],
+	imports: [CommonModule, MultipleChoice, SingleChoice, SimPlaceholder],
 	templateUrl: './p4-gyroscope.html',
 	styleUrl: './p4-gyroscope.css',
 })

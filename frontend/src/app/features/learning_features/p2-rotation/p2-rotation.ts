@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Inject, PLATFORM_ID, HostListener } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multiple-choice';
@@ -18,7 +18,7 @@ import * as p2Content from './p2-rotation-content';
 
 @Component({
 	selector: 'app-p2-rotation',
-	imports: [CommonModule, RouterLink, MultipleChoice, SingleChoice, ImageChoice, SimPlaceholder],
+	imports: [CommonModule, MultipleChoice, SingleChoice, ImageChoice, SimPlaceholder],
 	templateUrl: './p2-rotation.html',
 	styleUrl: './p2-rotation.css',
 })
