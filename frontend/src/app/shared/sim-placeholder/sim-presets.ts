@@ -47,4 +47,13 @@ export const SIM_PRESETS: Record<string, SimPresetPlan> = {
         task: 'Kleine Drehzahl, große Anfangsgeschwindigkeit der Achse: Richtungen von L, ω und Figurenachse vergleichen; dann Drehzahl schrittweise erhöhen.',
         gate: 'Weiter erst nach mindestens zwei verschiedenen Drehzahlen (interactionThresholdReached).',
     },
+    'p5-precession': {
+        id: 'p5-precession',
+        page: '/learning/p5-precession?page=3',
+        description: 'Präzession mit allen drei Pfeilen. phiDot0 passend zur stationären Präzession, damit die Nutation klein bleibt. Readout ω_P (C# → JS) wünschenswert. Optional (A6.3): Drehmoment über Masse/Hebelarm einstellbar.',
+        settings: { rpm: 2000, theta0: 60, showL: true, showOmega: true, showTorque: true },
+        controls: ['rpm', 'theta0', 'pause', 'restart'],
+        task: 'Drehzahl variieren (ω_P ∝ 1/ω_R?), Neigung variieren (ω_P unabhängig von θ?), Richtung von D relativ zu L beobachten.',
+        gate: 'Weiter erst nach mindestens zwei Drehzahlen und zwei Neigungswinkeln.',
+    },
 };

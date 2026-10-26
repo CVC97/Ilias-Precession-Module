@@ -2,6 +2,7 @@ import * as p1Content from '../../features/learning_features/p1-setup/p1-setup-c
 import * as p2Content from '../../features/learning_features/p2-rotation/p2-rotation-content';
 import * as p3Content from '../../features/learning_features/p3-pendulum/p3-pendulum-content';
 import * as p4Content from '../../features/learning_features/p4-gyroscope/p4-gyroscope-content';
+import * as p5Content from '../../features/learning_features/p5-precession/p5-precession-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -156,6 +157,43 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'text', html: p4Content.gyroText3b, style: 'lamp' },
             { type: 'text', html: p4Content.gyroText3c },
             { type: 'question', questionId: 'p4-gyroscope-3-raumfest' },
+        ],
+    },
+
+    // ── 5: Präzession ─────────────────────────────────────────────────────
+    {
+        route: '/learning/p5-precession', page: 1,
+        title: '[5] Präzession', subtitle: 'Drehmoment senkrecht zum Drehimpuls',
+        blocks: [
+            { type: 'text',  html: p5Content.precessionText1a },
+            { type: 'image', src: 'assets/images/p5_precession/praezession_skizze.png',
+              alt: 'Versuchsskizze mit Drehimpuls, Drehmoment und Präzessionsgeschwindigkeit', caption: p5Content.precessionText1b },
+            { type: 'question', questionId: 'p5-precession-1-drehmoment-richtung' },
+            { type: 'text',  html: p5Content.precessionText1c },
+            { type: 'text',  html: p5Content.precessionText1d, style: 'lamp' },
+            { type: 'question', questionId: 'p5-precession-2-betrag-l' },
+        ],
+    },
+    {
+        route: '/learning/p5-precession', page: 2,
+        title: '[5] Präzession', subtitle: 'Präzession im Versuch',
+        blocks: [
+            { type: 'text', html: p5Content.precessionText2a },
+            { type: 'text', html: p5Content.precessionText2b, style: 'lamp' },
+            { type: 'text', html: p5Content.precessionText2c },
+            { type: 'question', questionId: 'p5-precession-3-drehzahl' },
+            { type: 'question', questionId: 'p5-precession-4-steigung' },
+            { type: 'text', html: p5Content.precessionText2d, style: 'glossary' },
+        ],
+    },
+    {
+        route: '/learning/p5-precession', page: 3,
+        title: '[5] Präzession', subtitle: 'Präzession in der Simulation',
+        blocks: [
+            { type: 'text', html: p5Content.precessionText3a },
+            { type: 'text', html: p5Content.precessionText3b },
+            { type: 'question', questionId: 'p5-precession-5-abhaengigkeiten' },
+            { type: 'text', html: p5Content.precessionText3c },
         ],
     },
 ];

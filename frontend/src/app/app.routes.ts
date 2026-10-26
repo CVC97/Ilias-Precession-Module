@@ -17,6 +17,7 @@ import { P1Setup } from './features/learning_features/p1-setup/p1-setup';
 import { P2Rotation } from './features/learning_features/p2-rotation/p2-rotation';
 import { P3Pendulum } from './features/learning_features/p3-pendulum/p3-pendulum';
 import { P4Gyroscope } from './features/learning_features/p4-gyroscope/p4-gyroscope';
+import { P5Precession } from './features/learning_features/p5-precession/p5-precession';
 
 // target features
 import { TarPrecession } from './features/target_features/tar-precession/tar-precession';
@@ -38,6 +39,7 @@ export const routes: Routes = [
     { path: 'learning/p2-rotation',        component: P2Rotation,          title: 'Grundlagen der Rotation' },
     { path: 'learning/p3-pendulum',        component: P3Pendulum,          title: 'Trägheitsmoment: physikalisches Pendel' },
     { path: 'learning/p4-gyroscope',       component: P4Gyroscope,         title: 'Der Kreisel' },
+    { path: 'learning/p5-precession',      component: P5Precession,        title: 'Präzession' },
 
     // target pages
     { path: 'target/tar-precession', component: TarPrecession, title: 'Anleitung: Kreiselpräzession' },

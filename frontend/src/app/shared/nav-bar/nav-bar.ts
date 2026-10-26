@@ -53,6 +53,14 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Raum- und Körpersystem', route: '/learning/p4-gyroscope', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p5-precession', label: '5. Präzession',
+        subpages: [
+            { label: '(1/3) - Drehmoment senkrecht zu L', route: '/learning/p5-precession', queryParams: { page: '1' } },
+            { label: '(2/3) - Präzession im Versuch', route: '/learning/p5-precession', queryParams: { page: '2' } },
+            { label: '(3/3) - Simulation', route: '/learning/p5-precession', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -108,6 +116,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p2')) return 'p2-rotation';
         if (path.startsWith('/learning/p3')) return 'p3-pendulum';
         if (path.startsWith('/learning/p4')) return 'p4-gyroscope';
+        if (path.startsWith('/learning/p5')) return 'p5-precession';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }
