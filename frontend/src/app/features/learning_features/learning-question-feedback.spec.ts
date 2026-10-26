@@ -8,6 +8,7 @@ import * as p2Questions from './p2-rotation/p2-rotation-questions';
 import * as p3Questions from './p3-pendulum/p3-pendulum-questions';
 import * as p4Questions from './p4-gyroscope/p4-gyroscope-questions';
 import * as p5Questions from './p5-precession/p5-precession-questions';
+import * as p6Questions from './p6-nutation/p6-nutation-questions';
 import { PAGE_REGISTRY } from '../../core/services/learning-report-registry';
 import { AdaptiveAnswerHint, AnyQuestion } from '../../shared/evaluation/question.types';
 import { buildSelectionErrorMessage } from '../../shared/evaluation/multiple-choice-feedback';
@@ -27,6 +28,7 @@ const PAGES: { directory: string; prefix: string; questions: Record<string, AnyQ
     { directory: 'p3-pendulum', prefix: 'p3-pendulum-', questions: p3Questions },
     { directory: 'p4-gyroscope', prefix: 'p4-gyroscope-', questions: p4Questions },
     { directory: 'p5-precession', prefix: 'p5-precession-', questions: p5Questions },
+    { directory: 'p6-nutation', prefix: 'p6-nutation-', questions: p6Questions },
 ];
 
 const definitions = PAGES.flatMap(page => Object.values(page.questions));

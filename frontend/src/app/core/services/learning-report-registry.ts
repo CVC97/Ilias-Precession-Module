@@ -3,6 +3,7 @@ import * as p2Content from '../../features/learning_features/p2-rotation/p2-rota
 import * as p3Content from '../../features/learning_features/p3-pendulum/p3-pendulum-content';
 import * as p4Content from '../../features/learning_features/p4-gyroscope/p4-gyroscope-content';
 import * as p5Content from '../../features/learning_features/p5-precession/p5-precession-content';
+import * as p6Content from '../../features/learning_features/p6-nutation/p6-nutation-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -194,6 +195,39 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'text', html: p5Content.precessionText3b },
             { type: 'question', questionId: 'p5-precession-5-abhaengigkeiten' },
             { type: 'text', html: p5Content.precessionText3c },
+        ],
+    },
+
+    // ── 6: Nutation ───────────────────────────────────────────────────────
+    {
+        route: '/learning/p6-nutation', page: 1,
+        title: '[6] Nutation', subtitle: 'Die Figurenachse kreist um den Drehimpuls',
+        blocks: [
+            { type: 'text', html: p6Content.nutationText1a },
+            { type: 'text', html: p6Content.nutationText1b, style: 'lamp' },
+            { type: 'text', html: p6Content.nutationText1c },
+            { type: 'question', questionId: 'p6-nutation-1-nutationskegel' },
+        ],
+    },
+    {
+        route: '/learning/p6-nutation', page: 2,
+        title: '[6] Nutation', subtitle: 'Nutationskegel, Rastpolkegel, Gangpolkegel',
+        blocks: [
+            { type: 'text',  html: p6Content.nutationText2a },
+            { type: 'image', src: 'assets/images/p6_nutation/kreiselkegel.png',
+              alt: 'Nutationskegel, Rastpolkegel und Gangpolkegel', caption: p6Content.nutationText2b },
+            { type: 'text',  html: p6Content.nutationText2c, style: 'lamp' },
+            { type: 'question', questionId: 'p6-nutation-2-kegel' },
+        ],
+    },
+    {
+        route: '/learning/p6-nutation', page: 3,
+        title: '[6] Nutation', subtitle: 'Nutation im Versuch',
+        blocks: [
+            { type: 'text', html: p6Content.nutationText3a },
+            { type: 'text', html: p6Content.nutationText3b },
+            { type: 'question', questionId: 'p6-nutation-3-drehzahl' },
+            { type: 'text', html: p6Content.nutationText3c, style: 'glossary' },
         ],
     },
 ];

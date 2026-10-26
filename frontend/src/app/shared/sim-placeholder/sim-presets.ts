@@ -56,4 +56,13 @@ export const SIM_PRESETS: Record<string, SimPresetPlan> = {
         task: 'Drehzahl variieren (ω_P ∝ 1/ω_R?), Neigung variieren (ω_P unabhängig von θ?), Richtung von D relativ zu L beobachten.',
         gate: 'Weiter erst nach mindestens zwei Drehzahlen und zwei Neigungswinkeln.',
     },
+    'p6-nutation': {
+        id: 'p6-nutation',
+        page: '/learning/p6-nutation?page=3',
+        description: 'Start ohne Anfangs-Präzession (phiDot0 = 0) → deutliche Nutation. Eine Spur der Achsenspitze wäre hilfreich. Readout Nutationsperiode wünschenswert.',
+        settings: { rpm: 1500, theta0: 60, phiDot0: 0, showL: true, showOmega: false, showTorque: false },
+        controls: ['rpm', 'pause', 'restart'],
+        task: 'Mit phiDot0 = 0 starten, Bahn der Achse beobachten; Drehzahl schrittweise erhöhen: Frequenz und Größe der Nutation?',
+        gate: 'Weiter erst nach mindestens zwei verschiedenen Drehzahlen.',
+    },
 };

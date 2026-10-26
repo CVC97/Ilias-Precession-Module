@@ -61,6 +61,14 @@ const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Simulation', route: '/learning/p5-precession', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p6-nutation', label: '6. Nutation',
+        subpages: [
+            { label: '(1/3) - Nutationskegel', route: '/learning/p6-nutation', queryParams: { page: '1' } },
+            { label: '(2/3) - Drei Kegel', route: '/learning/p6-nutation', queryParams: { page: '2' } },
+            { label: '(3/3) - Nutation im Versuch', route: '/learning/p6-nutation', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -117,6 +125,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p3')) return 'p3-pendulum';
         if (path.startsWith('/learning/p4')) return 'p4-gyroscope';
         if (path.startsWith('/learning/p5')) return 'p5-precession';
+        if (path.startsWith('/learning/p6')) return 'p6-nutation';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }

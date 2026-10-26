@@ -62,6 +62,7 @@ export class SummaryService {
         'p3-pendulum-module':                   '[3] Trägheitsmoment: physikalisches Pendel',
         'p4-gyroscope-module':                  '[4] Der Kreisel',
         'p5-precession-module':                 '[5] Präzession',
+        'p6-nutation-module':                   '[6] Nutation',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
@@ -73,6 +74,7 @@ export class SummaryService {
         '/learning/p3-pendulum':                2,
         '/learning/p4-gyroscope':               3,
         '/learning/p5-precession':              3,
+        '/learning/p6-nutation':                3,
     };
 
     private readonly PAGE_LABELS: Record<string, string> = {
@@ -82,6 +84,7 @@ export class SummaryService {
         '/learning/p3-pendulum':                                        '[3] Trägheitsmoment: physikalisches Pendel',
         '/learning/p4-gyroscope':                                       '[4] Der Kreisel',
         '/learning/p5-precession':                                      '[5] Präzession',
+        '/learning/p6-nutation':                                        '[6] Nutation',
 
         '/target/tar-precession':                                       '[Tar] Anleitung Kreiselpräzession',
     };
