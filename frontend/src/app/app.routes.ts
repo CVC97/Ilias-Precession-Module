@@ -13,6 +13,7 @@ import { NewtonNotation } from './features/glossary_features/newton-notation/new
 import { Torque } from './features/glossary_features/torque/torque';
 
 // learning features
+import { P1Setup } from './features/learning_features/p1-setup/p1-setup';
 
 // target features
 import { TarPrecession } from './features/target_features/tar-precession/tar-precession';
@@ -30,6 +31,7 @@ export const routes: Routes = [
     { path: 'glossary/moment-of-inertia',   component: MomentOfInertia,     title: 'Trägheitsmoment' },
 
     // learning pages
+    { path: 'learning/p1-setup',           component: P1Setup,             title: 'Einstieg: Versuchsaufbau' },
 
     // target pages
     { path: 'target/tar-precession', component: TarPrecession, title: 'Anleitung: Kreiselpräzession' },

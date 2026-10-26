@@ -568,3 +568,14 @@ mjx-container[display="true"] {
         left: 0.6rem;
     }
 }
+
+/* Lists in learning-page content strings (Pohl only used them inside .glossary-write) */
+.content ul,
+.content ol {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+}
+
+.content li {
+    margin-bottom: 0.4rem;
+}

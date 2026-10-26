@@ -22,6 +22,14 @@ interface SegmentDef {
 
 // The module's single learning path, in order.
 const SEGMENTS: SegmentDef[] = [
+    {
+        id: 'p1-setup', label: '1. Einstieg: Versuchsaufbau',
+        subpages: [
+            { label: '(1/3) - Einführung', route: '/learning/p1-setup', queryParams: { page: '1' } },
+            { label: '(2/3) - Komponenten', route: '/learning/p1-setup', queryParams: { page: '2' } },
+            { label: '(3/3) - Messprogramm', route: '/learning/p1-setup', queryParams: { page: '3' } },
+        ]
+    },
 ];
 
 
@@ -73,6 +81,7 @@ export class NavBar implements OnInit, OnDestroy {
         const path = url.split('?')[0];
         if (path === '/' || path === '') return 'home';
         if (path.includes('/glossary')) return 'glossary';
+        if (path.startsWith('/learning/p1')) return 'p1-setup';
         if (path.startsWith('/target/')) return 'anleitung';
         return null;
     }

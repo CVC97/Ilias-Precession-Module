@@ -57,16 +57,19 @@ export interface SummaryData {
 })
 export class SummaryService {
     private readonly MODULE_LABELS: Record<string, string> = {
+        'p1-setup-module':                      '[1] Einstieg: Versuchsaufbau',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
     };
 
     private readonly PAGE_TOTALS: Record<string, number> = {
+        '/learning/p1-setup':                   3,
     };
 
     private readonly PAGE_LABELS: Record<string, string> = {
         '/':                                                            'Startseite: Kreiselpräzession',
+        '/learning/p1-setup':                                           '[1] Einstieg: Versuchsaufbau',
 
         '/target/tar-precession':                                       '[Tar] Anleitung Kreiselpräzession',
     };

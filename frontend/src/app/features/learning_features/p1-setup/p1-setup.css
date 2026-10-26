@@ -1,0 +1,65 @@
+.card {
+    animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* the script photo is small (≈380 px): cap it instead of stretching */
+.full-width-image-container {
+    margin: 2rem auto;
+    max-width: 560px;
+}
+
+.full-width-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.2);
+}
+
+/* Text + Image horizontal layout */
+.text-image-container {
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+    margin-bottom: 2rem;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.image-content {
+    flex: 0 0 350px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.image-content img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    border-radius: 8px;
+}
+
+@media (max-width: 1200px) {
+    .text-image-container {
+        flex-direction: column;
+    }
+
+    .image-content {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
