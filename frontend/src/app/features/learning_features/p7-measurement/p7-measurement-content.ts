@@ -34,9 +34,10 @@ export const measureText2b = `
 `;
 
 export const measureText2c = `
-    <strong>Aufgabe:</strong> Starten Sie den Kreisel in der Simulation zweimal mit derselben Drehzahl:
-    einmal ohne Anfangsgeschwindigkeit der Achse ($\\dot{\\varphi}_0 = 0$), einmal mit einer Anfangsgeschwindigkeit,
-    die ungefähr der Präzessionsgeschwindigkeit entspricht. Vergleichen Sie die Bewegung der Achse.
+    <strong>Aufgabe:</strong> Starten Sie den Kreisel in der Simulation zweimal: einmal mit „Loslassen“ (die Achse ruht zu Beginn)
+    und einmal mit „Geführt starten“ (die Achse erhält zu Beginn die passende Präzessionsgeschwindigkeit, wie wenn Sie den Kreisel
+    mit der Hand in die Präzession führen). Die graue Spur zeigt die Bahn des Achsenendes auf der Seite des Gegengewichts.
+    Vergleichen Sie die beiden Bahnen mit der Abbildung oben.
 `;
 
 

@@ -15,17 +15,10 @@
         <div class="content">
             @if (currentView === 'gyro1') {
                 <div>
-                    <!-- horizontal layout: text + image -->
-                    <div class="text-image-container">
-                        <div class="text-content">
-                            <div [innerHTML]="gyroText1a"></div>
-                        </div>
-                        <div class="image-content">
-                            <div>
-                                <img src="assets/images/p4_gyroscope/kreiselachsen.png" alt="Figurenachse, Impulsachse und Drehachse mit Komponenten von L und ω">
-                                <p class="image-description" [innerHTML]="gyroText1b"></p>
-                            </div>
-                        </div>
+                    <div [innerHTML]="gyroText1a"></div>
+                    <div class="full-width-image-container figure-medium">
+                        <img src="assets/images/p4_gyroscope/kreiselachsen.svg" alt="Figurenachse, Drehimpulsachse und momentane Drehachse mit Komponenten von L und ω" class="full-width-image">
+                        <p class="image-description" [innerHTML]="gyroText1b"></p>
                     </div>
                     <p [innerHTML]="gyroText1c"></p>
                     <div class="learning-lamp">

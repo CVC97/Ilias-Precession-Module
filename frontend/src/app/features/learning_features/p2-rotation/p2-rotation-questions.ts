@@ -6,8 +6,7 @@ export const question1: ImageChoiceQuestion = {
     "options": [
         { "value": "answer1", "imageSrc": "assets/images/p2_rotation/omega_frage_1.svg" },
         { "value": "answer2", "imageSrc": "assets/images/p2_rotation/omega_frage_2.svg" },
-        { "value": "answer3", "imageSrc": "assets/images/p2_rotation/omega_frage_3.svg" },
-        { "value": "answer4", "imageSrc": "assets/images/p2_rotation/omega_frage_4.svg" }
+        { "value": "answer3", "imageSrc": "assets/images/p2_rotation/omega_frage_3.svg" }
     ],
     "correctAnswers": [
         "answer2"
@@ -30,12 +29,7 @@ export const question1: ImageChoiceQuestion = {
         "answer3": {
             "conceptId": "on-axis",
             "order": 1,
-            "message": "$\\vec{\\omega}$ liegt immer auf der Drehachse. Pfeile in der Ebene des Rades beschreiben die Bewegung einzelner Punkte, nicht die Drehung des ganzen Rades."
-        },
-        "answer4": {
-            "conceptId": "on-axis",
-            "order": 1,
-            "message": "$\\vec{\\omega}$ liegt immer auf der Drehachse. Pfeile in der Ebene des Rades beschreiben die Bewegung einzelner Punkte, nicht die Drehung des ganzen Rades."
+            "message": "$\\vec{\\omega}$ liegt immer auf der Drehachse. Ein Pfeil entlang des Randes beschreibt die Bewegung einzelner Punkte, nicht die Drehung des ganzen Rades."
         }
     }
 };

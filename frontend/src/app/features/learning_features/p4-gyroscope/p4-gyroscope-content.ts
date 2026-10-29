@@ -7,16 +7,16 @@ export const gyroText1a = `
     <ul>
         <li><strong><a data-glossary="figure-axis" class="glossary-link">Figurenachse</a>:</strong>
             die Symmetrieachse des Rades, also die Achse, auf der es sitzt. Sie ist fest mit dem Kreisel verbunden.</li>
-        <li><strong>Drehimpulsachse:</strong> die Richtung von $\\vec{L}$ (in Bild 4.2 „Impulsachse“).</li>
+        <li><strong>Drehimpulsachse:</strong> die Richtung von $\\vec{L}$ (im Versuchsskript „Impulsachse“).</li>
         <li><strong><a data-glossary="instantaneous-axis" class="glossary-link">Momentane Drehachse</a>:</strong>
-            die Richtung von $\\vec{\\omega}$ in diesem Augenblick (in Bild 4.2 „Drehachse“).
+            die Richtung von $\\vec{\\omega}$ in diesem Augenblick (im Versuchsskript „Drehachse“).
             Die Punkte des Kreisels auf dieser Achse sind gerade in Ruhe.</li>
     </ul>
 `;
 
 export const gyroText1b = `
     Zerlegung von $\\vec{\\omega}$ und $\\vec{L}$ in Komponenten entlang der Figurenachse (Index 1) und senkrecht dazu (Index 2).
-    Ausschnitt aus Bild 4.2 des Versuchsskripts.
+    Hier ist das Trägheitsmoment senkrecht zur Figurenachse größer als um sie – wie beim Versuchskreisel, der um den Unterstützungspunkt schwenkt.
 `;
 
 export const gyroText1c = `
@@ -36,8 +36,8 @@ export const gyroText1d = `
 // ── Page 2: Der schnelle Kreisel ───────────────────────────────────────────
 
 export const gyroText2a = `
-    <strong>Aufgabe:</strong> In der Simulation sind $\\vec{L}$ und $\\vec{\\omega}$ eingeblendet.
-    Stellen Sie eine kleine Drehzahl ein und starten Sie den Kreisel mit einer großen Anfangsgeschwindigkeit der Achse.
+    <strong>Aufgabe:</strong> In der Simulation sind $\\vec{L}$, $\\vec{\\omega}$ und die Figurenachse (gestrichelt) eingeblendet.
+    Der Kreisel startet mit kleiner Drehzahl, und seine Achse erhält zu Beginn einen seitlichen Stoß.
     Vergleichen Sie die Richtungen von $\\vec{L}$, $\\vec{\\omega}$ und der Figurenachse.
     Erhöhen Sie dann die Drehzahl schrittweise: Was passiert mit den Winkeln zwischen den drei Achsen?
 `;

@@ -79,11 +79,10 @@ export const setupText3c = `
 `;
 
 export const setupText3d = `
-    <strong>Aufgabe:</strong> Lassen Sie den Kreisel in der Simulation zuerst mit hoher, dann mit immer kleinerer Drehzahl laufen.
-    Beobachten Sie, wie sich die Achse bewegt. Was ändert sich, wenn das Rad langsamer rotiert?<br><br>
-    Der simulierte Kreisel steht schräg auf einer Spitze, statt wie im Versuch waagrecht auf einem Stativ zu liegen.
-    Das Drehmoment kommt hier von seiner eigenen Gewichtskraft: Sobald er schräg steht, liegt sein Schwerpunkt
-    nicht mehr senkrecht über der Spitze. Die Physik dahinter ist dieselbe.
+    <strong>Aufgabe:</strong> Die Simulation zeigt den Versuchskreisel mit schnell rotierendem Rad.
+    Hängen Sie mit dem Schalter unter der Simulation das Zusatzgewicht an und beobachten Sie die Achse.
+    Verringern Sie dann die Drehzahl schrittweise: Was ändert sich?<br><br>
+    Mit gedrückter Maustaste können Sie die Ansicht drehen, mit dem Mausrad zoomen.
 `;
 
 export const setupText3e = `

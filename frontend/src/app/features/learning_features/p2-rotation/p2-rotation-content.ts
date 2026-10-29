@@ -55,10 +55,10 @@ export const rotationText2c = `
 `;
 
 export const rotationText2d = `
-    <strong>Aufgabe:</strong> In der Simulation sind jetzt $\\vec{L}$ und $\\vec{\\omega}$ als Pfeile eingeblendet.
-    Verändern Sie die Drehzahl. Wie ändern sich die Längen der beiden Pfeile?<br><br>
-    Achten Sie auch auf die Richtungen: Bei hoher Drehzahl liegen beide Pfeile fast genau auf der Achse des Rades,
-    bei kleiner Drehzahl nicht mehr ganz. Woran das liegt, klären Sie im Abschnitt „Der Kreisel“.
+    <strong>Aufgabe:</strong> In der Simulation sind $\\vec{L}$ und $\\vec{\\omega}$ als Pfeile eingeblendet.
+    Verändern Sie die Drehzahl. Wie ändern sich die Längen der beiden Pfeile, und in welche Richtung zeigen sie?<br><br>
+    Dass sich die Achse dabei langsam um die Senkrechte dreht, ist die Präzession. Sie ist Thema des Abschnitts „Präzession“;
+    achten Sie hier nur auf die beiden Pfeile.
 `;
 
 
