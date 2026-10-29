@@ -10,6 +10,7 @@
     grid-template-columns: minmax(0, 1fr);
     max-width: 520px;
     margin: 3.5rem auto 3rem;
+    /* align-items: center; */
 }
 
 .path-card {
@@ -22,6 +23,7 @@
     box-shadow: 0 2px 12px var(--shadow-color);
     overflow: hidden;
     text-align: left;
+    /* align-items: center; */
 }
 
 .path-card-body {
