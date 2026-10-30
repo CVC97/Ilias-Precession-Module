@@ -5,7 +5,7 @@ import { SimGateService } from '../../core/services/sim-gate';
 import { ThemeService } from '../../core/services/theme';
 import { SimPanel } from '../sim-panel/sim-panel';
 import {
-    SIM_PRESETS, SET_COMMAND, SimEmbedConfig, SimPreset, SimState, SimCommand,
+    SIM_PRESETS, SET_COMMAND, SimEmbedConfig, SimPreset, SimState, SimCommand, SimControl,
     SimNumberKey, SimShowFlag, SimStartMode, SimRunRecord,
 } from './sim-presets';
 
@@ -221,10 +221,16 @@ export class SimEmbed implements OnInit, OnDestroy {
         this.send(SET_COMMAND[key], value);
     }
 
+    // a switch's flags; the switches' alsoShows flags are on while at least one switch naming them is on
     setShow(flags: SimShowFlag[], on: boolean) {
-        const change = Object.fromEntries(flags.map(f => [f, on]));
-        this.current.update(p => ({ ...p!, show: { ...p!.show, ...change } }));
-        this.send('SetHelpers', change);
+        const show = { ...this.current()!.show, ...Object.fromEntries(flags.map(f => [f, on])) };
+        const switches = this.config.controls.filter((c): c is Extract<SimControl, { kind: 'switch' }> => c.kind === 'switch');
+        const extras = switches.flatMap(c => c.alsoShows ?? []);
+        for (const f of extras) {
+            show[f] = switches.some(c => c.alsoShows?.includes(f) && c.show.every(s => show[s]));
+        }
+        this.current.update(p => ({ ...p!, show }));
+        this.send('SetHelpers', Object.fromEntries([...flags, ...extras].map(f => [f, show[f]])));
     }
 
     setStartMode(mode: SimStartMode) {

@@ -145,30 +145,10 @@ To empty the local database (deletes all users and progress; the tables are crea
 sudo docker compose down -v
 ```
 
-**Developer helpers:** `Shift+Alt+D` toggles dev mode (all nav entries clickable, simulation gates open, preset and live state shown below each sim). `?solutions=1` shows the learning questions as solved (dev builds only).
-
-### Tests and build check
-
-```bash
-cd frontend
-npx ng test --watch=false                     # all unit tests
-npm run test:learning                         # Q&A components + consistency of question data, templates and report
-npx ng build --configuration development      # does it compile?
-```
-
 
 ## Deploying to the Server
 
 ### Automatic (CI/CD — primary method)
-
-Work on a branch; merging it into `master` and pushing deploys:
-
-```bash
-git switch master
-git pull
-git merge <your-branch>
-git push                # starts the deploy (GitHub → Actions → Build & Deploy)
-```
 
 Which simulation build is live: `https://interapt.uni-goettingen.de/precession/sim/sim-version.txt`.
 
@@ -337,15 +317,15 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 The Unity simulation ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), module build) runs in an iframe from `<base>/sim/` (same origin) on six sub-pages. `SimEmbed` talks to it with `postMessage`: it sends the page's preset, keeps a loading overlay until that preset runs, and records every run for the page's gate; the "Weiter" button of that sub-page stays greyed out until the gate rule is met (dev mode and a failed sim load release it). All presets, controls, readouts and gate rules are in `shared/sim-embed/sim-presets.ts`.
 
-Every panel has the page's sliders in the first row, switches (only for helpers) below them, and a button row at the bottom with the page's buttons plus **Pause/Weiter** and **Zurücksetzen** (back to the page's start values). From sim release `module-sim-v1.1.0` on, a slider change continues the running gyroscope instead of putting it back to its start pose.
+Every panel has the page's sliders in the first row, switches (only for helpers) below them, and a button row at the bottom with the page's buttons plus **Pause/Weiter** and, where there is a slider or switch, **Zurücksetzen** (back to the page's start values). From sim release `module-sim-v1.1.0` on, a slider change continues the running gyroscope instead of putting it back to its start pose.
 
 | Preset | Page | Purpose | Controls | Gate |
 |---|---|---|---|---|
 | `p1-explore` | p1-setup (3/3) | first contact: the weight makes the axis turn sideways | Zusatzgewicht (0/30 g), Drehzahl | weight on + 2 rpm |
 | `p2-vectors` | p2-rotation (2/3) | L and ω along the axis (simple top) | Drehzahl | 2 rpm |
-| `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart (simple top) | Drehzahl, Zeitlupe, Neu starten | 2 rpm |
+| `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart (simple top) | Drehzahl, Zeitlupe | 2 rpm |
 | `p5-precession` | p5-precession (3/3) | ω_P ∝ 1/ω_R, independent of θ; readouts ω_R, ω_P | Drehzahl, Zusatzgewicht, Neigung | 2 rpm + 2 θ₀ |
-| `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Drehzahl, Kegel switch, Stoß | push at 2 rpm |
+| `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Drehzahl, Zeitlupe, Stoß; one switch per cone (ω⃗ with Rast-/Gangpolkegel) | push at 2 rpm |
 | `p7-release` | p7-measurement (2/3) | released vs. guided start | Loslassen, Geführt starten | both modes |
 
 #### Updating the simulation

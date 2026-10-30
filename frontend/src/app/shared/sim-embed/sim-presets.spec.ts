@@ -49,8 +49,11 @@ describe('SIM_PRESETS', () => {
         }
     });
 
-    it('offers at most three controls per page', () => {
-        for (const [, config] of entries) expect(config.controls.length).toBeLessThanOrEqual(3);
+    // switches only show or hide helpers and don't count
+    it('offers at most three controls that change the experiment per page', () => {
+        for (const [, config] of entries) {
+            expect(config.controls.filter(c => c.kind !== 'switch').length).toBeLessThanOrEqual(3);
+        }
     });
 
     it('releases p1 only after two rpm values with the weight on', () => {

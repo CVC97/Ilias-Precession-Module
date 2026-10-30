@@ -5,7 +5,7 @@ import { SimControl, SimNumberKey } from '../sim-embed/sim-presets';
 
 
 // Control panel below a SimEmbed: the page's sliders, switches and buttons from its
-// SIM_PRESETS entry, Pause and Zurücksetzen, the readouts, and the hints. Sliders that
+// SIM_PRESETS entry, Pause (and Zurücksetzen if there is something to reset), the readouts, and the hints. Sliders that
 // restart the run send on release (change); the Zeitlupe slider sends while dragging.
 @Component({
     selector: 'app-sim-panel',
@@ -70,8 +70,12 @@ export class SimPanel {
     onButton(control: SimControl) {
         if (control.kind !== 'button') return;
         if (control.action === 'push') this.embed.push();
-        else if (control.action === 'restart') this.embed.applyPreset();
         else this.embed.setStartMode(control.action);
+    }
+
+    // nothing to reset without sliders or switches (p7: its buttons start from the preset anyway)
+    get resettable(): boolean {
+        return this.sliders.length > 0 || this.switches.length > 0;
     }
 
     onReset() {

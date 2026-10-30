@@ -46,7 +46,9 @@
             <button class="eval-btn" [disabled]="disabled" (click)="onButton(c)">{{ c.label }}</button>
         }
         <button class="eval-btn" [disabled]="disabled" (click)="embed.togglePause()">{{ paused ? 'Weiter' : 'Pause' }}</button>
-        <button class="eval-btn" [disabled]="disabled" (click)="onReset()">Zurücksetzen</button>
+        @if (resettable) {
+            <button class="eval-btn" [disabled]="disabled" (click)="onReset()">Zurücksetzen</button>
+        }
     </div>
 
     <div class="sim-hints">

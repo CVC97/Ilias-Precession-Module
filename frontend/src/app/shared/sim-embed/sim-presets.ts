@@ -61,11 +61,12 @@ export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
 // sliders (also two-valued ones like the weight on p1); switches only show or hide helpers.
-// Pause and Zurücksetzen are on every panel and not listed here.
+// alsoShows: flags that are on while at least one switch naming them is on (p6: ω with either cone it touches).
+// Pause is on every panel, Zurücksetzen on panels with a slider or switch; neither is listed here.
 export type SimControl =
     | { kind: 'slider'; key: SimNumberKey; label: string; unit: string; min: number; max: number; step: number }
-    | { kind: 'switch'; show: SimShowFlag[]; label: string }
-    | { kind: 'button'; label: string; action: 'push' | 'restart' | SimStartMode };
+    | { kind: 'switch'; show: SimShowFlag[]; label: string; alsoShows?: SimShowFlag[] }
+    | { kind: 'button'; label: string; action: 'push' | SimStartMode };
 
 export type SimReadout = 'omegaR' | 'omegaP';
 
@@ -105,6 +106,7 @@ export const TOP_MIN_RPM = 1000;
 const distinct = (values: (number | string)[]) => new Set(values).size;
 
 const RPM_SLIDER_LAB: SimControl = { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: 150, max: 800, step: 50 };
+const ZEITLUPE_SLIDER: SimControl = { kind: 'slider', key: 'timeScale', label: 'Zeitlupe', unit: '×', min: 0.1, max: 1, step: 0.05 };
 
 
 export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
@@ -151,8 +153,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         afterPreset: ['Push'],
         controls: [
             { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: TOP_MIN_RPM, max: 3000, step: 250 },
-            { kind: 'slider', key: 'timeScale', label: 'Zeitlupe', unit: '×', min: 0.1, max: 1, step: 0.05 },
-            { kind: 'button', label: 'Neu starten', action: 'restart' },
+            ZEITLUPE_SLIDER,
         ],
         gate: (runs) => distinct(runs.map(r => r.rpm)) >= 2,
         gateHint: 'Weiter geht es, sobald Sie mindestens zwei Drehzahlen ausprobiert haben.',
@@ -185,9 +186,12 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
             show: { ...HIDE_ALL, L: true, labels: true, figureAxis: true, nutationCone: true },
         },
         controls: [
-            { kind: 'button', label: 'Stoß', action: 'push' },
             { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: 150, max: 600, step: 50 },
-            { kind: 'switch', show: ['omega', 'spaceCone', 'bodyCone'], label: 'Alle drei Kegel zeigen' },
+            ZEITLUPE_SLIDER,
+            { kind: 'button', label: 'Stoß', action: 'push' },
+            { kind: 'switch', show: ['nutationCone'], label: 'Nutationskegel' },
+            { kind: 'switch', show: ['spaceCone'], label: 'Rastpolkegel', alsoShows: ['omega'] },
+            { kind: 'switch', show: ['bodyCone'], label: 'Gangpolkegel', alsoShows: ['omega'] },
         ],
         gate: (runs) => distinct(runs.filter(r => r.pushes > 0).map(r => r.rpm)) >= 2,
         gateHint: 'Weiter geht es, sobald Sie den Kreisel bei mindestens zwei Drehzahlen angestoßen haben.',

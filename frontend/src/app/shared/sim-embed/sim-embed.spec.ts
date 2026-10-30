@@ -134,6 +134,22 @@ describe('SimEmbed with the sim', () => {
         expect((sent.at(-1)!.value as any).paused).toBe(false);
     });
 
+    it('shows ω while the Rastpol- or Gangpolkegel is on (p6)', () => {
+        embed.config = SIM_PRESETS['p6-nutation'];         // the switches' config is all that matters here
+        embed.current.set(structuredClone(embed.config.preset));
+        fromSim({ type: 'ready' });
+        state(1);
+
+        embed.setShow(['spaceCone'], true);
+        embed.setShow(['bodyCone'], true);
+        embed.setShow(['spaceCone'], false);
+        expect(sent.at(-1)).toEqual({ cmd: 'SetHelpers', value: { spaceCone: false, omega: true } });
+        embed.setShow(['bodyCone'], false);
+        expect(sent.at(-1)).toEqual({ cmd: 'SetHelpers', value: { bodyCone: false, omega: false } });
+        embed.setShow(['nutationCone'], false);
+        expect(sent.at(-1)).toEqual({ cmd: 'SetHelpers', value: { nutationCone: false, omega: false } });
+    });
+
     it('resets to the page preset', () => {
         fromSim({ type: 'ready' });
         state(1);

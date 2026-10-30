@@ -61,8 +61,9 @@ export const nutationText3b = `
     <strong>Aufgabe:</strong> Der Kreisel in der Simulation ist ausbalanciert und trägt kein Zusatzgewicht – wie im Versuch.
     Geben Sie der Achse mit „Stoß“ einen kräftigen Stoß und beobachten Sie die Figurenachse (gestrichelt) und den Drehimpuls $\\vec{L}$.
     Erhöhen Sie dann die Drehzahl und stoßen Sie erneut an. Wie ändern sich die Frequenz der Nutation und die Weite des Nutationskegels?<br><br>
-    Mit dem Schalter „Alle drei Kegel zeigen“ blenden Sie zusätzlich $\\vec{\\omega}$, den Rastpolkegel und den Gangpolkegel ein.
-    Vergleichen Sie mit der Abbildung auf der vorigen Seite.
+    Mit den Schaltern unter der Simulation blenden Sie die Kegel einzeln ein und aus. Zum Rastpol- und zum Gangpolkegel erscheint
+    zusätzlich $\\vec{\\omega}$: die Linie, auf der sich die beiden Kegel berühren. Vergleichen Sie mit der Abbildung auf der vorigen Seite.
+    Bei schneller Nutation hilft die Zeitlupe.
 `;
 
 export const nutationText3c = `
