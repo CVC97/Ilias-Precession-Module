@@ -8,6 +8,9 @@
 
 simulation_implementation.md
 
+# Unity module build of the simulation (copied from ../ilias-precession-simulation/Builds/ModuleWeb/, deploy fetches the release)
+/frontend/public/sim/
+
 # Node
 /frontend/node_modules
 npm-debug.log
