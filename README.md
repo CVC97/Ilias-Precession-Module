@@ -336,16 +336,20 @@ The simulation build is not in this repo. `sim.version` names a release of the s
 git clone -b module-sim https://github.com/CVC97/Ilias-Precession-Module-Simulation.git ilias-precession-simulation
 ```
 
-**1. Build** in Unity (simulation repo, branch `module-sim`): *File → Build Profiles → Web - Module - Release → Build*, output folder `Builds/ModuleWeb`.
+**When is this needed?** Only when something in the simulation repo changed (C# scripts, scene, assets). Changes in this repo alone, e.g. the control panel (`sim-panel/`) or the presets (`sim-presets.ts`), need no new build: commit and deploy as usual (step 7).
 
-**2. Pack** the build into `Builds/ModuleWeb.zip`:
+In the examples the new version is `module-sim-v1.2.0`; count up from the tag in `sim.version`.
+
+**1. Build in Unity** (simulation repo, branch `module-sim`): *File → Build Profiles → Web - Module - Release → Build*, output folder `Builds/ModuleWeb`. Counting up the version in *Project Settings → Player → Version* helps to tell builds apart; the module itself only goes by the release tag.
+
+**2. Pack** the build into `Builds/ModuleWeb.zip` (the file the release needs):
 
 ```bash
 cd ../ilias-precession-simulation
 Tools/package-module-build.sh
 ```
 
-**3. Try it in the module** before releasing it (a relative path counts from where you type it):
+**3. Try it in the module** before releasing it. Pass the zip's path: without it, fetch-sim installs the release named in `sim.version`, i.e. the old build. (A relative path counts from where you type it.)
 
 ```bash
 cd ../ilias-precession-module/frontend
@@ -353,30 +357,36 @@ npm run fetch-sim -- ../../ilias-precession-simulation/Builds/ModuleWeb.zip
 npx ng serve
 ```
 
-**4. Release** it: commit, tag and push in the simulation repo (count the version up: `module-sim-v1.1.0` → `module-sim-v1.2.0`):
+**4. Commit, tag and push** the simulation repo (stop `ng serve` with Ctrl+C first):
 
 ```bash
-cd ../../ilias-precession-simulation      # from frontend/ of step 3 (stop ng serve with Ctrl+C first)
+cd ../../ilias-precession-simulation
 git add -A
 git commit -m "…"
 git tag module-sim-v1.2.0
 git push origin module-sim module-sim-v1.2.0
 ```
 
-Then on GitHub: *Ilias-Precession-Module-Simulation → Releases → Draft a new release*, choose the tag, attach `Builds/ModuleWeb.zip` (the file name must stay `ModuleWeb.zip`), *Publish release*.
+**5. Upload the build to the release** of that tag: on GitHub *Ilias-Precession-Module-Simulation → Releases → Draft a new release*, choose the tag `module-sim-v1.2.0`, attach `Builds/ModuleWeb.zip` (the file name must stay `ModuleWeb.zip`), *Publish release*.
 
-**5. Pin** the release in this repo and check that it downloads:
+**6. Pin the release in the module** and check that it downloads. First write the new tag into `sim.version`, otherwise fetch-sim fetches the old release:
 
 ```bash
 cd ../ilias-precession-module
 echo module-sim-v1.2.0 > sim.version
-cd frontend && npm run fetch-sim && cd ..
-git commit -am "Simulation module-sim-v1.2.0"
+bash tools/fetch-sim.sh          # same as npm run fetch-sim in frontend/
 ```
 
-Deploy as usual (merge to `master`, push). If the release named in `sim.version` doesn't exist, the deploy stops before uploading anything.
+It should end with `Simulation module-sim-v1.2.0 → frontend/public/sim`. A `404` means the release or its `ModuleWeb.zip` is missing (step 5).
 
-After trying a local zip, `npm run fetch-sim` (without a path) goes back to the release in `sim.version`.
+**7. Commit and push to `master`** in the module (or merge your branch into `master`, see *Deploying to the Server*):
+
+```bash
+git commit -am "Simulation module-sim-v1.2.0"
+git push
+```
+
+The deploy downloads the release named in `sim.version` itself. If it doesn't exist, the deploy stops before uploading anything. Afterwards `https://interapt.uni-goettingen.de/precession/sim/sim-version.txt` shows the new tag.
 
 
 ### Glossary Features
