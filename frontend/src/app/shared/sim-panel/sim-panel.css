@@ -19,6 +19,20 @@
     margin-bottom: 1rem;
 }
 
+/* up to three sliders in one row (p5) */
+.sim-panel .sim-controls {
+    gap: 2rem;
+}
+
+.sim-panel .sim-controls-group {
+    flex-basis: 200px;
+}
+
+/* fixed height: the subscript in θ₀ (innerHTML, unreachable for scoped styles) would make its line taller */
+.sim-slider-label {
+    height: 1.5em;
+}
+
 .sim-panel .sim-controls-group output {
     font-variant-numeric: tabular-nums;
 }
@@ -53,6 +67,15 @@
 @media (max-width: 600px) {
     .sim-panel {
         padding: 1rem;
+    }
+
+    /* stacked column (styles_simulation.css): the basis above would be a height */
+    .sim-panel .sim-controls {
+        gap: 0.5rem;
+    }
+
+    .sim-panel .sim-controls-group {
+        flex-basis: auto;
     }
 
     .sim-readouts {

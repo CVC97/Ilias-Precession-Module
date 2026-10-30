@@ -25,7 +25,7 @@
         <div class="sim-controls">
             @for (c of sliders; track c.key) {
                 <div class="sim-controls-group">
-                    <div>
+                    <div class="sim-slider-label">
                         <strong [innerHTML]="c.label + ': '"></strong>
                         <output>{{ sliderValue(c.key) }}{{ c.unit === '°' ? '' : ' ' }}{{ c.unit }}</output>
                     </div>
