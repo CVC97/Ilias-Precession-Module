@@ -1,0 +1,61 @@
+/* sits directly below the sim frame; layout classes from styles_simulation.css */
+.sim-panel {
+    margin-top: 0.75rem;
+    padding: 1.25rem 2rem;
+    text-align: left;                   /* the page text is justified */
+    line-height: 1.5;
+}
+
+.sim-panel .sim-toolbar {
+    padding: 0 0 0.5rem;
+}
+
+.sim-panel .sim-switch-container {
+    padding-bottom: 0;
+}
+
+.sim-panel .sim-run-controls {
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.sim-panel .sim-controls-group output {
+    font-variant-numeric: tabular-nums;
+}
+
+/* the panel stays white in dark mode (like the question boxes): fixed palette colours */
+.sim-readouts {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 0.5rem;
+}
+
+.sim-hints {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--grau-80);
+}
+
+.sim-hints p {
+    margin: 0.25rem 0 0;
+}
+
+.sim-gate-hint {
+    color: var(--uni-blau-2);
+    font-style: italic;
+}
+
+@media (max-width: 600px) {
+    .sim-panel {
+        padding: 1rem;
+    }
+
+    .sim-readouts {
+        gap: 1rem;
+    }
+}
