@@ -337,14 +337,14 @@ Every panel has the page's sliders in the first row, switches (only for helpers)
 The simulation build is not in this repo. `sim.version` names a release of the simulation repo, and `npm run fetch-sim` (also run by the deploy) downloads its `ModuleWeb.zip`. A new simulation version therefore goes through a release. The commands assume that both repos sit next to each other; to get the simulation repo there (from the folder that contains `ilias-precession-module`):
 
 ```bash
-git clone -b module-sim https://github.com/CVC97/Ilias-Precession-Module-Simulation.git ilias-precession-simulation
+git clone https://github.com/CVC97/Ilias-Precession-Module-Simulation.git ilias-precession-simulation
 ```
 
 **When is this needed?** Only when something in the simulation repo changed (C# scripts, scene, assets). Changes in this repo alone, e.g. the control panel (`sim-panel/`) or the presets (`sim-presets.ts`), need no new build: commit and deploy as usual (step 7).
 
 In the examples the new version is `module-sim-v1.2.0`; count up from the tag in `sim.version`.
 
-**1. Build in Unity** (simulation repo, branch `module-sim`): *File → Build Profiles → Web - Module - Release → Build*, output folder `Builds/ModuleWeb`. Counting up the version in *Project Settings → Player → Version* helps to tell builds apart; the module itself only goes by the release tag.
+**1. Build in Unity** (simulation repo, `master`): *File → Build Profiles → Web - Module - Release → Build*, output folder `Builds/ModuleWeb`. Counting up the version in *Project Settings → Player → Version* helps to tell builds apart; the module itself only goes by the release tag.
 
 **2. Pack** the build into `Builds/ModuleWeb.zip` (the file the release needs):
 
@@ -368,7 +368,7 @@ cd ../../ilias-precession-simulation
 git add -A
 git commit -m "…"
 git tag module-sim-v1.2.0
-git push origin module-sim module-sim-v1.2.0
+git push origin master module-sim-v1.2.0
 ```
 
 **5. Upload the build to the release** of that tag: on GitHub *Ilias-Precession-Module-Simulation → Releases → Draft a new release*, choose the tag `module-sim-v1.2.0`, attach `Builds/ModuleWeb.zip` (the file name must stay `ModuleWeb.zip`), *Publish release*.

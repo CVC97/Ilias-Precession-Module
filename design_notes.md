@@ -4,7 +4,7 @@ What was built and why: the decisions behind the module and its simulation, for 
 
 Built with Claude by Carlo (physics education group, Göttingen), 2026-10-26 to 2026-10-30. It replaces the working documents `build_process.md` and `simulation_implementation.md`.
 
-Related: the simulation repo ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), branch `module-sim`) keeps its own logs, `learning_migration.md` (module build, bridge, physics) and `experimental.md`. The infrastructure comes from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module); its developer guide is `../ilias-pohl-module/.learning_module_readme.md`.
+Related: the simulation repo ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), everything on `master`) has its own `design_notes.md` (physics model, module build, bridge, pitfalls) and README (release steps); the rough lab data are in its gitignored `experimental.md`. The infrastructure comes from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module); its developer guide is `../ilias-pohl-module/.learning_module_readme.md`.
 
 
 ## 1 Status (2026-10-30)
@@ -59,7 +59,7 @@ The order follows the physics, not the lab (which starts with the pendulum).
 
 ### Two builds in one repo
 
-The simulation repo has the **original** sim (GitHub Pages, tags `sim-v*`, a heavy top on a tip, `WebBridge` with `SetTheta0`/`SetPhiDot0`/`SetShowTorque`) and the **module build** (branch `module-sim`, scene `Assets/Module/ModuleScene.unity`, build profile *Web - Module - Release*, `ModuleWebBridge`, tags `module-sim-v*`). The module uses only the module build; the original's names don't exist there.
+The simulation repo has the **original** sim (GitHub Pages, tags `sim-v*`, a heavy top on a tip, `WebBridge` with `SetTheta0`/`SetPhiDot0`/`SetShowTorque`) and the **module build** (same `master`, scene `Assets/Module/ModuleScene.unity`, build profile *Web - Module - Release*, `ModuleWebBridge`, tags `module-sim-v*`). The module uses only the module build; the original's names don't exist there.
 
 The module build has two apparatus, chosen by the page: `lab` (the lab gyroscope with counterweight and add-on weight in the notch, r = 0.27 m) and `top` (a simple top, disk on an axle, tip on a tower). It has no Unity UI: the page provides all controls.
 
