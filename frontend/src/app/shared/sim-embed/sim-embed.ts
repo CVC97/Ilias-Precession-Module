@@ -181,20 +181,43 @@ export class SimEmbed implements OnInit, OnDestroy {
         target.postMessage({ source: 'precession-module', type: 'command', cmd, value }, window.location.origin);
     }
 
-    // the whole current preset (one restart), then the page's follow-up commands
+    // the whole current preset (one restart, running), then the page's follow-up commands
     applyPreset() {
         if (!this.presetSent) this.runBeforePreset = this.state()?.run ?? 0;
         this.presetSent = true;
+        this.current.update(p => ({ ...p!, paused: false }));
         this.send('ApplyPreset', this.current());
         this.config.afterPreset?.forEach(cmd => this.send(cmd));
     }
 
+    // back to the page's start values (sliders, switches, slow motion)
+    reset() {
+        this.current.set(structuredClone(this.config.preset));
+        this.applyPreset();
+    }
+
+    togglePause() {
+        const paused = !this.current()!.paused;
+        this.current.update(p => ({ ...p!, paused }));
+        this.send('SetPaused', paused);
+    }
+
+    // a restart or a push should be seen: Set* alone would keep a paused sim paused
+    private resume() {
+        if (!this.current()!.paused) return;
+        this.current.update(p => ({ ...p!, paused: false }));
+        this.send('SetPaused', false);
+    }
+
     setValue(key: SimNumberKey, value: number) {
         this.current.update(p => ({ ...p!, [key]: value }));
-        if (key !== 'timeScale' && this.config.restartWithPreset) {
+        if (key === 'timeScale') {
+            this.send(SET_COMMAND[key], value);
+        } else if (this.config.restartWithPreset) {
             this.applyPreset();
         } else {
             this.send(SET_COMMAND[key], value);
+            this.resume();
         }
     }
 
@@ -207,10 +230,12 @@ export class SimEmbed implements OnInit, OnDestroy {
     setStartMode(mode: SimStartMode) {
         this.current.update(p => ({ ...p!, startMode: mode }));
         this.send('SetStartMode', mode);
+        this.resume();
     }
 
     push() {
         this.send('Push');
+        this.resume();
         const runs = this.runs();
         if (runs.length === 0) return;
         const last = runs[runs.length - 1];

@@ -80,7 +80,7 @@ export const setupText3c = `
 
 export const setupText3d = `
     <strong>Aufgabe:</strong> Die Simulation zeigt den Versuchskreisel mit schnell rotierendem Rad.
-    Hängen Sie mit dem Schalter unter der Simulation das Zusatzgewicht an und beobachten Sie die Achse.
+    Hängen Sie mit dem Regler unter der Simulation das Zusatzgewicht an und beobachten Sie die Achse.
     Verringern Sie dann die Drehzahl schrittweise: Was ändert sich?
 `;
 

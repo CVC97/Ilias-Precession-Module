@@ -1,4 +1,5 @@
-/* sits directly below the sim frame; layout classes from styles_simulation.css */
+/* sits directly below the sim frame; layout classes from styles_simulation.css.
+   Rows: sliders, switches, readouts, buttons, hints */
 .sim-panel {
     margin-top: 0.75rem;
     padding: 1.25rem 2rem;
@@ -6,22 +7,10 @@
     line-height: 1.5;
 }
 
-.sim-panel .sim-toolbar {
-    padding: 0 0 0.5rem;
-}
-
-.sim-panel .sim-switch-container {
-    padding-bottom: 0;
-}
-
-.sim-panel .sim-run-controls {
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
 /* up to three sliders in one row (p5) */
 .sim-panel .sim-controls {
     gap: 2rem;
+    margin-bottom: 0;
 }
 
 .sim-panel .sim-controls-group {
@@ -37,6 +26,34 @@
     font-variant-numeric: tabular-nums;
 }
 
+.sim-panel .sim-toolbar {
+    padding: 0 0 1rem;
+}
+
+.sim-panel .sim-switch-container {
+    padding-bottom: 0;
+}
+
+/* off is neutral grey, not the red of the Pohl switch: off is not an error here */
+.sim-panel .sim-switch span {
+    background-color: var(--grau-60);
+}
+
+.sim-panel .sim-switch input:checked + span {
+    background-color: var(--uni-blau-1);
+}
+
+/* page buttons, then Pause and Zurücksetzen, in one row (up to four, p7) */
+.sim-panel .sim-run-controls {
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.sim-panel .sim-run-controls .eval-btn {
+    flex: 1 1 140px;
+    max-width: 220px;
+}
+
 /* the panel stays white in dark mode (like the question boxes): fixed palette colours */
 .sim-readouts {
     display: flex;
@@ -46,7 +63,7 @@
     font-size: 1.1rem;
     font-weight: 700;
     font-variant-numeric: tabular-nums;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .sim-hints {
@@ -76,6 +93,16 @@
 
     .sim-panel .sim-controls-group {
         flex-basis: auto;
+    }
+
+    /* two buttons per row */
+    .sim-panel .sim-run-controls {
+        gap: 0.75rem;
+    }
+
+    .sim-panel .sim-run-controls .eval-btn {
+        flex-basis: calc(50% - 0.375rem);
+        max-width: none;
     }
 
     .sim-readouts {

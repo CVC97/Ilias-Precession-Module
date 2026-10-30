@@ -1,4 +1,20 @@
 <div class="sim-controls-panel sim-panel">
+    @if (sliders.length) {
+        <div class="sim-controls">
+            @for (c of sliders; track c.key) {
+                <div class="sim-controls-group">
+                    <div class="sim-slider-label">
+                        <strong [innerHTML]="c.label + ': '"></strong>
+                        <output>{{ sliderText(c.key, c.unit) }}</output>
+                    </div>
+                    <input class="sim-slider" type="range" [min]="c.min" [max]="c.max" [step]="c.step"
+                        [value]="sliderValue(c.key)" [disabled]="disabled"
+                        (input)="onSliderInput(c.key, $event)" (change)="onSliderChange(c.key, $event)">
+                </div>
+            }
+        </div>
+    }
+
     @if (switches.length) {
         <div class="sim-toolbar">
             @for (c of switches; track c.label) {
@@ -8,30 +24,6 @@
                         <span></span>
                     </label>
                     <span [innerHTML]="c.label"></span>
-                </div>
-            }
-        </div>
-    }
-
-    @if (buttons.length) {
-        <div class="sim-run-controls">
-            @for (c of buttons; track c.label) {
-                <button class="eval-btn" [disabled]="disabled" (click)="onButton(c)">{{ c.label }}</button>
-            }
-        </div>
-    }
-
-    @if (sliders.length) {
-        <div class="sim-controls">
-            @for (c of sliders; track c.key) {
-                <div class="sim-controls-group">
-                    <div class="sim-slider-label">
-                        <strong [innerHTML]="c.label + ': '"></strong>
-                        <output>{{ sliderValue(c.key) }}{{ c.unit === '°' ? '' : ' ' }}{{ c.unit }}</output>
-                    </div>
-                    <input class="sim-slider" type="range" [min]="c.min" [max]="c.max" [step]="c.step"
-                        [value]="sliderValue(c.key)" [disabled]="disabled"
-                        (input)="onSliderInput(c.key, $event)" (change)="onSliderChange(c.key, $event)">
                 </div>
             }
         </div>
@@ -48,6 +40,14 @@
             }
         </div>
     }
+
+    <div class="sim-run-controls">
+        @for (c of buttons; track c.label) {
+            <button class="eval-btn" [disabled]="disabled" (click)="onButton(c)">{{ c.label }}</button>
+        }
+        <button class="eval-btn" [disabled]="disabled" (click)="embed.togglePause()">{{ paused ? 'Weiter' : 'Pause' }}</button>
+        <button class="eval-btn" [disabled]="disabled" (click)="onReset()">Zurücksetzen</button>
+    </div>
 
     <div class="sim-hints">
         @if (embed.state()?.spinLimited) {

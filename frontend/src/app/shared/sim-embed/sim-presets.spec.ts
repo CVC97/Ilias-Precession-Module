@@ -43,7 +43,8 @@ describe('SIM_PRESETS', () => {
                 const value = config.preset[c.key];
                 expect(value).toBeGreaterThanOrEqual(c.min);
                 expect(value).toBeLessThanOrEqual(c.max);
-                expect((value - c.min) % c.step).toBe(0);
+                const steps = (value - c.min) / c.step;
+                expect(Math.abs(steps - Math.round(steps))).toBeLessThan(1e-9);     // fractional steps (Zeitlupe)
             }
         }
     });

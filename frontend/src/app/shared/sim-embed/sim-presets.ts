@@ -57,10 +57,11 @@ export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     timeScale: 'SetTimeScale',          // the only one without a restart
 };
 
-// label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz)
+// label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
+// sliders (also two-valued ones like the weight on p1); switches only show or hide helpers.
+// Pause and Zurücksetzen are on every panel and not listed here.
 export type SimControl =
-    | { kind: 'slider'; key: Exclude<SimNumberKey, 'timeScale'>; label: string; unit: string; min: number; max: number; step: number }
-    | { kind: 'switch'; key: SimNumberKey; label: string; on: number; off: number }
+    | { kind: 'slider'; key: SimNumberKey; label: string; unit: string; min: number; max: number; step: number }
     | { kind: 'switch'; show: SimShowFlag[]; label: string }
     | { kind: 'button'; label: string; action: 'push' | 'restart' | SimStartMode };
 
@@ -115,7 +116,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
             show: { ...HIDE_ALL },
         },
         controls: [
-            { kind: 'switch', key: 'addOnMassGrams', label: 'Zusatzgewicht anhängen (30 g)', on: 30, off: 0 },
+            { kind: 'slider', key: 'addOnMassGrams', label: 'Zusatzgewicht', unit: 'g', min: 0, max: 30, step: 30 },
             RPM_SLIDER_LAB,
         ],
         gate: (runs) => distinct(runs.filter(r => r.addOnMassGrams > 0).map(r => r.rpm)) >= 2,
@@ -149,7 +150,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         restartWithPreset: true,
         controls: [
             { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: TOP_MIN_RPM, max: 3000, step: 250 },
-            { kind: 'switch', key: 'timeScale', label: 'Zeitlupe', on: 0.25, off: 1 },
+            { kind: 'slider', key: 'timeScale', label: 'Zeitlupe', unit: '×', min: 0.1, max: 1, step: 0.05 },
             { kind: 'button', label: 'Neu starten', action: 'restart' },
         ],
         gate: (runs) => distinct(runs.map(r => r.rpm)) >= 2,

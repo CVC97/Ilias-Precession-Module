@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SimEmbed } from './sim-embed';
+import { SIM_PRESETS } from './sim-presets';
 import { SimGateService } from '../../core/services/sim-gate';
 
 async function create(presetId: string): Promise<ComponentFixture<SimEmbed>> {
@@ -98,5 +99,30 @@ describe('SimEmbed with the sim', () => {
         expect(embed.omegaPAverage()).toBeNull();
         state(2, { time: 10.1, phiDeg: 90 });
         expect(embed.omegaPAverage()).toBeCloseTo(Math.PI / 2 / 10, 6);
+    });
+
+    it('pauses, and a restart runs again', () => {
+        fromSim({ type: 'ready' });
+        state(1);
+        state(2);
+
+        embed.togglePause();
+        expect(sent.at(-1)).toEqual({ cmd: 'SetPaused', value: true });
+        embed.setValue('rpm', 300);
+        expect(sent.slice(-2)).toEqual([{ cmd: 'SetRpm', value: 300 }, { cmd: 'SetPaused', value: false }]);
+        expect(embed.current()!.paused).toBe(false);
+    });
+
+    it('resets to the page preset', () => {
+        fromSim({ type: 'ready' });
+        state(1);
+        state(2);
+
+        embed.setValue('addOnMassGrams', 30);
+        embed.setValue('rpm', 300);
+        embed.togglePause();
+        embed.reset();
+        expect(sent.at(-1)!.cmd).toBe('ApplyPreset');
+        expect(sent.at(-1)!.value).toEqual(SIM_PRESETS['p1-explore'].preset);
     });
 });

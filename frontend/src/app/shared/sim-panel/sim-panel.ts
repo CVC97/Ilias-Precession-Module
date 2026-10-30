@@ -5,8 +5,8 @@ import { SimControl, SimNumberKey } from '../sim-embed/sim-presets';
 
 
 // Control panel below a SimEmbed: the page's sliders, switches and buttons from its
-// SIM_PRESETS entry, the readouts, and the hints. Sliders send on release (change),
-// because every Set* restarts the run.
+// SIM_PRESETS entry, Pause and Zurücksetzen, the readouts, and the hints. Sliders that
+// restart the run send on release (change); the Zeitlupe slider sends while dragging.
 @Component({
     selector: 'app-sim-panel',
     imports: [],
@@ -20,6 +20,7 @@ export class SimPanel {
     readonly mouseHint = signal(false);                                     // no camera control on touch devices
 
     private readonly numberFormat = new Intl.NumberFormat('de-DE', { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
+    private readonly sliderFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2, useGrouping: false });
 
     constructor() {
         afterNextRender(() => this.mouseHint.set(window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false));
@@ -29,12 +30,24 @@ export class SimPanel {
         return this.embed.status() !== 'running';
     }
 
+    get paused(): boolean {
+        return this.embed.current()?.paused ?? false;
+    }
+
     sliderValue(key: SimNumberKey): number {
         return this.draft()[key] ?? this.embed.current()?.[key] ?? 0;
     }
 
+    sliderText(key: SimNumberKey, unit: string): string {
+        return this.sliderFormat.format(this.sliderValue(key)) + (unit === '°' ? '' : ' ') + unit;
+    }
+
     onSliderInput(key: SimNumberKey, event: Event) {
         const value = Number((event.target as HTMLInputElement).value);
+        if (key === 'timeScale') {
+            this.embed.setValue(key, value);    // no restart: follow the slider
+            return;
+        }
         this.draft.update(d => ({ ...d, [key]: value }));
     }
 
@@ -46,18 +59,12 @@ export class SimPanel {
 
     isOn(control: SimControl): boolean {
         const p = this.embed.current();
-        if (!p || control.kind !== 'switch') return false;
-        return 'show' in control ? control.show.every(f => p.show[f]) : p[control.key] === control.on;
+        return !!p && control.kind === 'switch' && control.show.every(f => p.show[f]);
     }
 
     onSwitch(control: SimControl, event: Event) {
         if (control.kind !== 'switch') return;
-        const on = (event.target as HTMLInputElement).checked;
-        if ('show' in control) {
-            this.embed.setShow(control.show, on);
-        } else {
-            this.embed.setValue(control.key, on ? control.on : control.off);
-        }
+        this.embed.setShow(control.show, (event.target as HTMLInputElement).checked);
     }
 
     onButton(control: SimControl) {
@@ -65,6 +72,11 @@ export class SimPanel {
         if (control.action === 'push') this.embed.push();
         else if (control.action === 'restart') this.embed.applyPreset();
         else this.embed.setStartMode(control.action);
+    }
+
+    onReset() {
+        this.draft.set({});
+        this.embed.reset();
     }
 
     format(value: number | null | undefined): string {
