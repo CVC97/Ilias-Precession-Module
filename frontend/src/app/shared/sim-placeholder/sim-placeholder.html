@@ -6,12 +6,8 @@
 
         @if (devMode.isEnabled && preset) {
             <dl class="sim-placeholder-dev">
-                <dt>Preset</dt><dd>{{ preset.id }}: {{ preset.description }}</dd>
-                <dt>Settings</dt><dd>{{ settingsText }}</dd>
-                <dt>Controls</dt><dd>{{ preset.controls.join(', ') }}</dd>
-                @if (preset.gate) {
-                    <dt>Gate</dt><dd>{{ preset.gate }}</dd>
-                }
+                <dt>Preset</dt><dd>{{ preset.id }}: {{ preset.learningTarget }}</dd>
+                <dt>Gate</dt><dd>{{ preset.gateHint }}</dd>
             </dl>
         }
     </div>
