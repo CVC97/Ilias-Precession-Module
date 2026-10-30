@@ -134,8 +134,8 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         title: '[4] Der Kreisel', subtitle: 'Drei Achsen',
         blocks: [
             { type: 'text',  html: p4Content.gyroText1a },
-            { type: 'image', src: 'assets/images/p4_gyroscope/kreiselachsen.png',
-              alt: 'Figurenachse, Impulsachse und Drehachse', caption: p4Content.gyroText1b },
+            { type: 'image', src: 'assets/images/p4_gyroscope/kreiselachsen.svg',
+              alt: 'Figurenachse, Drehimpulsachse und momentane Drehachse', caption: p4Content.gyroText1b },
             { type: 'text',  html: p4Content.gyroText1c },
             { type: 'text',  html: p4Content.gyroText1d, style: 'lamp' },
             { type: 'question', questionId: 'p4-gyroscope-1-l-richtung' },
@@ -168,8 +168,8 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         title: '[5] Präzession', subtitle: 'Drehmoment senkrecht zum Drehimpuls',
         blocks: [
             { type: 'text',  html: p5Content.precessionText1a },
-            { type: 'image', src: 'assets/images/p5_precession/praezession_skizze.png',
-              alt: 'Versuchsskizze mit Drehimpuls, Drehmoment und Präzessionsgeschwindigkeit', caption: p5Content.precessionText1b },
+            { type: 'image', src: 'assets/images/p5_precession/praezession_skizze.svg',
+              alt: 'Präzession: allgemeiner Fall und Versuchskreisel', caption: p5Content.precessionText1b },
             { type: 'question', questionId: 'p5-precession-1-drehmoment-richtung' },
             { type: 'text',  html: p5Content.precessionText1c },
             { type: 'text',  html: p5Content.precessionText1d, style: 'lamp' },
@@ -215,7 +215,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         title: '[6] Nutation', subtitle: 'Nutationskegel, Rastpolkegel, Gangpolkegel',
         blocks: [
             { type: 'text',  html: p6Content.nutationText2a },
-            { type: 'image', src: 'assets/images/p6_nutation/kreiselkegel.png',
+            { type: 'image', src: 'assets/images/p6_nutation/kreiselkegel.svg',
               alt: 'Nutationskegel, Rastpolkegel und Gangpolkegel', caption: p6Content.nutationText2b },
             { type: 'text',  html: p6Content.nutationText2c, style: 'lamp' },
             { type: 'question', questionId: 'p6-nutation-2-kegel' },

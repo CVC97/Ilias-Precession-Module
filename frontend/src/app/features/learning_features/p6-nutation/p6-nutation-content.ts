@@ -39,12 +39,13 @@ export const nutationText2a = `
 `;
 
 export const nutationText2b = `
-    Die drei Kegelflächen der Achsenbewegung des kräftefreien Kreisels (Ausschnitt aus Bild 4.2 des Versuchsskripts).
+    Die drei Kegel des kräftefreien Versuchskreisels. Weil sein Trägheitsmoment senkrecht zur Figurenachse größer ist als um sie,
+    liegt $\\vec{\\omega}$ zwischen Figurenachse und $\\vec{L}$. Das Versuchsskript (Bild 4.2) zeigt den umgekehrten Fall eines flachen Kreisels.
 `;
 
 export const nutationText2c = `
-    Anschaulich: Der Gangpolkegel rollt ohne zu gleiten auf dem Rastpolkegel ab. Die Linie, entlang der sich beide Kegel gerade berühren,
-    ist die momentane Drehachse. Die Punkte auf ihr sind in diesem Augenblick in Ruhe – genau wie der Auflagepunkt eines rollenden Rades.
+    Anschaulich: Der Gangpolkegel rollt ohne zu gleiten auf dem Rastpolkegel ab – beim Versuchskreisel an dessen Außenseite.
+    Die Linie, entlang der sich beide Kegel gerade berühren, ist die momentane Drehachse. Die Punkte auf ihr sind in diesem Augenblick in Ruhe – genau wie der Auflagepunkt eines rollenden Rades.
 `;
 
 
@@ -57,9 +58,11 @@ export const nutationText3a = `
 `;
 
 export const nutationText3b = `
-    <strong>Aufgabe:</strong> Starten Sie den Kreisel in der Simulation ohne Anfangsgeschwindigkeit der Achse ($\\dot{\\varphi}_0 = 0$).
-    Beobachten Sie die Bahn der Achse: Sie nickt auf und ab, während sie präzediert. Erhöhen Sie dann die Drehzahl schrittweise.
-    Wie ändern sich die Frequenz der Nutation und die Größe der Nickbewegung?
+    <strong>Aufgabe:</strong> Der Kreisel in der Simulation ist ausbalanciert und trägt kein Zusatzgewicht – wie im Versuch.
+    Geben Sie der Achse mit „Stoß“ einen kräftigen Stoß und beobachten Sie die Figurenachse (gestrichelt) und den Drehimpuls $\\vec{L}$.
+    Erhöhen Sie dann die Drehzahl und stoßen Sie erneut an. Wie ändern sich die Frequenz der Nutation und die Weite des Nutationskegels?<br><br>
+    Mit dem Schalter „Alle drei Kegel zeigen“ blenden Sie zusätzlich $\\vec{\\omega}$, den Rastpolkegel und den Gangpolkegel ein.
+    Vergleichen Sie mit der Abbildung auf der vorigen Seite.
 `;
 
 export const nutationText3c = `

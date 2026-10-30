@@ -6,6 +6,8 @@
 /out-tsc
 /bazel-out
 
+simulation_implementation.md
+
 # Node
 /frontend/node_modules
 npm-debug.log

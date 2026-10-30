@@ -11,9 +11,10 @@ export const precessionText1a = `
 `;
 
 export const precessionText1b = `
-    Versuchsskizze mit Drehimpuls $\\vec{L}$, Drehmoment und Präzessionsgeschwindigkeit $\\vec{\\omega}_P$; links die Änderung
-    $\\mathrm{d}\\vec{L}$ im Zeitabschnitt $\\mathrm{d}t$ (Bild 4.3 aus dem Versuchsskript).
-    In der Abbildung heißt das Drehmoment $\\vec{T}$, im Text $\\vec{D}$.
+    Links: Bei der Neigung $\\theta$ ändert sich $\\vec{L}$ im Zeitabschnitt $\\mathrm{d}t$ um $\\mathrm{d}\\vec{L} = \\vec{D}\\,\\mathrm{d}t$,
+    die Spitze von $\\vec{L}$ dreht sich um $\\mathrm{d}\\phi$. Rechts: der Versuchskreisel mit Zusatzgewicht,
+    Drehimpuls $\\vec{L}$, Drehmoment $\\vec{D}$ und Präzessionsgeschwindigkeit $\\vec{\\omega}_P$.
+    (Im Versuchsskript, Bild 4.3, heißt das Drehmoment $\\vec{T}$.)
 `;
 
 export const precessionText1c = `
@@ -23,7 +24,7 @@ export const precessionText1c = `
     Weil $\\vec{D}$ immer quer zur Achse steht, dreht es sich mit, und die Bewegung hält an.
     Diese Bewegung heißt <a data-glossary="precession" class="glossary-link">Präzession</a>.<br><br>
     Wie schnell präzediert der Kreisel? Steht die Achse unter dem Winkel $\\theta$ zur Senkrechten, läuft die Spitze von $\\vec{L}$
-    auf einem Kreis mit dem Radius $L\\sin\\theta$ (Bild 4.3 links). Im Zeitabschnitt $\\mathrm{d}t$ dreht sie sich um den Winkel
+    auf einem Kreis mit dem Radius $L\\sin\\theta$ (Abbildung oben, links). Im Zeitabschnitt $\\mathrm{d}t$ dreht sie sich um den Winkel
     $\\mathrm{d}\\phi = \\mathrm{d}L/(L\\sin\\theta) = D\\,\\mathrm{d}t/(L\\sin\\theta)$. Für die Präzessionsgeschwindigkeit $\\omega_P = \\mathrm{d}\\phi/\\mathrm{d}t$ folgt:
 `;
 
@@ -62,7 +63,9 @@ export const precessionText2d = `
 // ── Page 3: Präzession in der Simulation ───────────────────────────────────
 
 export const precessionText3a = `
-    <strong>Aufgaben:</strong> In der Simulation sind $\\vec{L}$, $\\vec{\\omega}$ und das Drehmoment $\\vec{D}$ eingeblendet.
+    <strong>Aufgaben:</strong> In der Simulation sehen Sie den Versuchskreisel mit Zusatzgewicht. Eingeblendet sind $\\vec{L}$,
+    das Drehmoment $\\vec{D}$, die senkrechte Drehachse der Präzession und der Kegel, den die Achse dabei überstreicht.
+    Unter der Simulation werden $\\omega_R$ und $\\omega_P$ angezeigt.
     <ol>
         <li>Verändern Sie die Drehzahl und beobachten Sie, wie schnell der Kreisel präzediert. Bestätigt sich $\\omega_P \\propto 1/\\omega_R$?</li>
         <li>Verändern Sie bei gleicher Drehzahl den Neigungswinkel $\\theta_0$ der Achse. Hängt die Präzessionsgeschwindigkeit vom Winkel ab?</li>
@@ -71,15 +74,17 @@ export const precessionText3a = `
 `;
 
 export const precessionText3b = `
-    Zur zweiten Aufgabe: Beim Kreisel in der Simulation greift die Gewichtskraft im Schwerpunkt an, der auf der Figurenachse im Abstand $l$
-    vom Unterstützungspunkt liegt. Das Drehmoment hängt dann selbst vom Neigungswinkel ab: $D = m g l\\sin\\theta$. Eingesetzt in
+    Zur zweiten Aufgabe: Das Zusatzgewicht hängt im Abstand $r$ vom Unterstützungspunkt an der Achse.
+    Seine Gewichtskraft zeigt immer senkrecht nach unten, ihr Hebelarm ist der waagrechte Abstand $r\\sin\\theta$.
+    Das Drehmoment hängt also selbst vom Neigungswinkel ab: $D = m_z g r\\sin\\theta$. Eingesetzt in
     $\\omega_P = D/(L\\sin\\theta)$ kürzt sich der Winkel heraus:
-    $$\\omega_P = \\frac{m g l}{L}.$$
-    Dasselbe gilt für das Zusatzgewicht im Versuch, das an der Achse hängt. Die Präzessionsgeschwindigkeit eines schnellen Kreisels
-    hängt also nicht davon ab, wie stark seine Achse geneigt ist.
+    $$\\omega_P = \\frac{m_z g r}{L}.$$
+    Dasselbe gilt für jeden Kreisel, dessen Drehmoment von einer Gewichtskraft an seiner Achse stammt.
+    Die Präzessionsgeschwindigkeit eines schnellen Kreisels hängt also nicht davon ab, wie stark seine Achse geneigt ist.
 `;
 
 export const precessionText3c = `
-    In der Simulation fällt Ihnen vielleicht auf, dass die Achse nicht ganz gleichmäßig präzediert, sondern dabei leicht auf und ab nickt.
-    Diese zusätzliche Bewegung ist die Nutation – Thema des nächsten Abschnitts.
+    Die Simulation startet den Kreisel jedes Mal genau mit der passenden Präzessionsgeschwindigkeit.
+    Lässt man ihn dagegen einfach los, nickt die Achse zusätzlich auf und ab.
+    Diese Bewegung ist die Nutation – Thema des nächsten Abschnitts.
 `;

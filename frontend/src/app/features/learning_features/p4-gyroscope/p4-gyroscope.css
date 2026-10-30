@@ -24,6 +24,10 @@
     max-width: 420px;
 }
 
+.full-width-image-container.figure-medium {
+    max-width: 460px;
+}
+
 .full-width-image {
     width: 100%;
     height: auto;

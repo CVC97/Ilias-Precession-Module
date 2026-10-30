@@ -37,17 +37,10 @@
 
             @if (currentView === 'nutation2') {
                 <div>
-                    <!-- horizontal layout: text + image -->
-                    <div class="text-image-container">
-                        <div class="text-content">
-                            <div [innerHTML]="nutationText2a"></div>
-                        </div>
-                        <div class="image-content">
-                            <div>
-                                <img src="assets/images/p6_nutation/kreiselkegel.png" alt="Nutationskegel, Rastpolkegel und Gangpolkegel">
-                                <p class="image-description" [innerHTML]="nutationText2b"></p>
-                            </div>
-                        </div>
+                    <div [innerHTML]="nutationText2a"></div>
+                    <div class="full-width-image-container">
+                        <img src="assets/images/p6_nutation/kreiselkegel.svg" alt="Nutationskegel, Rastpolkegel und Gangpolkegel des Versuchskreisels" class="full-width-image">
+                        <p class="image-description" [innerHTML]="nutationText2b"></p>
                     </div>
                     <div class="learning-lamp">
                         <div class="learning-lamp-text" [innerHTML]="nutationText2c"></div>
