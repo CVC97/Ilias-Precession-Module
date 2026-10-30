@@ -34,20 +34,20 @@ export class SimEmbed implements OnInit, OnDestroy {
     readonly progress = signal('');                         // download progress of the sim's own loader
     readonly runs = signal<SimRunRecord[]>([]);
 
-    // ω_P averaged over the run: |Δφ| / Δt since its first state, none during the first 2 s
+    // ω_P averaged over the segment: |Δφ| / Δt since its first state, none during the first 2 s
     readonly omegaPAverage = computed(() => {
         const s = this.state();
-        if (!s || !this.runStart || s.run !== this.runStart.run || s.time < 2) return null;
-        const dt = s.time - this.runStart.time;
-        return dt > 0 ? Math.abs(s.phiDeg - this.runStart.phiDeg) * Math.PI / 180 / dt : null;
+        const start = this.segmentStart;
+        if (!s || !start || this.segmentOf(s) !== start.segment || s.time - start.time < 2) return null;
+        return Math.abs(s.phiDeg - start.phiDeg) * Math.PI / 180 / (s.time - start.time);
     });
 
     private readonly STALL_MS = 30000;                      // no loader progress and no ready → give up
     private readyReceived = false;
     private presetSent = false;
     private runBeforePreset = 0;
-    private lastRecordedRun = 0;
-    private runStart: { run: number; time: number; phiDeg: number } | null = null;
+    private lastRecordedSegment = 0;
+    private segmentStart: { segment: number; time: number; phiDeg: number } | null = null;
     private pollTimer: ReturnType<typeof setInterval> | null = null;
     private lastProgress = '';
     private lastProgressAt = 0;
@@ -143,9 +143,15 @@ export class SimEmbed implements OnInit, OnDestroy {
         }
     };
 
+    // older sim builds have no segment: there every parameter change restarted the run
+    private segmentOf(s: SimState): number {
+        return s.segment ?? s.run;
+    }
+
     private onState(s: SimState) {
-        if (!this.runStart || this.runStart.run !== s.run) {
-            this.runStart = { run: s.run, time: s.time, phiDeg: s.phiDeg };
+        const segment = this.segmentOf(s);
+        if (!this.segmentStart || this.segmentStart.segment !== segment) {
+            this.segmentStart = { segment, time: s.time, phiDeg: s.phiDeg };
         }
         this.state.set(s);
 
@@ -158,8 +164,8 @@ export class SimEmbed implements OnInit, OnDestroy {
 
         if (this.status() !== 'running') this.status.set('running');
         const runs = this.runs();
-        if (s.run > this.lastRecordedRun) {
-            this.lastRecordedRun = s.run;
+        if (segment > this.lastRecordedSegment) {
+            this.lastRecordedSegment = segment;
             const p = this.current()!;
             this.runs.set([...runs, {
                 rpm: p.rpm, addOnMassGrams: p.addOnMassGrams, theta0Deg: p.theta0Deg, startMode: p.startMode, pushes: 0,
@@ -202,23 +208,17 @@ export class SimEmbed implements OnInit, OnDestroy {
         this.send('SetPaused', paused);
     }
 
-    // a restart or a push should be seen: Set* alone would keep a paused sim paused
+    // a restart or a push should be seen: SetStartMode alone would keep a paused sim paused
     private resume() {
         if (!this.current()!.paused) return;
         this.current.update(p => ({ ...p!, paused: false }));
         this.send('SetPaused', false);
     }
 
+    // no restart, and a paused sim stays paused: the student may set up the next step before going on
     setValue(key: SimNumberKey, value: number) {
         this.current.update(p => ({ ...p!, [key]: value }));
-        if (key === 'timeScale') {
-            this.send(SET_COMMAND[key], value);
-        } else if (this.config.restartWithPreset) {
-            this.applyPreset();
-        } else {
-            this.send(SET_COMMAND[key], value);
-            this.resume();
-        }
+        this.send(SET_COMMAND[key], value);
     }
 
     setShow(flags: SimShowFlag[], on: boolean) {

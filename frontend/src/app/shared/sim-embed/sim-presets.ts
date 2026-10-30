@@ -32,6 +32,7 @@ export interface SimPreset {
 // state message of the sim, ~10 Hz
 export interface SimState {
     run: number;                        // +1 on every restart
+    segment?: number;                   // +1 on every restart and rpm/weight/θ₀ change (these continue the run); missing in sim builds before module-sim-v1.1.0
     time: number;                       // s of simulated time since the restart
     apparatus: SimApparatus;
     thetaDeg: number;
@@ -50,11 +51,12 @@ export type SimCommand =
 
 // preset keys a control may change, and the command that changes each one alone
 export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale';
+// none of them restarts: the gyroscope goes on from where it is (a new θ₀ tilts the axle at its azimuth)
 export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     rpm: 'SetRpm',
     addOnMassGrams: 'SetAddOnMassGrams',
     theta0Deg: 'SetTheta0Deg',
-    timeScale: 'SetTimeScale',          // the only one without a restart
+    timeScale: 'SetTimeScale',
 };
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
@@ -67,13 +69,14 @@ export type SimControl =
 
 export type SimReadout = 'omegaR' | 'omegaP';
 
-// what was set in one run of the sim; the gate rules read the list of all runs on the page
+// what was set in one segment of the sim (from a restart or parameter change to the next); the gate rules read the
+// list of all segments on the page
 export interface SimRunRecord {
     rpm: number;
     addOnMassGrams: number;
     theta0Deg: number;
     startMode: SimStartMode;
-    pushes: number;                     // pushes by the student in this run
+    pushes: number;                     // pushes by the student in this segment
 }
 
 export interface SimEmbedConfig {
@@ -82,7 +85,6 @@ export interface SimEmbedConfig {
     learningTarget: string;             // dev note
     preset: SimPreset;
     afterPreset?: SimCommand[];         // sent right after every ApplyPreset
-    restartWithPreset?: boolean;        // parameter changes resend the whole preset (+ afterPreset) instead of Set*
     controls: SimControl[];
     readouts?: SimReadout[];
     gate: (runs: SimRunRecord[]) => boolean;
@@ -147,7 +149,6 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
             show: { ...HIDE_ALL, L: true, omega: true, labels: true, figureAxis: true },
         },
         afterPreset: ['Push'],
-        restartWithPreset: true,
         controls: [
             { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: TOP_MIN_RPM, max: 3000, step: 250 },
             { kind: 'slider', key: 'timeScale', label: 'Zeitlupe', unit: '×', min: 0.1, max: 1, step: 0.05 },

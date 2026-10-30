@@ -101,7 +101,26 @@ describe('SimEmbed with the sim', () => {
         expect(embed.omegaPAverage()).toBeCloseTo(Math.PI / 2 / 10, 6);
     });
 
-    it('pauses, and a restart runs again', () => {
+    // sims from module-sim-v1.1.0 continue the run on parameter changes and count segments instead
+    it('records a segment per parameter change within one run, and restarts the ω_P average there', () => {
+        fromSim({ type: 'ready' });
+        state(1, { segment: 1 });
+        state(2, { segment: 2, time: 0 });
+        state(2, { segment: 2, time: 10, phiDeg: 90 });
+
+        embed.setValue('addOnMassGrams', 30);
+        state(2, { segment: 3, time: 10.1, phiDeg: 91 });
+        expect(embed.omegaPAverage()).toBeNull();
+        state(2, { segment: 3, time: 15.1, phiDeg: 91 + 180 / Math.PI });
+        expect(embed.omegaPAverage()).toBeCloseTo(0.2, 6);
+
+        embed.setValue('rpm', 300);
+        state(2, { segment: 4, time: 15.2 });
+        expect(embed.runs().map(r => [r.rpm, r.addOnMassGrams])).toEqual([[400, 0], [400, 30], [300, 30]]);
+        expect(TestBed.inject(SimGateService).isReached('p1-explore')).toBe(true);
+    });
+
+    it('pauses; a parameter change keeps it paused, a restart runs again', () => {
         fromSim({ type: 'ready' });
         state(1);
         state(2);
@@ -109,8 +128,10 @@ describe('SimEmbed with the sim', () => {
         embed.togglePause();
         expect(sent.at(-1)).toEqual({ cmd: 'SetPaused', value: true });
         embed.setValue('rpm', 300);
-        expect(sent.slice(-2)).toEqual([{ cmd: 'SetRpm', value: 300 }, { cmd: 'SetPaused', value: false }]);
-        expect(embed.current()!.paused).toBe(false);
+        expect(sent.at(-1)).toEqual({ cmd: 'SetRpm', value: 300 });
+        expect(embed.current()!.paused).toBe(true);
+        embed.applyPreset();
+        expect((sent.at(-1)!.value as any).paused).toBe(false);
     });
 
     it('resets to the page preset', () => {
