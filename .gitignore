@@ -6,8 +6,6 @@
 /out-tsc
 /bazel-out
 
-simulation_implementation.md
-
 # Unity module build of the simulation: tools/fetch-sim.sh puts the release named in sim.version here
 /frontend/public/sim/
 
@@ -54,4 +52,3 @@ Thumbs.db
 # specifically ignoring the introduction readme
 .learning_module_readme.md
 # learning_module_readme.html
-build_process.md

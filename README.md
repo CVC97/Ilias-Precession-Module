@@ -8,6 +8,8 @@ Students reach the module through ILIAS. It prepares them for the lab session in
 
 The project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4, with strong help of Claude (Opus).
 
+This README says how to run, deploy and extend the module. **Why** it is built the way it is (concept, simulation design per page, the sim contract, pitfalls, open items) is in [design_notes.md](design_notes.md).
+
 
 ## Project Structure Tree
 
@@ -18,6 +20,7 @@ docker-compose.yml                              // local MySQL container (dev on
 sim.version                                     // simulation release used by fetch-sim and the deploy
 .gitignore
 README.md
+design_notes.md                                 // decisions and their reasons, open items
 │
 ├── .github/
 │   └── workflows/

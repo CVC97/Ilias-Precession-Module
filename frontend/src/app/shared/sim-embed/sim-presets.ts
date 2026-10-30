@@ -1,8 +1,8 @@
 // One entry per simulation embed: the complete ApplyPreset state, the controls the page
 // offers, the readouts it shows and the rule that releases its "Weiter" button.
-// Keys and commands follow the module build's bridge (build_process.md C5, ModuleWebBridge.cs).
+// Keys and commands follow the module build's bridge (design_notes.md section 4, ModuleWebBridge.cs).
 // Every preset is a complete state: missing keys would take the sim's defaults, which show
-// almost every helper. Values per page: simulation_implementation.md Part B.
+// almost every helper. Values and reasons per page: design_notes.md section 6.
 
 export const SIM_SHOW_FLAGS = [
     'L', 'omega', 'D', 'labels', 'figureAxis', 'verticalAxis',

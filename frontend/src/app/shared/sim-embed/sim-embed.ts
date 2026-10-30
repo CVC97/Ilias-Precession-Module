@@ -12,7 +12,7 @@ import {
 
 
 // Embeds the Unity module build (<base>/sim/index.html) in an iframe and talks to it with
-// postMessage (contract: build_process.md C5). Sends the page's preset once the sim runs,
+// postMessage (contract: design_notes.md, section 4). Sends the page's preset once the sim runs,
 // keeps a loading overlay until that preset's run has started, and records every run for
 // the page's gate. The control panel below calls the public methods.
 @Component({
