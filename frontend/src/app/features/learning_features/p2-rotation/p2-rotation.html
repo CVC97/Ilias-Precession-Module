@@ -76,7 +76,7 @@
 
                     <p [innerHTML]="rotationText2d"></p>
 
-                    <app-sim-placeholder presetId="p2-vectors"></app-sim-placeholder>
+                    <app-sim-embed presetId="p2-vectors"></app-sim-embed>
                 </div>
             }
 
@@ -134,7 +134,9 @@
             @if (isLastPage) {
                 <button class="btn" (click)="goForward()">Weiter zum physikalischen Pendel →</button>
             } @else {
-                <button class="btn" (click)="goForward()">Weiter →</button>
+                <!-- on sub-page 2: released by the simulation's gate (SIM_PRESETS['p2-vectors'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="currentView === 'rotation2' && !(simGate.isReached('p2-vectors') || devMode.isEnabled)">Weiter →</button>
             }
         </div>
     </div>

@@ -103,7 +103,7 @@
 
                     <p [innerHTML]="setupText3d"></p>
 
-                    <app-sim-placeholder presetId="p1-explore"></app-sim-placeholder>
+                    <app-sim-embed presetId="p1-explore"></app-sim-embed>
 
                     <p [innerHTML]="setupText3e"></p>
                 </div>
@@ -121,7 +121,9 @@
             }
 
             @if (isLastPage) {
-                <button class="btn" (click)="goForward()">Weiter zu den Grundlagen der Rotation →</button>
+                <!-- released by the simulation's gate (SIM_PRESETS['p1-explore'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="!(simGate.isReached('p1-explore') || devMode.isEnabled)">Weiter zu den Grundlagen der Rotation →</button>
             } @else {
                 <button class="btn" (click)="goForward()">Weiter →</button>
             }

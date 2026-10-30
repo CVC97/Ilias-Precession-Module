@@ -94,7 +94,7 @@
                 <div>
                     <div [innerHTML]="precessionText3a"></div>
 
-                    <app-sim-placeholder presetId="p5-precession"></app-sim-placeholder>
+                    <app-sim-embed presetId="p5-precession"></app-sim-embed>
 
                     <p [innerHTML]="precessionText3b"></p>
 
@@ -127,7 +127,9 @@
             }
 
             @if (isLastPage) {
-                <button class="btn" (click)="goForward()">Weiter zur Nutation →</button>
+                <!-- released by the simulation's gate (SIM_PRESETS['p5-precession'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="!(simGate.isReached('p5-precession') || devMode.isEnabled)">Weiter zur Nutation →</button>
             } @else {
                 <button class="btn" (click)="goForward()">Weiter →</button>
             }

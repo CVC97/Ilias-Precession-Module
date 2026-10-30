@@ -8,6 +8,9 @@
 
 simulation_implementation.md
 
+# Unity module build of the simulation: tools/fetch-sim.sh puts the release named in sim.version here
+/frontend/public/sim/
+
 # Node
 /frontend/node_modules
 npm-debug.log

@@ -1,0 +1,33 @@
+<div class="sim-embed">
+    <div class="sim-frame">
+        @if (frameSrc(); as src) {
+            <iframe #frame [src]="src" title="3D-Simulation des Kreisels"></iframe>
+        }
+
+        @if (status() === 'loading') {
+            <div class="sim-overlay" role="status">
+                <img class="sim-overlay-icon" src="assets/icons/precession_icon.svg" alt="">
+                <p class="sim-overlay-title">Simulation lädt … {{ progress() }}</p>
+                <p class="sim-overlay-text">Beim ersten Aufruf werden etwa 18 MB geladen.</p>
+            </div>
+        } @else if (status() === 'failed') {
+            <div class="sim-overlay" role="alert">
+                <img class="sim-overlay-icon" src="assets/icons/precession_icon.svg" alt="">
+                <p class="sim-overlay-title">Die Simulation konnte in diesem Browser nicht geladen werden.</p>
+                <p class="sim-overlay-text">Sie können trotzdem mit dem Lernmodul fortfahren.</p>
+            </div>
+        }
+    </div>
+
+    @if (status() !== 'failed') {
+        <app-sim-panel [embed]="this"></app-sim-panel>
+    }
+
+    @if (devMode.isEnabled && config) {
+        <dl class="sim-dev">
+            <dt>Preset</dt><dd>{{ config.id }}: {{ config.learningTarget }}</dd>
+            <dt>Status</dt><dd>{{ status() }}, gate {{ gateReached ? 'reached' : 'open' }}, {{ runs().length }} runs</dd>
+            <dt>State</dt><dd>{{ stateText }}</dd>
+        </dl>
+    }
+</div>

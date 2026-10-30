@@ -1,0 +1,63 @@
+<div class="sim-controls-panel sim-panel">
+    @if (switches.length) {
+        <div class="sim-toolbar">
+            @for (c of switches; track c.label) {
+                <div class="sim-switch-container">
+                    <label class="sim-switch">
+                        <input type="checkbox" [checked]="isOn(c)" [disabled]="disabled" (change)="onSwitch(c, $event)">
+                        <span></span>
+                    </label>
+                    <span [innerHTML]="c.label"></span>
+                </div>
+            }
+        </div>
+    }
+
+    @if (buttons.length) {
+        <div class="sim-run-controls">
+            @for (c of buttons; track c.label) {
+                <button class="eval-btn" [disabled]="disabled" (click)="onButton(c)">{{ c.label }}</button>
+            }
+        </div>
+    }
+
+    @if (sliders.length) {
+        <div class="sim-controls">
+            @for (c of sliders; track c.key) {
+                <div class="sim-controls-group">
+                    <div class="sim-slider-label">
+                        <strong [innerHTML]="c.label + ': '"></strong>
+                        <output>{{ sliderValue(c.key) }}{{ c.unit === '°' ? '' : ' ' }}{{ c.unit }}</output>
+                    </div>
+                    <input class="sim-slider" type="range" [min]="c.min" [max]="c.max" [step]="c.step"
+                        [value]="sliderValue(c.key)" [disabled]="disabled"
+                        (input)="onSliderInput(c.key, $event)" (change)="onSliderChange(c.key, $event)">
+                </div>
+            }
+        </div>
+    }
+
+    @if (embed.config.readouts?.length) {
+        <div class="sim-readouts">
+            @for (r of embed.config.readouts; track r) {
+                @if (r === 'omegaR') {
+                    <span>ω<sub>R</sub> = {{ format(embed.state()?.omegaR) }} rad/s</span>
+                } @else {
+                    <span>ω<sub>P</sub> = {{ format(embed.omegaPAverage()) }} rad/s</span>
+                }
+            }
+        </div>
+    }
+
+    <div class="sim-hints">
+        @if (embed.state()?.spinLimited) {
+            <p>Darstellung der Raddrehung verlangsamt</p>
+        }
+        @if (mouseHint()) {
+            <p>Ansicht drehen: mit gedrückter Maustaste ziehen · Zoomen: Mausrad</p>
+        }
+        @if (!embed.gateReached) {
+            <p class="sim-gate-hint">{{ embed.config.gateHint }}</p>
+        }
+    </div>
+</div>

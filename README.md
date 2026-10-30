@@ -69,7 +69,8 @@ README.md
             │   ├── header/ footer/
             │   ├── nav-bar/                    // sidebar (drawer on mobile): segments and sub-pages
             │   ├── glossary-overlay/           // glossary popups opened from content links
-            │   ├── sim-placeholder/            // stand-in for the Unity embed + planned presets
+            │   ├── sim-embed/                  // Unity sim in an iframe (postMessage bridge) + sim-presets.ts
+            │   ├── sim-panel/                  // control panel below the sim: sliders, switches, buttons, readouts
             │   └── evaluation/                 // retryable Q&A types for learning pages
             │       │   question.types.ts
             │       └── single-choice/ multiple-choice/ multiple-choice-image/ image-choice/
@@ -90,6 +91,7 @@ README.md
 cp api/config.example.php api/config.php
 # edit api/config.php with your local DB credentials; module_name = 'precession'
 cd frontend && npm install
+npm run fetch-sim        # the Unity simulation release pinned in ../sim.version → public/sim/
 ```
 
 Three processes must be running simultaneously, each in its own terminal:
@@ -112,7 +114,7 @@ cd frontend && npx ng serve
 Then open **`http://localhost:8000/bridge`** to start from the bridge page (registered user, progress is saved).
 The Angular app is also accessible directly at **`http://localhost:4200`** (rogue user session, no DB writes).
 
-**Developer helpers:** `Shift+Alt+D` toggles dev mode (all nav entries clickable, planned simulation presets shown in the placeholders). `?solutions=1` shows the learning questions as solved (dev builds only).
+**Developer helpers:** `Shift+Alt+D` toggles dev mode (all nav entries clickable, simulation gates open, preset and live state shown below each sim). `?solutions=1` shows the learning questions as solved (dev builds only).
 
 **Tests:**
 ```bash
@@ -127,7 +129,7 @@ npm run test:learning            # Q&A components + consistency of question data
 ### Automatic (CI/CD — primary method)
 
 Pushing to `master` triggers `.github/workflows/deploy.yml`:
-1. Installs Node, runs `npm ci`, builds the Angular app with `--base-href "https://interapt.uni-goettingen.de/precession/"`
+1. Installs Node, runs `npm ci`, fetches the simulation release named in `sim.version` (`tools/fetch-sim.sh`), builds the Angular app with `--base-href "https://interapt.uni-goettingen.de/precession/"`
 2. Writes a production `.htaccess` (`RewriteBase /precession/`) into the build output
 3. Uploads via SFTP: Angular dist incl. that `.htaccess` → `precession/`, `api/` (excluding `config.php`), `ilias_bridge.html`
 
@@ -287,18 +289,20 @@ One linear path of seven segments, followed by the target page. Questions are re
 - **tar-precession** → `/target/tar-precession` — Versuchsanleitung (`assets/target/Versuchsanleitung_Kreiselpraezession.pdf`) and the personal Lernpfad summary, downloadable as an HTML report.
 
 
-### Simulation (planned)
+### Simulation
 
-The Unity simulation will be embedded as an iframe on six pages, each with its own preset and task. Until then `SimPlaceholder` takes its place; the planned presets are collected in `shared/sim-placeholder/sim-presets.ts`.
+The Unity simulation ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), module build) runs in an iframe from `<base>/sim/` (same origin) on six sub-pages. `SimEmbed` talks to it with `postMessage`: it sends the page's preset, keeps a loading overlay until that preset runs, and records every run for the page's gate; the "Weiter" button of that sub-page stays greyed out until the gate rule is met (dev mode and a failed sim load release it). All presets, controls, readouts and gate rules are in `shared/sim-embed/sim-presets.ts`.
 
-| Preset | Page | Purpose |
-|---|---|---|
-| `p1-explore` | p1-setup (3/3) | first contact, free exploration |
-| `p2-vectors` | p2-rotation (2/3) | L and ω along the axis |
-| `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart |
-| `p5-precession` | p5-precession (3/3) | ω_P vs. spin rate and tilt |
-| `p6-nutation` | p6-nutation (3/3) | nutation after release without initial precession |
-| `p7-release` | p7-measurement (2/3) | released vs. gently guided start |
+| Preset | Page | Purpose | Controls | Gate |
+|---|---|---|---|---|
+| `p1-explore` | p1-setup (3/3) | first contact: the weight makes the axis turn sideways | weight on/off, Drehzahl | weight on + 2 rpm |
+| `p2-vectors` | p2-rotation (2/3) | L and ω along the axis (simple top) | Drehzahl | 2 rpm |
+| `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart (simple top) | Drehzahl, Zeitlupe, Neu starten | 2 rpm |
+| `p5-precession` | p5-precession (3/3) | ω_P ∝ 1/ω_R, independent of θ; readouts ω_R, ω_P | Drehzahl, Zusatzgewicht, Neigung | 2 rpm + 2 θ₀ |
+| `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Stoß, Drehzahl, Kegel | push at 2 rpm |
+| `p7-release` | p7-measurement (2/3) | released vs. guided start | Loslassen, Geführt starten | both modes |
+
+**Updating the simulation:** build *Web - Module - Release* in Unity, run `Tools/package-module-build.sh` in the simulation repo, commit and tag it (`module-sim-vX.Y.Z`), create a GitHub release for the tag with `Builds/ModuleWeb.zip` attached, then put the tag into `sim.version` here. `npm run fetch-sim -- path/to/ModuleWeb.zip` installs a local zip instead, to try a build before releasing it.
 
 
 ### Glossary Features

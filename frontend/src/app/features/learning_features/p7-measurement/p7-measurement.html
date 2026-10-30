@@ -57,7 +57,7 @@
 
                     <p [innerHTML]="measureText2c"></p>
 
-                    <app-sim-placeholder presetId="p7-release"></app-sim-placeholder>
+                    <app-sim-embed presetId="p7-release"></app-sim-embed>
 
                     <app-multiple-choice
                         [questionId]="question3.questionId"
@@ -109,7 +109,9 @@
             @if (isLastPage) {
                 <button class="btn" (click)="goForward()">Weiter zur Versuchsanleitung →</button>
             } @else {
-                <button class="btn" (click)="goForward()">Weiter →</button>
+                <!-- on sub-page 2: released by the simulation's gate (SIM_PRESETS['p7-release'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="currentView === 'measure2' && !(simGate.isReached('p7-release') || devMode.isEnabled)">Weiter →</button>
             }
         </div>
     </div>
