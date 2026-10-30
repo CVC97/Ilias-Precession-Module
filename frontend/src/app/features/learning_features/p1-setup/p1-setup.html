@@ -122,9 +122,8 @@
 
             @if (isLastPage) {
                 <!-- released by the simulation's gate (SIM_PRESETS['p1-explore'].gate) -->
-                @if (simGate.isReached('p1-explore') || devMode.isEnabled) {
-                    <button class="btn" (click)="goForward()">Weiter zu den Grundlagen der Rotation →</button>
-                }
+                <button class="btn" (click)="goForward()"
+                    [disabled]="!(simGate.isReached('p1-explore') || devMode.isEnabled)">Weiter zu den Grundlagen der Rotation →</button>
             } @else {
                 <button class="btn" (click)="goForward()">Weiter →</button>
             }
