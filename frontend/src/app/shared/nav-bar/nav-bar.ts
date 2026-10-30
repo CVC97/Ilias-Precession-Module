@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DevModeService } from '../../core/services/dev-mode';
 import { NavDrawerService } from '../../core/services/nav-drawer';
+import { VisitedPages } from '../../core/services/visited-pages';
 
 
 interface SubpageItem {
@@ -97,7 +98,8 @@ export class NavBar implements OnInit, OnDestroy {
     constructor(
         public router: Router,
         public devMode: DevModeService,
-        public drawer: NavDrawerService
+        public drawer: NavDrawerService,
+        private visited: VisitedPages
     ) {}
 
     ngOnInit() {
@@ -135,15 +137,24 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p5')) return 'p5-precession';
         if (path.startsWith('/learning/p6')) return 'p6-nutation';
         if (path.startsWith('/learning/p7')) return 'p7-measurement';
-        if (path.startsWith('/target/')) return 'anleitung';
+        if (path.startsWith('/target/')) return 'target';
         return null;
+    }
+
+    // the path is linear: every page already visited (or any page in dev mode) can be opened again
+    canOpen(sub: SubpageItem): boolean {
+        return this.devMode.isEnabled || this.visited.has(sub.route, sub.queryParams?.['page']);
+    }
+
+    canOpenSegment(seg: SegmentDef): boolean {
+        return !!seg.subpages[0] && this.canOpen(seg.subpages[0]);
     }
 
     getSegmentClass(seg: SegmentDef): Record<string, boolean> {
         const isActive = this.activeSegment === seg.id;
         return {
             'seg-active': isActive,
-            'seg-dev': this.devMode.isEnabled && !isActive,
+            'seg-dev': this.canOpenSegment(seg) && !isActive,
         };
     }
 
@@ -160,18 +171,21 @@ export class NavBar implements OnInit, OnDestroy {
     }
 
     navigateToSubpage(sub: SubpageItem) {
-        if (!this.devMode.isEnabled) return;
+        if (!this.canOpen(sub)) return;
         this.router.navigate([sub.route], { queryParams: sub.queryParams ?? {} });
     }
 
     onSegmentClick(seg: SegmentDef) {
-        if (!this.devMode.isEnabled) return;
-        const first = seg.subpages[0];
-        if (first) this.navigateToSubpage(first);
+        if (!this.canOpenSegment(seg)) return;
+        this.navigateToSubpage(seg.subpages[0]);
+    }
+
+    get isHomeClickable(): boolean {
+        return this.devMode.isEnabled || this.visited.has('/');
     }
 
     goHome() {
-        if (!this.devMode.isEnabled) return;
+        if (!this.isHomeClickable) return;
         this.router.navigate(['/']);
     }
 
@@ -180,7 +194,7 @@ export class NavBar implements OnInit, OnDestroy {
         this.router.navigate(['/glossary']);
     }
 
-    get anleitungRoute(): string {
+    get targetRoute(): string {
         return '/target/tar-precession';
     }
 
@@ -189,13 +203,13 @@ export class NavBar implements OnInit, OnDestroy {
         return (this.activeSegment === 'home') ? 'hidden' : '';
     }
 
-    get isAnleitungClickable(): boolean {
-        return this.devMode.isEnabled || this.activeSegment === 'anleitung';
+    get isTargetClickable(): boolean {
+        return this.devMode.isEnabled || this.activeSegment === 'target' || this.visited.has(this.targetRoute);
     }
 
-    goAnleitung() {
-        if (this.isAnleitungClickable) {
-            this.router.navigate([this.anleitungRoute]);
+    goTarget() {
+        if (this.isTargetClickable) {
+            this.router.navigate([this.targetRoute]);
         }
     }
 }

@@ -59,12 +59,15 @@ export class SimPanel {
 
     isOn(control: SimControl): boolean {
         const p = this.embed.current();
-        return !!p && control.kind === 'switch' && control.show.every(f => p.show[f]);
+        if (!p || control.kind !== 'switch') return false;
+        return 'show' in control ? control.show.every(f => p.show[f]) : p.friction;
     }
 
     onSwitch(control: SimControl, event: Event) {
         if (control.kind !== 'switch') return;
-        this.embed.setShow(control.show, (event.target as HTMLInputElement).checked);
+        const on = (event.target as HTMLInputElement).checked;
+        if ('show' in control) this.embed.setShow(control.show, on);
+        else this.embed.setFriction(on);
     }
 
     onButton(control: SimControl) {

@@ -21,7 +21,7 @@
     padding: 2rem;
 }
 
-/* ── Startseite / Anleitung endpoints ──────────────────────────────────── */
+/* ── Startseite / Abschluss endpoints ──────────────────────────────────── */
 .nav-endpoint-btn {
     width: 100%;
     padding: 1rem 0.5rem;
@@ -204,8 +204,8 @@
     color: var(--text-primary);
 }
 
-/* dev-mode: unlocked dropdown gets pointer cursor */
-.seg-dropdown:not(.seg-dropdown-locked) .sub-btn {
+/* sub-pages that can be opened (visited, or dev mode) get the pointer cursor */
+.sub-btn-dev {
     cursor: pointer;
 }
 

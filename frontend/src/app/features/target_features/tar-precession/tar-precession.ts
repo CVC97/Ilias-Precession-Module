@@ -4,6 +4,7 @@ import { DevModeService } from '../../../core/services/dev-mode';
 import { SummaryService, SummaryData, SummaryQuestion } from '../../../core/services/summary.service';
 import { HtmlReportService } from '../../../core/services/html-report.service';
 import { Router } from '@angular/router';
+import { SimEmbed } from '../../../shared/sim-embed/sim-embed';
 
 
 
@@ -21,7 +22,7 @@ export interface ModuleGroup {
 
 @Component({
     selector: 'app-tar-precession',
-    imports: [],
+    imports: [SimEmbed],
     templateUrl: './tar-precession.html',
     styleUrl: './tar-precession.css',
 })

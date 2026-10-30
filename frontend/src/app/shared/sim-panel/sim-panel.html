@@ -1,6 +1,6 @@
 <div class="sim-controls-panel sim-panel">
     @if (sliders.length) {
-        <div class="sim-controls">
+        <div class="sim-controls" [class.sim-controls--pairs]="sliders.length === 4">
             @for (c of sliders; track c.key) {
                 <div class="sim-controls-group">
                     <div class="sim-slider-label">
@@ -58,7 +58,7 @@
         @if (mouseHint()) {
             <p>Ansicht drehen: mit gedrückter Maustaste ziehen · Zoomen: Mausrad</p>
         }
-        @if (!embed.gateReached) {
+        @if (embed.config.gateHint && !embed.gateReached) {
             <p class="sim-gate-hint">{{ embed.config.gateHint }}</p>
         }
     </div>

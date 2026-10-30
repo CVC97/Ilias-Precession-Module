@@ -17,6 +17,11 @@
     flex-basis: 200px;
 }
 
+/* four sliders (free simulation): two rows of two, not three and one */
+.sim-panel .sim-controls--pairs .sim-controls-group {
+    flex-basis: calc(50% - 1rem);
+}
+
 /* fixed height: the subscript in θ₀ (innerHTML, unreachable for scoped styles) would make its line taller */
 .sim-slider-label {
     height: 1.5em;
@@ -43,14 +48,14 @@
     background-color: var(--uni-blau-1);
 }
 
-/* page buttons, then Pause and Zurücksetzen, in one row (up to four, p7) */
+/* page buttons, then Pause and Zurücksetzen, in one row (up to five, free simulation) */
 .sim-panel .sim-run-controls {
     gap: 1rem;
     margin-bottom: 0.75rem;
 }
 
 .sim-panel .sim-run-controls .eval-btn {
-    flex: 1 1 140px;
+    flex: 1 1 110px;
     max-width: 220px;
 }
 
@@ -91,7 +96,8 @@
         gap: 0.5rem;
     }
 
-    .sim-panel .sim-controls-group {
+    .sim-panel .sim-controls-group,
+    .sim-panel .sim-controls--pairs .sim-controls-group {
         flex-basis: auto;
     }
 

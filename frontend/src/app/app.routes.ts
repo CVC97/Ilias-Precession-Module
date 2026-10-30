@@ -64,5 +64,5 @@ export const routes: Routes = [
     { path: 'learning/p7-measurement',     component: P7Measurement,       title: 'Messstrategie und Fehlerquellen' },
 
     // target pages
-    { path: 'target/tar-precession', component: TarPrecession, title: 'Anleitung: Kreiselpräzession' },
+    { path: 'target/tar-precession', component: TarPrecession, title: 'Abschluss: Kreiselpräzession' },
 ];

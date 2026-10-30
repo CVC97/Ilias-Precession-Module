@@ -9,7 +9,7 @@ Related: the simulation repo ([Ilias-Precession-Module-Simulation](https://githu
 
 ## 1 Status (2026-10-30)
 
-Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.1.0`. Seven segments with 20 sub-pages, 28 retryable questions, 13 glossary terms, six embedded simulations, target page with summary and HTML report. Open items: section 10.
+Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.1.0`. Seven segments with 20 sub-pages, 28 retryable questions, 13 glossary terms, six embedded simulations; the target page "Abschluss" with a free simulation, the summary and the HTML report. Open items: section 10.
 
 
 ## 2 Concept
@@ -27,6 +27,8 @@ Versuch 4 *Kreiselpräzession* (Grundpraktikum Experimentalphysik I). In the lab
 | **Infrastructure copied from Pohl as it is** (bridge, PHP API, MySQL tracking, summary, report) | Proven, shared database `interapt`; web development is a means to an end here. Don't modernise or refactor copied code. |
 | **One 3D Unity simulation, embedded on six pages** with a preset each | The point of the module is to *see* L⃗, ω⃗ and D⃗ in 3D and how they move. The sim is the main tool, not a side path. |
 | **Sim embedded last**, pages first built with placeholders | Content work didn't wait on Unity; the page texts were written as if the sim were there. |
+| **No Versuchsanleitung**; the target page is "Abschluss": a free simulation, then the Lernpfad summary | No guide is planned (Carlo, 2026-10-30). The free simulation lets students try the whole experiment as they'll see it in the lab, without helpers: a check whether the picture has stuck. On the target page rather than as an eighth segment (less registration, and the page needs substance without the guide) or as a separate entry (students would jump there before the path). |
+| **Nav-bar: every visited page can be opened again** (dev mode: all) | The path is linear and gated, so anything visited has passed its gates; going back to a page or the free simulation shouldn't mean clicking through. Pohl's nav is clickable only in dev mode. Visited pages: `VisitedPages`, per session id in localStorage plus the visits from the saved progress. |
 | **Lab → simple top → lab** (Carlo) | p1 meets the real apparatus; p2 and p4 show the fundamentals on a simple top without counterweight and string around the arrows; p5 bridges back (the add-on weight takes the role of the top's own weight); p6, p7 are the lab's own experiments. |
 | **Never spoil the Auswertung** | The slope of ω_N vs. ω_R is I₃/I₁ for a fast gyroscope (Auswertung 5), and the moments of inertia are to be compared. No text, readout, preset or fit gives either, not even numerically: the sim reports no moments of inertia, there is no T_N readout, the cones show I₁/I₃ only geometrically. Segment 6 says only that ω_N ∝ ω_R and that the slope is dimensionless. |
 
@@ -41,7 +43,7 @@ Versuch 4 *Kreiselpräzession* (Grundpraktikum Experimentalphysik I). In the lab
 | 5 | `p5-precession` | D ⊥ L turns L; ω_P = D/(L sin θ) = m_z g r/(I ω_R) | `p5-precession` |
 | 6 | `p6-nutation` | Nutations-, Rastpol-, Gangpolkegel; ω_N grows with ω_R | `p6-nutation` |
 | 7 | `p7-measurement` | friction (T_R before/after), half a turn, guiding the gyroscope gently into precession | `p7-release` |
-| — | `target/tar-precession` | Versuchsanleitung, summary, HTML report | — |
+| — | `target/tar-precession` | Abschluss: free simulation, summary, HTML report | `free-lab` |
 
 The order follows the physics, not the lab (which starts with the pendulum).
 
@@ -105,6 +107,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 6. **Sliders that change the run send on release**; the Zeitlupe slider follows while dragging.
 7. **Explanations stay in the page text** (German, MathJax, tracked); the sim shows symbols only. Readouts only where the task needs a number (only p5: ω_R and the averaged ω_P; no T_P and no product, so students find ω_P ∝ 1/ω_R themselves).
 8. **Gate:** the sub-page's "Weiter" is shown greyed out until the gate rule holds, **never hidden** (Carlo; also applied to the Pohl module). A short italic hint under the panel says what's needed. Dev mode and a failed load release it.
+9. **The free simulation is the one exception** (`free: true` in the config): all lab parameters, no gate, no control limit, no helpers or readouts. Its bearing friction is the only on/off *parameter* and therefore a switch ("Lagerreibung", off at the start), not a two-position slider.
 
 
 ## 6 The six embeds
@@ -112,11 +115,12 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 | Embed (page) | Target | Preset essentials | Controls | Gate |
 |---|---|---|---|---|
 | `p1-explore` (p1-setup 3/3) | the phenomenon without theory: with the weight the gyroscope doesn't tip but turns sideways, the slower the wheel the faster | lab, 400 rpm, **0 g** (the "before" of the prediction question), guided, no helpers | Zusatzgewicht 0/30 g, Drehzahl 150–800 | weight on + 2 rpm |
-| `p2-vectors` (p2-rotation 2/3) | L⃗ and ω⃗ along the axis, same direction, ∝ rpm | top, 2400 rpm, 60°, L, ω, labels | Drehzahl 1500–3000 | 2 rpm |
+| `p2-vectors` (p2-rotation 2/3) | L⃗ and ω⃗ along the axis, same direction, ∝ rpm | top, 2400 rpm, 60°, L, ω, labels | Drehzahl 1500–3000, Zeitlupe (slower precession makes the arrows easier to compare; same top as p4) | 2 rpm |
 | `p4-axes` (p4-gyroscope 2/3) | figure axis, L⃗ and ω⃗ are three directions when the axis moves; they close in with more spin | top, 1000 rpm, 60°, `pushPhiDot` 4 then `Push`, Zeitlupe 0.25, L, ω, figure axis, labels | Drehzahl 1000–3000, Zeitlupe | 2 rpm |
 | `p5-precession` (p5 3/3) | ω_P ∝ 1/ω_R, independent of θ; D⃗ horizontal, ⊥ L⃗ | lab, 400 rpm, 30 g, 90°, guided (steady readout), L, D, vertical axis, precession cone, labels; ω⃗ off (on top of L⃗ for a fast gyroscope) | Drehzahl, Zusatzgewicht 10–60 g, Neigung 60–120° | 2 rpm + 2 θ₀ |
 | `p6-nutation` (p6 3/3) | the lab's step 6: nutation of the balanced gyroscope after a push; more spin → faster, narrower; the three cones of Bild 4.2 | lab, 0 g, 200 rpm, still until the first Stoß (`pushThetaDot` 2), L, figure axis, Nutationskegel, labels | Drehzahl 150–600, Zeitlupe, Stoß; switches per cone | a push at 2 rpm |
 | `p7-release` (p7-measurement 2/3) | released: dip and cusps; guided: smooth precession (why the script says "guide it in gently") | lab, 250 rpm, 40 g, released, trail only | Loslassen, Geführt starten | both modes |
+| `free-lab` (target page) | free experimenting, the experiment as seen in the lab | lab, 400 rpm, 30 g, 90°, guided, `pushThetaDot` 2, nothing shown | Drehzahl, Zusatzgewicht 0–60 g, Neigung, Zeitlupe; Lagerreibung switch; Stoß, Loslassen, Geführt starten | none |
 
 Choices that came from measurements (2026-10-30, test page and headless Chrome):
 - `TOP_MIN_RPM = 1000` (p4): with the sideways push the top *rises* (60° → 30° at 1000 rpm); slider changes mid-run reach at most 85.6° (2000 random sequences), inside the top's 20–100°.
@@ -125,7 +129,7 @@ Choices that came from measurements (2026-10-30, test page and headless Chrome):
 - p5: ω_P 0.203 rad/s at 400 rpm, 0.101 at 800, unchanged at 70°.
 - p6 variant chosen: balanced + Stoß (the lab's experiment, the only way to show the cones), not "released with weight" (that is p7's topic).
 
-Unused on purpose: friction (sub-page 1 of p7 has no sim), `precessionArc` and `precessionVector` (rejected), any T_N or I-ratio readout.
+Unused on purpose: friction on the learning pages (sub-page 1 of p7 has no sim; only the free simulation has it), `precessionArc` and `precessionVector` (rejected), any T_N or I-ratio readout. The free simulation adds no spoiler risk beyond p6: timing the nutation with a phone stopwatch was already possible there.
 
 
 ## 7 Pitfalls and lessons
@@ -143,7 +147,7 @@ Unused on purpose: friction (sub-page 1 of p7 has no sim), `precessionArc` and `
 
 ## 8 Reusing this for another module or simulation
 
-Generic and reusable as they are: `SimEmbed` (loading, failure, gate recording), `SimPanel` (slider / switch / button rows, readouts, Pause/Zurücksetzen), `SimGateService`, the greyed-out gated "Weiter", `tools/fetch-sim.sh` with `sim.version` and the release flow (README), the deploy step.
+Generic and reusable as they are: `SimEmbed` (loading, failure, gate recording), `SimPanel` (slider / switch / button rows, readouts, Pause/Zurücksetzen), `SimGateService`, the greyed-out gated "Weiter", `VisitedPages` with the nav-bar rule (any linear module), `tools/fetch-sim.sh` with `sim.version` and the release flow (README), the deploy step.
 
 To adapt: the message `source` names, the state fields and commands (`SimState`, `SimCommand`, `SET_COMMAND`), the readouts, and `sim-presets.ts`. On the Unity side the pattern is: a bridge MonoBehaviour with one method per command, a `.jslib` that posts JSON to `window.parent`, a WebGL template that checks origin and allowlist and queues commands until Unity runs, `ApplyPreset` as a complete state with explicit defaults, a run counter (and a segment counter if parameters can change without a restart).
 
@@ -165,7 +169,6 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 
 ## 10 Open items
 
-- **Versuchsanleitung PDF missing:** the target page links `frontend/src/assets/target/Versuchsanleitung_Kreiselpraezession.pdf`, which doesn't exist (dead download).
 - **Spoiler check (Carlo):** question `p5-precession-4-steigung` asks for the slope m_z g r / I of ω_P vs. 1/ω_R. Remove it if it's too much help for the Auswertung.
 - **Physics details not verifiable from the material** (Carlo to confirm): pendulum part (wheel clamped, pendulum weight screwed in, two opposite positions because of unbalance); light barrier one interruption per turn; the notch side of the add-on weight; the reason for timing half a precession turn (`measureText1b` gives only the friction argument); nutation measured on the balanced gyroscope.
 - **Sim polish:** p7's trail (thin light grey on the light stage) has weak contrast; the mouse wheel over the sim zooms instead of scrolling the page; no touch rotation on phones/tablets; p4 at 1000 rpm: the disk can hide the short arrows in some phases (re-check with the new camera); the Push sign quirk; `precessionArc`/`precessionVector` can be deleted sim-side.

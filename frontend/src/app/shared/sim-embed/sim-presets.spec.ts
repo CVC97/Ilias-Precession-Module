@@ -8,7 +8,7 @@ describe('SIM_PRESETS', () => {
 
     it('has one entry per embed, keyed by its id', () => {
         expect(entries.map(([key]) => key)).toEqual(
-            ['p1-explore', 'p2-vectors', 'p4-axes', 'p5-precession', 'p6-nutation', 'p7-release']);
+            ['p1-explore', 'p2-vectors', 'p4-axes', 'p5-precession', 'p6-nutation', 'p7-release', 'free-lab']);
         for (const [key, config] of entries) expect(config.id).toBe(key);
     });
 
@@ -49,34 +49,45 @@ describe('SIM_PRESETS', () => {
         }
     });
 
-    // switches only show or hide helpers and don't count
-    it('offers at most three controls that change the experiment per page', () => {
-        for (const [, config] of entries) {
+    // switches only show or hide helpers and don't count; the free simulation offers everything on purpose
+    it('offers at most three controls that change the experiment per learning page', () => {
+        for (const [, config] of entries.filter(([, c]) => !c.free)) {
             expect(config.controls.filter(c => c.kind !== 'switch').length).toBeLessThanOrEqual(3);
         }
     });
 
+    it('gates every learning page, and only those', () => {
+        for (const [, config] of entries) {
+            expect(!!config.gate).toBe(!config.free);
+            expect(!!config.gateHint).toBe(!config.free);
+        }
+    });
+
+    it('shows nothing but the apparatus in the free simulation', () => {
+        expect(Object.values(SIM_PRESETS['free-lab'].preset.show).every(on => !on)).toBe(true);
+    });
+
     it('releases p1 only after two rpm values with the weight on', () => {
-        const gate = SIM_PRESETS['p1-explore'].gate;
+        const gate = SIM_PRESETS['p1-explore'].gate!;
         expect(gate([run({ rpm: 400 }), run({ rpm: 300 })])).toBe(false);
         expect(gate([run({ rpm: 400 }), run({ rpm: 400, addOnMassGrams: 30 })])).toBe(false);
         expect(gate([run({ rpm: 400, addOnMassGrams: 30 }), run({ rpm: 300, addOnMassGrams: 30 })])).toBe(true);
     });
 
     it('releases p5 only after two rpm and two tilt values', () => {
-        const gate = SIM_PRESETS['p5-precession'].gate;
+        const gate = SIM_PRESETS['p5-precession'].gate!;
         expect(gate([run({ rpm: 400 }), run({ rpm: 300 })])).toBe(false);
         expect(gate([run({ rpm: 400 }), run({ rpm: 300 }), run({ rpm: 300, theta0Deg: 70 })])).toBe(true);
     });
 
     it('releases p6 only after pushes at two rpm values', () => {
-        const gate = SIM_PRESETS['p6-nutation'].gate;
+        const gate = SIM_PRESETS['p6-nutation'].gate!;
         expect(gate([run({ rpm: 200, pushes: 3 }), run({ rpm: 400 })])).toBe(false);
         expect(gate([run({ rpm: 200, pushes: 1 }), run({ rpm: 400, pushes: 1 })])).toBe(true);
     });
 
     it('releases p7 only after both start modes', () => {
-        const gate = SIM_PRESETS['p7-release'].gate;
+        const gate = SIM_PRESETS['p7-release'].gate!;
         expect(gate([run({ startMode: 'released' }), run({ startMode: 'released' })])).toBe(false);
         expect(gate([run({ startMode: 'released' }), run({ startMode: 'guided' })])).toBe(true);
     });

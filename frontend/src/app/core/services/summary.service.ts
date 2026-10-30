@@ -89,7 +89,7 @@ export class SummaryService {
         '/learning/p6-nutation':                                        '[6] Nutation',
         '/learning/p7-measurement':                                     '[7] Messstrategie und Fehlerquellen',
 
-        '/target/tar-precession':                                       '[Tar] Anleitung Kreiselpräzession',
+        '/target/tar-precession':                                       '[Tar] Abschluss Kreiselpräzession',
     };
 
     constructor(

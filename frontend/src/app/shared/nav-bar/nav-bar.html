@@ -7,8 +7,8 @@
         <!-- Startseite -->
         <button class="nav-endpoint-btn"
             [class.nav-endpoint-active]="activeSegment === 'home'"
-            [class.nav-endpoint-btn-dev]="devMode.isEnabled"
-            [class.nav-endpoint-dev]="isAnleitungClickable"
+            [class.nav-endpoint-btn-dev]="isHomeClickable"
+            [class.nav-endpoint-dev]="isHomeClickable"
             (click)="goHome()">
             Startseite
         </button>
@@ -17,7 +17,7 @@
         <button class="nav-endpoint-btn"
             [class.nav-endpoint-active]="activeSegment === 'glossary'"
             [class.nav-endpoint-btn-dev]="devMode.isEnabled"
-            [class.nav-endpoint-dev]="isAnleitungClickable"
+            [class.nav-endpoint-dev]="devMode.isEnabled"
             (click)="goGlossary()">
             Glossar
         </button>   
@@ -37,13 +37,13 @@
             </div>
         </div>
 
-        <!-- Anleitung -->
+        <!-- Abschluss (target page) -->
         <button class="nav-endpoint-btn"
-            [class.nav-endpoint-active]="activeSegment === 'anleitung'"
-            [class.nav-endpoint-btn-dev]="devMode.isEnabled"
-            [class.nav-endpoint-dev]="isAnleitungClickable"
-            (click)="goAnleitung()">
-            Anleitung
+            [class.nav-endpoint-active]="activeSegment === 'target'"
+            [class.nav-endpoint-btn-dev]="isTargetClickable"
+            [class.nav-endpoint-dev]="isTargetClickable"
+            (click)="goTarget()">
+            Abschluss
         </button>
 
     </div>
@@ -51,16 +51,16 @@
 
 <ng-template #segmentBlock let-seg>
     <button class="seg-btn"
-        [class.seg-btn-dev]="devMode.isEnabled"
+        [class.seg-btn-dev]="canOpenSegment(seg)"
         [ngClass]="getSegmentClass(seg)"
         (click)="onSegmentClick(seg)">
         {{ seg.label }}
     </button>
     @if (activeSegment === seg.id) {
-        <div class="seg-dropdown" [class.seg-dropdown-locked]="!devMode.isEnabled">
+        <div class="seg-dropdown">
             @for (sub of seg.subpages; track sub.route + (sub.queryParams?.['page'] ?? '')) {
                 <button class="sub-btn"
-                    [class.sub-btn-dev]="devMode.isEnabled"
+                    [class.sub-btn-dev]="canOpen(sub)"
                     [class.sub-btn-active]="isSubpageActive(sub)"
                     (click)="navigateToSubpage(sub)">
                     {{ sub.label }}

@@ -59,5 +59,6 @@ export const measureText3a = `
 `;
 
 export const measureText3b = `
-    Damit sind Sie gut vorbereitet. Auf der nächsten Seite finden Sie die Versuchsanleitung und eine Zusammenfassung Ihres Lernwegs.
+    Damit sind Sie gut vorbereitet. Auf der nächsten Seite können Sie den Versuch in der Simulation noch einmal frei ausprobieren
+    und finden eine Zusammenfassung Ihres Lernwegs.
 `;

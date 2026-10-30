@@ -60,12 +60,15 @@ export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
 };
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
-// sliders (also two-valued ones like the weight on p1); switches only show or hide helpers.
+// sliders (also two-valued ones like the weight on p1); switches show or hide helpers, the one
+// exception is the on/off bearing friction of the free simulation.
 // alsoShows: flags that are on while at least one switch naming them is on (p6: ω with either cone it touches).
 // Pause is on every panel, Zurücksetzen on panels with a slider or switch; neither is listed here.
+export type SimShowSwitch = { kind: 'switch'; show: SimShowFlag[]; label: string; alsoShows?: SimShowFlag[] };
 export type SimControl =
     | { kind: 'slider'; key: SimNumberKey; label: string; unit: string; min: number; max: number; step: number }
-    | { kind: 'switch'; show: SimShowFlag[]; label: string; alsoShows?: SimShowFlag[] }
+    | SimShowSwitch
+    | { kind: 'switch'; setting: 'friction'; label: string }
     | { kind: 'button'; label: string; action: 'push' | SimStartMode };
 
 export type SimReadout = 'omegaR' | 'omegaP';
@@ -88,8 +91,9 @@ export interface SimEmbedConfig {
     afterPreset?: SimCommand[];         // sent right after every ApplyPreset
     controls: SimControl[];
     readouts?: SimReadout[];
-    gate: (runs: SimRunRecord[]) => boolean;
-    gateHint: string;                   // shown below the panel until the gate is reached
+    gate?: (runs: SimRunRecord[]) => boolean;      // none: nothing to unlock (the free simulation)
+    gateHint?: string;                  // shown below the panel until the gate is reached
+    free?: boolean;                     // free experimenting: all parameters, no limit on the number of controls
 }
 
 
@@ -137,6 +141,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         },
         controls: [
             { kind: 'slider', key: 'rpm', label: 'Drehzahl', unit: 'U/min', min: 1500, max: 3000, step: 100 },
+            ZEITLUPE_SLIDER,
         ],
         gate: (runs) => distinct(runs.map(r => r.rpm)) >= 2,
         gateHint: 'Weiter geht es, sobald Sie mindestens zwei Drehzahlen ausprobiert haben.',
@@ -211,5 +216,27 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         ],
         gate: (runs) => distinct(runs.map(r => r.startMode)) >= 2,
         gateHint: 'Weiter geht es, sobald Sie den Kreisel einmal losgelassen und einmal geführt gestartet haben.',
+    },
+    // end of the path: the lab experiment as the students will see it, every parameter, no helpers, no gate
+    'free-lab': {
+        id: 'free-lab',
+        page: '/target/tar-precession',
+        learningTarget: 'Freies Experimentieren am Versuchskreisel, ohne Pfeile, Kegel und Beschriftungen.',
+        preset: {
+            apparatus: 'lab', rpm: 400, addOnMassGrams: 30, theta0Deg: 90, startMode: 'guided',
+            pushThetaDot: 2, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            show: { ...HIDE_ALL },
+        },
+        controls: [
+            RPM_SLIDER_LAB,
+            { kind: 'slider', key: 'addOnMassGrams', label: 'Zusatzgewicht', unit: 'g', min: 0, max: 60, step: 10 },
+            { kind: 'slider', key: 'theta0Deg', label: 'Neigung θ<sub>0</sub>', unit: '°', min: 60, max: 120, step: 10 },
+            ZEITLUPE_SLIDER,
+            { kind: 'switch', setting: 'friction', label: 'Lagerreibung' },
+            { kind: 'button', label: 'Stoß', action: 'push' },
+            { kind: 'button', label: 'Loslassen', action: 'released' },
+            { kind: 'button', label: 'Geführt starten', action: 'guided' },
+        ],
+        free: true,
     },
 };

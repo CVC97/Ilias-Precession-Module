@@ -4,7 +4,7 @@ Lernmodul zum Experiment "Kreiselpräzession" (Versuch 4) des Grundpraktikums zu
 
 Students reach the module through ILIAS. It prepares them for the lab session in one linear path: the setup, the physics of rotation (angular velocity, angular momentum and torque as vectors), the physical pendulum, the gyroscope, precession, nutation and the measurement strategy. It ends with the experiment guide and a personal summary of the learning path.
 
-<!-- The infrastructure (ILIAS bridge, PHP API, MySQL tracking, summary and HTML report) is taken from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module) of the same group. Compared to it, this module has one linear path instead of two strands, no decision pages and no scored tests. A 3D Unity simulation of the gyroscope (separate repository `ilias-precession-simulation`) is embedded on six pages. -->
+<!-- The infrastructure (ILIAS bridge, PHP API, MySQL tracking, summary and HTML report) is taken from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module) of the same group. Compared to it, this module has one linear path instead of two strands, no decision pages and no scored tests. A 3D Unity simulation of the gyroscope (separate repository `ilias-precession-simulation`) is embedded on six learning pages and, for free experimenting, on the target page. -->
 
 The project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.4, with strong help of Claude (Opus).
 
@@ -87,7 +87,7 @@ design_notes.md                                 // decisions and their reasons, 
                 ├── glossary/                   // glossary index
                 ├── glossary_features/          // one component per glossary term
                 ├── learning_features/          // p1–p7 learning pages
-                └── target_features/            // tar-precession: guide download + summary
+                └── target_features/            // tar-precession: free simulation + summary
 ```
 
 
@@ -224,7 +224,7 @@ Conventions: routes `learning/p<n>-<name>`, tracking IDs `p<n>-<name>-module`, q
 
 ### Learning Path
 
-One linear path of seven segments, followed by the target page. Questions are retryable and tracked.
+One linear path of seven segments, followed by the target page. Questions are retryable and tracked. In the nav-bar every page already visited can be opened again (`core/services/visited-pages.ts`, also from the saved progress of a registered user); dev mode opens all.
 
 - **p1-setup** → `/learning/p1-setup` — Einstieg: Versuchsaufbau (3 pages)
 
@@ -313,23 +313,24 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 ### Target Feature
 
-- **tar-precession** → `/target/tar-precession` — Versuchsanleitung (`assets/target/Versuchsanleitung_Kreiselpraezession.pdf`) and the personal Lernpfad summary, downloadable as an HTML report.
+- **tar-precession** → `/target/tar-precession` — "Abschluss": the free simulation (`free-lab`, see below) and the personal Lernpfad summary, downloadable as an HTML report. There is no Versuchsanleitung download.
 
 
 ### Simulation
 
-The Unity simulation ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), module build) runs in an iframe from `<base>/sim/` (same origin) on six sub-pages. `SimEmbed` talks to it with `postMessage`: it sends the page's preset, keeps a loading overlay until that preset runs, and records every run for the page's gate; the "Weiter" button of that sub-page stays greyed out until the gate rule is met (dev mode and a failed sim load release it). All presets, controls, readouts and gate rules are in `shared/sim-embed/sim-presets.ts`.
+The Unity simulation ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), module build) runs in an iframe from `<base>/sim/` (same origin) on six learning sub-pages and the target page. `SimEmbed` talks to it with `postMessage`: it sends the page's preset, keeps a loading overlay until that preset runs, and records every run for the page's gate; the "Weiter" button of that sub-page stays greyed out until the gate rule is met (dev mode and a failed sim load release it). All presets, controls, readouts and gate rules are in `shared/sim-embed/sim-presets.ts`.
 
 Every panel has the page's sliders in the first row, switches (only for helpers) below them, and a button row at the bottom with the page's buttons plus **Pause/Weiter** and, where there is a slider or switch, **Zurücksetzen** (back to the page's start values). From sim release `module-sim-v1.1.0` on, a slider change continues the running gyroscope instead of putting it back to its start pose.
 
 | Preset | Page | Purpose | Controls | Gate |
 |---|---|---|---|---|
 | `p1-explore` | p1-setup (3/3) | first contact: the weight makes the axis turn sideways | Zusatzgewicht (0/30 g), Drehzahl | weight on + 2 rpm |
-| `p2-vectors` | p2-rotation (2/3) | L and ω along the axis (simple top) | Drehzahl | 2 rpm |
+| `p2-vectors` | p2-rotation (2/3) | L and ω along the axis (simple top) | Drehzahl, Zeitlupe | 2 rpm |
 | `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart (simple top) | Drehzahl, Zeitlupe | 2 rpm |
 | `p5-precession` | p5-precession (3/3) | ω_P ∝ 1/ω_R, independent of θ; readouts ω_R, ω_P | Drehzahl, Zusatzgewicht, Neigung | 2 rpm + 2 θ₀ |
 | `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Drehzahl, Zeitlupe, Stoß; one switch per cone (ω⃗ with Rast-/Gangpolkegel) | push at 2 rpm |
 | `p7-release` | p7-measurement (2/3) | released vs. guided start | Loslassen, Geführt starten | both modes |
+| `free-lab` | target page | free experimenting with the lab gyroscope, no helpers or readouts | Drehzahl, Zusatzgewicht, Neigung, Zeitlupe, Lagerreibung (switch), Stoß, Loslassen, Geführt starten | none |
 
 #### Updating the simulation
 
