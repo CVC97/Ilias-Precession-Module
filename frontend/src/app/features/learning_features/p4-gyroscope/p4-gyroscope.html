@@ -43,7 +43,7 @@
                 <div>
                     <p [innerHTML]="gyroText2a"></p>
 
-                    <app-sim-placeholder presetId="p4-axes"></app-sim-placeholder>
+                    <app-sim-embed presetId="p4-axes"></app-sim-embed>
 
                     <p [innerHTML]="gyroText2b"></p>
                     <div class="learning-lamp">
@@ -101,7 +101,9 @@
             @if (isLastPage) {
                 <button class="btn" (click)="goForward()">Weiter zur Präzession →</button>
             } @else {
-                <button class="btn" (click)="goForward()">Weiter →</button>
+                <!-- on sub-page 2: released by the simulation's gate (SIM_PRESETS['p4-axes'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="currentView === 'gyro2' && !(simGate.isReached('p4-axes') || devMode.isEnabled)">Weiter →</button>
             }
         </div>
     </div>

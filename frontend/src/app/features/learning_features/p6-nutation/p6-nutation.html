@@ -66,7 +66,7 @@
                     <p [innerHTML]="nutationText3a"></p>
                     <p [innerHTML]="nutationText3b"></p>
 
-                    <app-sim-placeholder presetId="p6-nutation"></app-sim-placeholder>
+                    <app-sim-embed presetId="p6-nutation"></app-sim-embed>
 
                     <app-single-choice
                         [questionId]="question3.questionId"
@@ -98,7 +98,9 @@
             }
 
             @if (isLastPage) {
-                <button class="btn" (click)="goForward()">Weiter zur Messstrategie →</button>
+                <!-- released by the simulation's gate (SIM_PRESETS['p6-nutation'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="!(simGate.isReached('p6-nutation') || devMode.isEnabled)">Weiter zur Messstrategie →</button>
             } @else {
                 <button class="btn" (click)="goForward()">Weiter →</button>
             }

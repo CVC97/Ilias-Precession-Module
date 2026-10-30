@@ -7,10 +7,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multiple-choice';
 import { SingleChoice } from '../../../shared/evaluation/single-choice/single-choice';
 import { ImageChoice } from '../../../shared/evaluation/image-choice/image-choice';
-import { SimPlaceholder } from '../../../shared/sim-placeholder/sim-placeholder';
+import { SimEmbed } from '../../../shared/sim-embed/sim-embed';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { GlossaryOverlay } from '../../../shared/glossary-overlay/glossary-overlay.service';
 import { DevModeService } from '../../../core/services/dev-mode';
+import { SimGateService } from '../../../core/services/sim-gate';
 import * as p2Questions from './p2-rotation-questions';
 import * as p2Content from './p2-rotation-content';
 
@@ -18,7 +19,7 @@ import * as p2Content from './p2-rotation-content';
 
 @Component({
 	selector: 'app-p2-rotation',
-	imports: [CommonModule, MultipleChoice, SingleChoice, ImageChoice, SimPlaceholder],
+	imports: [CommonModule, MultipleChoice, SingleChoice, ImageChoice, SimEmbed],
 	templateUrl: './p2-rotation.html',
 	styleUrl: './p2-rotation.css',
 })
@@ -30,7 +31,8 @@ export class P2Rotation implements OnInit, AfterViewInit, OnDestroy {
         private router: Router,
 		private trackingService: ResultsTracking,
         public glossaryOverlay: GlossaryOverlay,
-        public devMode: DevModeService
+        public devMode: DevModeService,
+        public simGate: SimGateService
     ) {}
 
     private mathJaxTimeout: ReturnType<typeof setTimeout> | null = null;

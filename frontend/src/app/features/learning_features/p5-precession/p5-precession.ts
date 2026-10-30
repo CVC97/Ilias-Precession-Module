@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multiple-choice';
 import { SingleChoice } from '../../../shared/evaluation/single-choice/single-choice';
-import { SimPlaceholder } from '../../../shared/sim-placeholder/sim-placeholder';
+import { SimEmbed } from '../../../shared/sim-embed/sim-embed';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { GlossaryOverlay } from '../../../shared/glossary-overlay/glossary-overlay.service';
 import { DevModeService } from '../../../core/services/dev-mode';
+import { SimGateService } from '../../../core/services/sim-gate';
 import * as p5Questions from './p5-precession-questions';
 import * as p5Content from './p5-precession-content';
 
@@ -17,7 +18,7 @@ import * as p5Content from './p5-precession-content';
 
 @Component({
 	selector: 'app-p5-precession',
-	imports: [CommonModule, MultipleChoice, SingleChoice, SimPlaceholder],
+	imports: [CommonModule, MultipleChoice, SingleChoice, SimEmbed],
 	templateUrl: './p5-precession.html',
 	styleUrl: './p5-precession.css',
 })
@@ -29,7 +30,8 @@ export class P5Precession implements OnInit, AfterViewInit, OnDestroy {
         private router: Router,
 		private trackingService: ResultsTracking,
         public glossaryOverlay: GlossaryOverlay,
-        public devMode: DevModeService
+        public devMode: DevModeService,
+        public simGate: SimGateService
     ) {}
 
     private mathJaxTimeout: ReturnType<typeof setTimeout> | null = null;

@@ -6,10 +6,11 @@ import { Subscription } from 'rxjs';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multiple-choice';
 import { SingleChoice } from '../../../shared/evaluation/single-choice/single-choice';
-import { SimPlaceholder } from '../../../shared/sim-placeholder/sim-placeholder';
+import { SimEmbed } from '../../../shared/sim-embed/sim-embed';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { GlossaryOverlay } from '../../../shared/glossary-overlay/glossary-overlay.service';
 import { DevModeService } from '../../../core/services/dev-mode';
+import { SimGateService } from '../../../core/services/sim-gate';
 import * as p6Questions from './p6-nutation-questions';
 import * as p6Content from './p6-nutation-content';
 
@@ -17,7 +18,7 @@ import * as p6Content from './p6-nutation-content';
 
 @Component({
 	selector: 'app-p6-nutation',
-	imports: [CommonModule, MultipleChoice, SingleChoice, SimPlaceholder],
+	imports: [CommonModule, MultipleChoice, SingleChoice, SimEmbed],
 	templateUrl: './p6-nutation.html',
 	styleUrl: './p6-nutation.css',
 })
@@ -29,7 +30,8 @@ export class P6Nutation implements OnInit, AfterViewInit, OnDestroy {
         private router: Router,
 		private trackingService: ResultsTracking,
         public glossaryOverlay: GlossaryOverlay,
-        public devMode: DevModeService
+        public devMode: DevModeService,
+        public simGate: SimGateService
     ) {}
 
     private mathJaxTimeout: ReturnType<typeof setTimeout> | null = null;
