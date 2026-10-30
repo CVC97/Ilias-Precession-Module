@@ -59,6 +59,16 @@ jobs:
         run: npm ci
         working-directory: frontend
 
+      # ── Step 3b: Fetch the Unity simulation ───────────────────────────────
+      # The sim build (~18 MB) is not in this repo. sim.version names a release
+      # of the simulation repo; the script downloads its ModuleWeb.zip into
+      # frontend/public/sim/, and ng build copies it to <base>/sim/ like any
+      # other asset — so it is part of the upload below, and the mirror's
+      # --delete doesn't remove it. If the release doesn't exist, the job stops
+      # here and nothing is deployed.
+      - name: Fetch simulation build
+        run: bash tools/fetch-sim.sh
+
       # ── Step 4: Inject build timestamp ────────────────────────────────────
       # Before compiling, replace the placeholder string in build-info.ts with
       # the current UTC time. 'date -u' runs on the GitHub runner VM, so it
