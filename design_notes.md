@@ -88,7 +88,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 - **`SetHelpers`** is partial (only the named flags), no restart.
 - **`SetApparatus`, `SetStartMode`, `Restart`** restart the run (`run` + 1, trail cleared, `time` from 0).
 - **`SetRpm`, `SetAddOnMassGrams`, `SetTheta0Deg` continue the run** (from v1.1.0; Carlo: a slider must not put the gyroscope back to its start pose). The model is rebuilt with the new values and takes over the state: azimuth φ, wheel angle ψ, θ̇; a new θ₀ tilts the axle at its current azimuth. In guided mode φ̇ shifts by the change of the steady precession rate, so a calm precession stays calm (p5's ω_P is steady at once) and nodding keeps its deviation (p6's nutation goes on after an rpm change, faster and narrower). `segment` + 1, `time` and trail go on. The module records gate entries and restarts the ω_P average per `segment` (falling back to `run` for older builds, where these commands restarted).
-- **`SetTimeScale`, `SetPaused`, `SetFriction`**: no restart. `time` is simulated time (stops while paused, slows in slow motion).
+- **`SetTimeScale`, `SetPaused`, `SetFriction`**: no restart. `time` is simulated time (stops while paused, slows in slow motion). `SetFriction` takes a factor of the apparatus' lab friction (τ = 120 s; 0 = none, 1 = what the old on/off switch gave), the preset key is `frictionFactor` (from `module-sim-v1.2.0`; older sims ignore the key and read the command's value as on above 0.5).
 - **`Push`** (Stoß) changes θ̇ and φ̇ at that moment with the strengths of the last preset (`pushThetaDot`, `pushPhiDot`); there is no command to change them alone. Sent right after `ApplyPreset` it hits the new run (p4).
 - **Start modes:** *guided* starts in steady precession (φ̇₀ = steady rate, almost no nodding); *released* starts with the axle at rest (dips ∝ m_z/ω_R², cusps in the trail). Too slow for steady precession, guided silently falls back to released.
 - **Readouts:** `phiDeg` is continuous (not wrapped); `omegaP` is instantaneous (average it via `phiDeg`/`time`); `spinLimited` means the drawn spin is slower than the real one (hint "Darstellung der Raddrehung verlangsamt").
@@ -107,7 +107,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 6. **Sliders that change the run send on release**; the Zeitlupe slider follows while dragging.
 7. **Explanations stay in the page text** (German, MathJax, tracked); the sim shows symbols only. Readouts only where the task needs a number (only p5: ω_R and the averaged ω_P; no T_P and no product, so students find ω_P ∝ 1/ω_R themselves).
 8. **Gate:** the sub-page's "Weiter" is shown greyed out until the gate rule holds, **never hidden** (Carlo; also applied to the Pohl module). A short italic hint under the panel says what's needed. Dev mode and a failed load release it.
-9. **The free simulation is the one exception** (`free: true` in the config): all lab parameters, no gate, no control limit, no helpers or readouts. Its bearing friction is the only on/off *parameter* and therefore a switch ("Lagerreibung", off at the start), not a two-position slider.
+9. **The free simulation is the one exception** (`free: true` in the config): all lab parameters, no gate, no control limit, no helpers or readouts. Its bearing friction is a slider like every parameter ("Lagerreibung", 0–5 × the lab value, 0 at the start; Carlo replaced the earlier on/off switch); like Zeitlupe it acts while dragging.
 
 
 ## 6 The six embeds
@@ -120,7 +120,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 | `p5-precession` (p5 3/3) | ω_P ∝ 1/ω_R, independent of θ; D⃗ horizontal, ⊥ L⃗ | lab, 400 rpm, 30 g, 90°, guided (steady readout), L, D, vertical axis, precession cone, labels; ω⃗ off (on top of L⃗ for a fast gyroscope) | Drehzahl, Zusatzgewicht 10–60 g, Neigung 60–120° | 2 rpm + 2 θ₀ |
 | `p6-nutation` (p6 3/3) | the lab's step 6: nutation of the balanced gyroscope after a push; more spin → faster, narrower; the three cones of Bild 4.2 | lab, 0 g, 200 rpm, still until the first Stoß (`pushThetaDot` 2), L, figure axis, Nutationskegel, labels | Drehzahl 150–600, Zeitlupe, Stoß; switches per cone | a push at 2 rpm |
 | `p7-release` (p7-measurement 2/3) | released: dip and cusps; guided: smooth precession (why the script says "guide it in gently") | lab, 250 rpm, 40 g, released, trail only | Loslassen, Geführt starten | both modes |
-| `free-lab` (target page) | free experimenting, the experiment as seen in the lab | lab, 400 rpm, 30 g, 90°, guided, `pushThetaDot` 2, nothing shown | Drehzahl, Zusatzgewicht 0–60 g, Neigung, Zeitlupe; Lagerreibung switch; Stoß, Loslassen, Geführt starten | none |
+| `free-lab` (target page) | free experimenting, the experiment as seen in the lab | lab, 400 rpm, 30 g, 90°, guided, `pushThetaDot` 2, nothing shown | Drehzahl, Zusatzgewicht 0–60 g, Neigung, Zeitlupe, Lagerreibung 0–5 ×; Stoß, Loslassen, Geführt starten | none |
 
 Choices that came from measurements (2026-10-30, test page and headless Chrome):
 - `TOP_MIN_RPM = 1000` (p4): with the sideways push the top *rises* (60° → 30° at 1000 rpm); slider changes mid-run reach at most 85.6° (2000 random sequences), inside the top's 20–100°.

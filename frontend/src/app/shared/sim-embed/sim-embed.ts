@@ -233,12 +233,6 @@ export class SimEmbed implements OnInit, OnDestroy {
         this.send('SetHelpers', Object.fromEntries([...flags, ...extras].map(f => [f, show[f]])));
     }
 
-    // no restart: the spin starts to decay (or stops decaying) from where it is
-    setFriction(on: boolean) {
-        this.current.update(p => ({ ...p!, friction: on }));
-        this.send('SetFriction', on);
-    }
-
     setStartMode(mode: SimStartMode) {
         this.current.update(p => ({ ...p!, startMode: mode }));
         this.send('SetStartMode', mode);

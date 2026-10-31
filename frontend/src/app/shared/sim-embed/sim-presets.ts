@@ -23,7 +23,7 @@ export interface SimPreset {
     startMode: SimStartMode;
     pushThetaDot: number;               // strength of "Push" in rad/s (up/down) …
     pushPhiDot: number;                 // … and sideways
-    friction: boolean;
+    frictionFactor: number;             // Lagerreibung, × the lab value (τ = 120 s), 0 = none
     timeScale: number;
     paused: boolean;
     show: SimShow;
@@ -50,25 +50,25 @@ export type SimCommand =
     'SetTheta0Deg' | 'SetFriction' | 'SetTimeScale' | 'SetPaused' | 'Restart' | 'Push';
 
 // preset keys a control may change, and the command that changes each one alone
-export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale';
+export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale' | 'frictionFactor';
 // none of them restarts: the gyroscope goes on from where it is (a new θ₀ tilts the axle at its azimuth)
 export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     rpm: 'SetRpm',
     addOnMassGrams: 'SetAddOnMassGrams',
     theta0Deg: 'SetTheta0Deg',
     timeScale: 'SetTimeScale',
+    frictionFactor: 'SetFriction',
 };
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
-// sliders (also two-valued ones like the weight on p1); switches show or hide helpers, the one
-// exception is the on/off bearing friction of the free simulation.
+// sliders (also two-valued ones like the weight on p1, and the bearing friction of the free simulation);
+// switches only show or hide helpers.
 // alsoShows: flags that are on while at least one switch naming them is on (p6: ω with either cone it touches).
 // Pause is on every panel, Zurücksetzen on panels with a slider or switch; neither is listed here.
 export type SimShowSwitch = { kind: 'switch'; show: SimShowFlag[]; label: string; alsoShows?: SimShowFlag[] };
 export type SimControl =
     | { kind: 'slider'; key: SimNumberKey; label: string; unit: string; min: number; max: number; step: number }
     | SimShowSwitch
-    | { kind: 'switch'; setting: 'friction'; label: string }
     | { kind: 'button'; label: string; action: 'push' | SimStartMode };
 
 export type SimReadout = 'omegaR' | 'omegaP';
@@ -120,7 +120,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'Phänomen ohne Theorie: mit Zusatzgewicht kippt der Kreisel nicht, sondern dreht sich seitwärts – je langsamer das Rad, desto schneller.',
         preset: {
             apparatus: 'lab', rpm: 400, addOnMassGrams: 0, theta0Deg: 90, startMode: 'guided',
-            pushThetaDot: 0, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 0, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL },
         },
         controls: [
@@ -136,7 +136,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'L und ω liegen auf der Drehachse, zeigen in dieselbe Richtung und wachsen proportional zur Drehzahl.',
         preset: {
             apparatus: 'top', rpm: 2400, addOnMassGrams: 0, theta0Deg: 60, startMode: 'guided',
-            pushThetaDot: 0, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 0, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL, L: true, omega: true, labels: true },
         },
         controls: [
@@ -152,7 +152,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'Figurenachse, L und ω sind verschiedene Richtungen, wenn sich die Achse bewegt; mit wachsender Drehzahl rücken L und ω an die Figurenachse.',
         preset: {
             apparatus: 'top', rpm: 1000, addOnMassGrams: 0, theta0Deg: 60, startMode: 'guided',
-            pushThetaDot: 0, pushPhiDot: 4, friction: false, timeScale: 0.25, paused: false,
+            pushThetaDot: 0, pushPhiDot: 4, frictionFactor: 0, timeScale: 0.25, paused: false,
             show: { ...HIDE_ALL, L: true, omega: true, labels: true, figureAxis: true },
         },
         afterPreset: ['Push'],
@@ -169,7 +169,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'ω_P ∝ 1/ω_R, ω_P unabhängig von θ, D waagrecht und senkrecht zu L (Zusatzgewicht statt Eigengewicht).',
         preset: {
             apparatus: 'lab', rpm: 400, addOnMassGrams: 30, theta0Deg: 90, startMode: 'guided',
-            pushThetaDot: 0, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 0, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL, L: true, D: true, labels: true, verticalAxis: true, precessionCone: true },
         },
         controls: [
@@ -187,7 +187,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'Nutation des ausbalancierten Kreisels nach einem Stoß (Nutationskegel um das raumfeste L); mehr Drehzahl: schneller und enger. Optional Rast- und Gangpolkegel.',
         preset: {
             apparatus: 'lab', rpm: 200, addOnMassGrams: 0, theta0Deg: 90, startMode: 'guided',
-            pushThetaDot: 2, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 2, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL, L: true, labels: true, figureAxis: true, nutationCone: true },
         },
         controls: [
@@ -207,7 +207,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'Losgelassen: die Achse sackt ab und nickt (Spitzen in der Bahn); geführt: gleichmäßige Präzession.',
         preset: {
             apparatus: 'lab', rpm: 250, addOnMassGrams: 40, theta0Deg: 90, startMode: 'released',
-            pushThetaDot: 0, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 0, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL, trail: true },
         },
         controls: [
@@ -224,7 +224,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
         learningTarget: 'Freies Experimentieren am Versuchskreisel, ohne Pfeile, Kegel und Beschriftungen.',
         preset: {
             apparatus: 'lab', rpm: 400, addOnMassGrams: 30, theta0Deg: 90, startMode: 'guided',
-            pushThetaDot: 2, pushPhiDot: 0, friction: false, timeScale: 1, paused: false,
+            pushThetaDot: 2, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
             show: { ...HIDE_ALL },
         },
         controls: [
@@ -232,7 +232,7 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
             { kind: 'slider', key: 'addOnMassGrams', label: 'Zusatzgewicht', unit: 'g', min: 0, max: 60, step: 10 },
             { kind: 'slider', key: 'theta0Deg', label: 'Neigung θ<sub>0</sub>', unit: '°', min: 60, max: 120, step: 10 },
             ZEITLUPE_SLIDER,
-            { kind: 'switch', setting: 'friction', label: 'Lagerreibung' },
+            { kind: 'slider', key: 'frictionFactor', label: 'Lagerreibung', unit: '×', min: 0, max: 5, step: 0.5 },
             { kind: 'button', label: 'Stoß', action: 'push' },
             { kind: 'button', label: 'Loslassen', action: 'released' },
             { kind: 'button', label: 'Geführt starten', action: 'guided' },

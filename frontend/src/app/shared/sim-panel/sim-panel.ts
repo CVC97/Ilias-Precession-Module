@@ -6,7 +6,7 @@ import { SimControl, SimNumberKey } from '../sim-embed/sim-presets';
 
 // Control panel below a SimEmbed: the page's sliders, switches and buttons from its
 // SIM_PRESETS entry, Pause (and Zurücksetzen if there is something to reset), the readouts, and the hints. Sliders that
-// restart the run send on release (change); the Zeitlupe slider sends while dragging.
+// change the run send on release (change); Zeitlupe and Lagerreibung send while dragging.
 @Component({
     selector: 'app-sim-panel',
     imports: [],
@@ -18,6 +18,9 @@ export class SimPanel {
 
     readonly draft = signal<Partial<Record<SimNumberKey, number>>>({});    // slider values while dragging
     readonly mouseHint = signal(false);                                     // no camera control on touch devices
+
+    // sliders that don't change the motion itself, only its pace or its slow decay
+    private static readonly LIVE_KEYS: SimNumberKey[] = ['timeScale', 'frictionFactor'];
 
     private readonly numberFormat = new Intl.NumberFormat('de-DE', { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
     private readonly sliderFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2, useGrouping: false });
@@ -44,8 +47,8 @@ export class SimPanel {
 
     onSliderInput(key: SimNumberKey, event: Event) {
         const value = Number((event.target as HTMLInputElement).value);
-        if (key === 'timeScale') {
-            this.embed.setValue(key, value);    // no restart: follow the slider
+        if (SimPanel.LIVE_KEYS.includes(key)) {
+            this.embed.setValue(key, value);    // the gyroscope just goes on: follow the slider
             return;
         }
         this.draft.update(d => ({ ...d, [key]: value }));
@@ -60,14 +63,13 @@ export class SimPanel {
     isOn(control: SimControl): boolean {
         const p = this.embed.current();
         if (!p || control.kind !== 'switch') return false;
-        return 'show' in control ? control.show.every(f => p.show[f]) : p.friction;
+        return control.show.every(f => p.show[f]);
     }
 
     onSwitch(control: SimControl, event: Event) {
         if (control.kind !== 'switch') return;
         const on = (event.target as HTMLInputElement).checked;
-        if ('show' in control) this.embed.setShow(control.show, on);
-        else this.embed.setFriction(on);
+        this.embed.setShow(control.show, on);
     }
 
     onButton(control: SimControl) {

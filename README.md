@@ -330,7 +330,7 @@ Every panel has the page's sliders in the first row, switches (only for helpers)
 | `p5-precession` | p5-precession (3/3) | ω_P ∝ 1/ω_R, independent of θ; readouts ω_R, ω_P | Drehzahl, Zusatzgewicht, Neigung | 2 rpm + 2 θ₀ |
 | `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Drehzahl, Zeitlupe, Stoß; one switch per cone (ω⃗ with Rast-/Gangpolkegel) | push at 2 rpm |
 | `p7-release` | p7-measurement (2/3) | released vs. guided start | Loslassen, Geführt starten | both modes |
-| `free-lab` | target page | free experimenting with the lab gyroscope, no helpers or readouts | Drehzahl, Zusatzgewicht, Neigung, Zeitlupe, Lagerreibung (switch), Stoß, Loslassen, Geführt starten | none |
+| `free-lab` | target page | free experimenting with the lab gyroscope, no helpers or readouts | Drehzahl, Zusatzgewicht, Neigung, Zeitlupe, Lagerreibung (slider, × the lab value), Stoß, Loslassen, Geführt starten | none |
 
 #### Updating the simulation
 
