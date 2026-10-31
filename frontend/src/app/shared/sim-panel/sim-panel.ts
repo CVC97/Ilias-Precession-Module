@@ -19,8 +19,8 @@ export class SimPanel {
     readonly draft = signal<Partial<Record<SimNumberKey, number>>>({});    // slider values while dragging
     readonly mouseHint = signal(false);                                     // no camera control on touch devices
 
-    // sliders that don't change the motion itself, only its pace or its slow decay
-    private static readonly LIVE_KEYS: SimNumberKey[] = ['timeScale', 'frictionFactor'];
+    // sliders that don't change the motion itself, only its pace, its slow decay or the next Stoß
+    private static readonly LIVE_KEYS: SimNumberKey[] = ['timeScale', 'frictionFactor', 'pushThetaDot'];
 
     private readonly numberFormat = new Intl.NumberFormat('de-DE', { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
     private readonly sliderFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2, useGrouping: false });

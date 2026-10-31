@@ -1,6 +1,7 @@
 <div class="sim-controls-panel sim-panel">
     @if (sliders.length) {
-        <div class="sim-controls" [class.sim-controls--pairs]="sliders.length === 4">
+        <div class="sim-controls" [class.sim-controls--pairs]="sliders.length === 4"
+            [class.sim-controls--triples]="sliders.length === 6">
             @for (c of sliders; track c.key) {
                 <div class="sim-controls-group">
                     <div class="sim-slider-label">

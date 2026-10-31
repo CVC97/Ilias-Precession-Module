@@ -47,10 +47,11 @@ export interface SimState {
 
 export type SimCommand =
     'ApplyPreset' | 'SetHelpers' | 'SetApparatus' | 'SetStartMode' | 'SetRpm' | 'SetAddOnMassGrams' |
-    'SetTheta0Deg' | 'SetFriction' | 'SetTimeScale' | 'SetPaused' | 'Restart' | 'Push';
+    'SetTheta0Deg' | 'SetFriction' | 'SetTimeScale' | 'SetPaused' | 'SetPushThetaDot' | 'SetPushPhiDot' |
+    'Restart' | 'Push';
 
 // preset keys a control may change, and the command that changes each one alone
-export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale' | 'frictionFactor';
+export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale' | 'frictionFactor' | 'pushThetaDot';
 // none of them restarts: the gyroscope goes on from where it is (a new θ₀ tilts the axle at its azimuth)
 export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     rpm: 'SetRpm',
@@ -58,6 +59,7 @@ export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     theta0Deg: 'SetTheta0Deg',
     timeScale: 'SetTimeScale',
     frictionFactor: 'SetFriction',
+    pushThetaDot: 'SetPushThetaDot',    // strength of the next Stoß; from sim v1.3.0 (older builds drop it)
 };
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
@@ -231,11 +233,10 @@ export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
             RPM_SLIDER_LAB,
             { kind: 'slider', key: 'addOnMassGrams', label: 'Zusatzgewicht', unit: 'g', min: 0, max: 60, step: 10 },
             { kind: 'slider', key: 'theta0Deg', label: 'Neigung θ<sub>0</sub>', unit: '°', min: 60, max: 120, step: 10 },
-            ZEITLUPE_SLIDER,
+            { kind: 'slider', key: 'pushThetaDot', label: 'Stoßstärke', unit: 'rad/s', min: 0.5, max: 4, step: 0.5 },
             { kind: 'slider', key: 'frictionFactor', label: 'Lagerreibung', unit: '×', min: 0, max: 5, step: 0.5 },
+            ZEITLUPE_SLIDER,
             { kind: 'button', label: 'Stoß', action: 'push' },
-            { kind: 'button', label: 'Loslassen', action: 'released' },
-            { kind: 'button', label: 'Geführt starten', action: 'guided' },
         ],
         free: true,
     },

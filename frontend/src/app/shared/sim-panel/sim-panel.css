@@ -17,9 +17,13 @@
     flex-basis: 200px;
 }
 
-/* four sliders (free simulation): two rows of two, not three and one */
+/* four sliders: two rows of two, not three and one; six (free simulation): two rows of three */
 .sim-panel .sim-controls--pairs .sim-controls-group {
     flex-basis: calc(50% - 1rem);
+}
+
+.sim-panel .sim-controls--triples .sim-controls-group {
+    flex-basis: calc(33% - 1.5rem);
 }
 
 /* fixed height: the subscript in θ₀ (innerHTML, unreachable for scoped styles) would make its line taller */
@@ -97,7 +101,8 @@
     }
 
     .sim-panel .sim-controls-group,
-    .sim-panel .sim-controls--pairs .sim-controls-group {
+    .sim-panel .sim-controls--pairs .sim-controls-group,
+    .sim-panel .sim-controls--triples .sim-controls-group {
         flex-basis: auto;
     }
 
