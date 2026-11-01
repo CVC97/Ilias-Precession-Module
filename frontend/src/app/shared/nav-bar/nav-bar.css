@@ -72,8 +72,9 @@
     border-color: var(--text-primary);
 }
 
+/* no transform here: it would move the row's marker and its piece of the line too */
 .nav-row--open:active {
-    transform: scalex(0.98);
+    background: var(--bg-primary);
     transition: none; /* snaps down instantly */
     touch-action: manipulation;
 }
@@ -132,7 +133,7 @@
     box-shadow: 0 0 0 3px var(--row-edge);
 }
 
-/* ── The line: every row draws its own piece, so it is dark up to the last row reached ── */
+/* ── The line: every row draws its own piece, dark up to the last row reached and through the open segment ── */
 .nav-row::after,
 .sub-btn::after {
     content: '';
@@ -146,7 +147,16 @@
 
 .nav-row--open::after,
 .nav-row--active::after,
-.sub-btn--open::after {
+.sub-btn::after {
+    background: var(--text-primary);
+}
+
+/* the open segment's line reaches the next station, also a locked one: dark down to its marker, which hides the change */
+.seg-dropdown + .nav-row:not(.nav-row--open)::after {
+    background: linear-gradient(var(--text-primary) 50%, var(--rail-locked) 50%);
+}
+
+.seg-list:has(> .seg-dropdown:last-child) + .nav-row::after {
     background: var(--text-primary);
 }
 
@@ -207,13 +217,15 @@
 }
 
 .sub-btn--open:active {
-    transform: scalex(0.98);
+    background: var(--row-edge);
+    color: var(--text-primary);
     transition: none; /* snaps down instantly */
     touch-action: manipulation;
 }
 
 .sub-btn--active,
-.sub-btn--active:hover {
+.sub-btn--active:hover,
+.sub-btn--active:active {
     border-color: var(--button-border-color);
     background: transparent;
     color: var(--text-primary);

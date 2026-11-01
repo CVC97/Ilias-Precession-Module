@@ -13,6 +13,9 @@ This README says how to run, deploy and extend the module. **Why** it is built t
 
 ## Project Structure Tree
 
+<details>
+<summary>Preject Structure Tree</summary>
+
 ```
 ilias_bridge.html                               // entry point from ILIAS; username + key form
 .htaccess                                       // routing: /api/* → PHP, rest → index.html (RewriteBase / locally)
@@ -89,6 +92,7 @@ design_notes.md                                 // decisions and their reasons, 
                 ├── learning_features/          // p1–p7 learning pages
                 └── target_features/            // tar-precession: free simulation + summary
 ```
+</details>
 
 
 ## Running Locally
