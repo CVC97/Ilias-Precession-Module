@@ -7,7 +7,7 @@
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    border: 2px solid var(--grau-80);
+    border: 1px solid var(--border-soft);
     border-radius: 12px;
     overflow: hidden;
     background: var(--grau-10);

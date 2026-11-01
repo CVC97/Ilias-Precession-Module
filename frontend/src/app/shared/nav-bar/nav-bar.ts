@@ -24,7 +24,7 @@ interface SegmentDef {
 // The module's single learning path, in order.
 const SEGMENTS: SegmentDef[] = [
     {
-        id: 'p1-setup', label: '1. Einstieg: Versuchsaufbau',
+        id: 'p1-setup', label: 'Einstieg: Versuchsaufbau',
         subpages: [
             { label: '(1/3) - Einführung', route: '/learning/p1-setup', queryParams: { page: '1' } },
             { label: '(2/3) - Komponenten', route: '/learning/p1-setup', queryParams: { page: '2' } },
@@ -32,7 +32,7 @@ const SEGMENTS: SegmentDef[] = [
         ]
     },
     {
-        id: 'p2-rotation', label: '2. Grundlagen der Rotation',
+        id: 'p2-rotation', label: 'Grundlagen der Rotation',
         subpages: [
             { label: '(1/3) - Winkelgeschwindigkeit', route: '/learning/p2-rotation', queryParams: { page: '1' } },
             { label: '(2/3) - Drehimpuls', route: '/learning/p2-rotation', queryParams: { page: '2' } },
@@ -40,14 +40,14 @@ const SEGMENTS: SegmentDef[] = [
         ]
     },
     {
-        id: 'p3-pendulum', label: '3. Physikalisches Pendel',
+        id: 'p3-pendulum', label: 'Physikalisches Pendel',
         subpages: [
             { label: '(1/2) - Das Rad als Pendel', route: '/learning/p3-pendulum', queryParams: { page: '1' } },
             { label: '(2/2) - Messung und Fehlerquellen', route: '/learning/p3-pendulum', queryParams: { page: '2' } },
         ]
     },
     {
-        id: 'p4-gyroscope', label: '4. Der Kreisel',
+        id: 'p4-gyroscope', label: 'Der Kreisel',
         subpages: [
             { label: '(1/3) - Drei Achsen', route: '/learning/p4-gyroscope', queryParams: { page: '1' } },
             { label: '(2/3) - Der schnelle Kreisel', route: '/learning/p4-gyroscope', queryParams: { page: '2' } },
@@ -55,7 +55,7 @@ const SEGMENTS: SegmentDef[] = [
         ]
     },
     {
-        id: 'p5-precession', label: '5. Präzession',
+        id: 'p5-precession', label: 'Präzession',
         subpages: [
             { label: '(1/3) - Drehmoment senkrecht zu L', route: '/learning/p5-precession', queryParams: { page: '1' } },
             { label: '(2/3) - Präzession im Versuch', route: '/learning/p5-precession', queryParams: { page: '2' } },
@@ -63,7 +63,7 @@ const SEGMENTS: SegmentDef[] = [
         ]
     },
     {
-        id: 'p6-nutation', label: '6. Nutation',
+        id: 'p6-nutation', label: 'Nutation',
         subpages: [
             { label: '(1/3) - Nutationskegel', route: '/learning/p6-nutation', queryParams: { page: '1' } },
             { label: '(2/3) - Drei Kegel', route: '/learning/p6-nutation', queryParams: { page: '2' } },
@@ -71,7 +71,7 @@ const SEGMENTS: SegmentDef[] = [
         ]
     },
     {
-        id: 'p7-measurement', label: '7. Messstrategie',
+        id: 'p7-measurement', label: 'Messstrategie',
         subpages: [
             { label: '(1/3) - Reibung und Drehzahl', route: '/learning/p7-measurement', queryParams: { page: '1' } },
             { label: '(2/3) - Präzession sauber starten', route: '/learning/p7-measurement', queryParams: { page: '2' } },
@@ -150,14 +150,6 @@ export class NavBar implements OnInit, OnDestroy {
         return !!seg.subpages[0] && this.canOpen(seg.subpages[0]);
     }
 
-    getSegmentClass(seg: SegmentDef): Record<string, boolean> {
-        const isActive = this.activeSegment === seg.id;
-        return {
-            'seg-active': isActive,
-            'seg-dev': this.canOpenSegment(seg) && !isActive,
-        };
-    }
-
     isSubpageActive(sub: SubpageItem): boolean {
         const url = this.router.url;
         const path = url.split('?')[0];
@@ -201,6 +193,12 @@ export class NavBar implements OnInit, OnDestroy {
     @HostBinding('style.visibility')
     get hostVisibility(): string {
         return (this.activeSegment === 'home') ? 'hidden' : '';
+    }
+
+    // the page grid drops the nav's column for this (styles.css)
+    @HostBinding('class.nav-hidden')
+    get isHidden(): boolean {
+        return this.activeSegment === 'home';
     }
 
     get isTargetClickable(): boolean {

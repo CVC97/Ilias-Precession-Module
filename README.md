@@ -210,7 +210,7 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 Every learning page needs, besides its component (`<page>.ts/.html/.css`) and its `<page>-content.ts` / `<page>-questions.ts`:
 
 1. Route in `app.routes.ts`
-2. Segment and sub-pages in `SEGMENTS` and the route in `segmentFromUrl()` (`shared/nav-bar/nav-bar.ts`)
+2. Segment and sub-pages in `SEGMENTS` and the route in `segmentFromUrl()` (`shared/nav-bar/nav-bar.ts`). Segment labels carry no number (the marker shows it), sub-page labels start with `(k/n) - `
 3. Tracking ID in `MODULE_LABELS`, route in `PAGE_LABELS` and `PAGE_TOTALS` (`summary.service.ts`)
 4. One `PAGE_REGISTRY` entry per sub-page (`learning-report-registry.ts`)
 5. An entry in `PAGES` of `features/learning_features/learning-question-feedback.spec.ts`

@@ -49,7 +49,7 @@
 }
 
 .sim-panel .sim-switch input:checked + span {
-    background-color: var(--uni-blau-1);
+    background-color: var(--switch-on);
 }
 
 /* page buttons, then Pause and Zurücksetzen, in one row (up to five, free simulation) */
@@ -63,7 +63,6 @@
     max-width: 220px;
 }
 
-/* the panel stays white in dark mode (like the question boxes): fixed palette colours */
 .sim-readouts {
     display: flex;
     justify-content: center;
@@ -78,7 +77,7 @@
 .sim-hints {
     text-align: center;
     font-size: 0.85rem;
-    color: var(--grau-80);
+    color: var(--text-muted);
 }
 
 .sim-hints p {
@@ -86,7 +85,7 @@
 }
 
 .sim-gate-hint {
-    color: var(--uni-blau-2);
+    color: var(--text-secondary);
     font-style: italic;
 }
 

@@ -5,63 +5,68 @@
     <div class="nav-bar-container">
 
         <!-- Startseite -->
-        <button class="nav-endpoint-btn"
-            [class.nav-endpoint-active]="activeSegment === 'home'"
-            [class.nav-endpoint-btn-dev]="isHomeClickable"
-            [class.nav-endpoint-dev]="isHomeClickable"
+        <button class="nav-row nav-row--endpoint nav-row--first"
+            [class.nav-row--open]="isHomeClickable"
+            [class.nav-row--active]="activeSegment === 'home'"
+            [attr.aria-current]="activeSegment === 'home' ? 'step' : null"
+            [disabled]="!isHomeClickable"
             (click)="goHome()">
+            <span class="nav-marker" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M8 1.5 1 7.6h2V14h3.6v-4h2.8v4H13V7.6h2z"/></svg>
+            </span>
             Startseite
         </button>
-        @if (devMode.isEnabled) {
-        <!-- Glossary access in dev-mode -->
-        <button class="nav-endpoint-btn"
-            [class.nav-endpoint-active]="activeSegment === 'glossary'"
-            [class.nav-endpoint-btn-dev]="devMode.isEnabled"
-            [class.nav-endpoint-dev]="devMode.isEnabled"
-            (click)="goGlossary()">
-            Glossar
-        </button>   
-        }
 
         <!-- Learning path -->
-        <div class="strand-section">
-
-            <div class="strand-switcher">
-                <div class="strand-tab strand-tab-active">Lernweg</div>
-            </div>
-
-            <div class="strand-col">
-                @for (seg of segments; track seg.id) {
-                    <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg }"></ng-container>
-                }
-            </div>
+        <div class="seg-list">
+            @for (seg of segments; track seg.id; let i = $index) {
+                <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg, number: i + 1 }"></ng-container>
+            }
         </div>
 
         <!-- Abschluss (target page) -->
-        <button class="nav-endpoint-btn"
-            [class.nav-endpoint-active]="activeSegment === 'target'"
-            [class.nav-endpoint-btn-dev]="isTargetClickable"
-            [class.nav-endpoint-dev]="isTargetClickable"
+        <button class="nav-row nav-row--endpoint nav-row--last"
+            [class.nav-row--open]="isTargetClickable"
+            [class.nav-row--active]="activeSegment === 'target'"
+            [attr.aria-current]="activeSegment === 'target' ? 'step' : null"
+            [disabled]="!isTargetClickable"
             (click)="goTarget()">
+            <span class="nav-marker" aria-hidden="true">
+                <svg viewBox="0 0 16 16"><path d="M3 1.5h1.5V15H3zM5.5 2h8l-2 3 2 3h-8z"/></svg>
+            </span>
             Abschluss
         </button>
+
+        @if (devMode.isEnabled) {
+        <!-- Glossary access in dev-mode -->
+        <button class="nav-row nav-row--plain nav-row--open"
+            [class.nav-row--active]="activeSegment === 'glossary'"
+            (click)="goGlossary()">
+            Glossar
+        </button>
+        }
 
     </div>
 </nav>
 
-<ng-template #segmentBlock let-seg>
-    <button class="seg-btn"
-        [class.seg-btn-dev]="canOpenSegment(seg)"
-        [ngClass]="getSegmentClass(seg)"
+<ng-template #segmentBlock let-seg let-number="number">
+    <button class="nav-row"
+        [class.nav-row--open]="canOpenSegment(seg)"
+        [class.nav-row--active]="activeSegment === seg.id"
+        [attr.aria-current]="activeSegment === seg.id ? 'step' : null"
+        [disabled]="!canOpenSegment(seg)"
         (click)="onSegmentClick(seg)">
+        <span class="nav-marker" aria-hidden="true">{{ number }}</span>
         {{ seg.label }}
     </button>
     @if (activeSegment === seg.id) {
         <div class="seg-dropdown">
             @for (sub of seg.subpages; track sub.route + (sub.queryParams?.['page'] ?? '')) {
                 <button class="sub-btn"
-                    [class.sub-btn-dev]="canOpen(sub)"
-                    [class.sub-btn-active]="isSubpageActive(sub)"
+                    [class.sub-btn--open]="canOpen(sub)"
+                    [class.sub-btn--active]="isSubpageActive(sub)"
+                    [attr.aria-current]="isSubpageActive(sub) ? 'page' : null"
+                    [disabled]="!canOpen(sub)"
                     (click)="navigateToSubpage(sub)">
                     {{ sub.label }}
                 </button>
