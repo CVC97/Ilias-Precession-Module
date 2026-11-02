@@ -36,47 +36,47 @@ export const question1: ImageChoiceQuestion = {
 
 export const question2: SingleChoiceQuestion = {
     "questionId": "p2-rotation-2-drehzahl-drehimpuls",
-    "question": "Die Drehzahl des Rades wird verdoppelt. Wie ändert sich der Betrag seines Drehimpulses?",
+    "question": "Die Winkelgeschwindigkeit $\\omega$ des Rades wird verdoppelt. Wie ändert sich der Betrag seines Drehimpulses $\\vec{L}$?",
     "options": [
         { "value": "answer1", "label": "Er verdoppelt sich." },
         { "value": "answer2", "label": "Er vervierfacht sich." },
-        { "value": "answer3", "label": "Er bleibt gleich, weil sich das Trägheitsmoment nicht ändert." },
+        { "value": "answer3", "label": "Er bleibt gleich, weil sich das Trägheitsmoment $I$ nicht ändert." },
         { "value": "answer4", "label": "Er halbiert sich." }
     ],
     "correctAnswer": "answer1",
     "containerId": "question2-container",
-    "successMessage": "Wegen $L = I\\omega$ ist der Drehimpuls proportional zur Winkelgeschwindigkeit.",
-    "incorrectMessage": "Setzen Sie die doppelte Winkelgeschwindigkeit in $L = I\\omega$ ein.",
+    "successMessage": "Wegen $L = I\\omega$ ist der Drehimpuls $L$ proportional zur Winkelgeschwindigkeit $\\omega$.",
+    "incorrectMessage": "Setzen Sie die doppelte Winkelgeschwindigkeit $\\omega$ in $L = I\\omega$ ein.",
     "answerFeedback": {
         "answer2": "Quadratisch mit $\\omega$ wächst die Rotationsenergie $E = \\tfrac{1}{2} I \\omega^2$. Der Drehimpuls $L = I\\omega$ hängt linear von $\\omega$ ab.",
-        "answer3": "Das Trägheitsmoment bleibt tatsächlich gleich. Der Drehimpuls hängt aber auch von der Winkelgeschwindigkeit ab: $L = I\\omega$.",
-        "answer4": "Verwechseln Sie nicht Drehzahl und Umlaufdauer: Die Umlaufdauer halbiert sich. Was folgt daraus für $\\omega = 2\\pi/T$?"
+        "answer3": "Das Trägheitsmoment $I$ bleibt tatsächlich gleich. Der Drehimpuls $L$ hängt aber auch von der Winkelgeschwindigkeit $\\omega$ ab: $L = I\\omega$.",
+        "answer4": "Verwechseln Sie nicht die Winkelgeschwindigkeit $\\omega$ und die Umlaufdauer $T$: Die Umlaufdauer halbiert sich. Was folgt daraus für $\\omega = 2\\pi/T$?"
     }
 };
 
 export const question3: SingleChoiceQuestion = {
     "questionId": "p2-rotation-3-ring-scheibe",
-    "question": "Eine homogene Scheibe und ein dünner Ring haben dieselbe Masse und denselben Radius und drehen sich gleich schnell um ihre Symmetrieachse. Welcher Körper hat den größeren Drehimpuls?",
+    "question": "Eine homogene Scheibe und ein dünner Ring haben dieselbe Masse und denselben Radius und drehen sich gleich schnell um ihre Symmetrieachse. Welcher Körper hat den größeren Drehimpuls $L$?",
     "options": [
         { "value": "answer1", "label": "Der Ring." },
         { "value": "answer2", "label": "Die Scheibe." },
-        { "value": "answer3", "label": "Beide haben denselben Drehimpuls, weil Masse, Radius und Drehzahl gleich sind." },
+        { "value": "answer3", "label": "Beide haben denselben Drehimpuls, weil Masse, Radius und Winkelgeschwindigkeit $\\omega$ gleich sind." },
         { "value": "answer4", "label": "Das hängt davon ab, in welche Richtung sie sich drehen." }
     ],
     "correctAnswer": "answer1",
     "containerId": "question3-container",
-    "successMessage": "Beim Ring sitzt die ganze Masse im Abstand $R$ von der Achse: $I = mR^2$ statt $\\tfrac{1}{2}mR^2$ bei der Scheibe. Bei gleicher Winkelgeschwindigkeit ist sein Drehimpuls also doppelt so groß.",
+    "successMessage": "Beim Ring sitzt die ganze Masse im Abstand $R$ von der Achse: $I = mR^2$ statt $\\tfrac{1}{2}mR^2$ bei der Scheibe. Bei gleicher Winkelgeschwindigkeit $\\omega$ ist sein Drehimpuls $L$ also doppelt so groß.",
     "incorrectMessage": "Vergleichen Sie, wie weit die Masse bei beiden Körpern von der Achse entfernt ist.",
     "answerFeedback": {
         "answer2": "Bei der Scheibe ist ein Teil der Masse nahe an der Achse. Vergleichen Sie $I = \\tfrac{1}{2}mR^2$ (Scheibe) mit $I = mR^2$ (Ring).",
-        "answer3": "Masse und Radius allein bestimmen das Trägheitsmoment nicht. Entscheidend ist, wie weit die Masse von der Achse entfernt ist: $I = \\int r_\\perp^2\\,\\mathrm{d}m$.",
-        "answer4": "Die Drehrichtung bestimmt die Richtung des Drehimpulses, nicht seinen Betrag. Gefragt ist der Betrag."
+        "answer3": "Masse und Radius allein bestimmen das Trägheitsmoment $I$ nicht. Entscheidend ist, wie weit die Masse von der Achse entfernt ist: $I = \\int r_\\perp^2\\,\\mathrm{d}m$.",
+        "answer4": "Die Drehrichtung bestimmt die Richtung des Drehimpulses $\\vec{L}$, nicht seinen Betrag. Gefragt ist der Betrag."
     }
 };
 
 export const question4: SingleChoiceQuestion = {
     "questionId": "p2-rotation-4-antriebsschnur",
-    "question": "Sie ziehen die Antriebsschnur ab und bringen so das Rad auf eine hohe Drehzahl. Wie ist das Drehmoment der Schnur relativ zum Drehimpuls des Rades gerichtet?",
+    "question": "Sie ziehen die Antriebsschnur ab und bringen so das Rad auf eine hohe Winkelgeschwindigkeit $\\omega$. Wie ist das Drehmoment $\\vec{D}$ der Schnur relativ zum Drehimpuls $\\vec{L}$ des Rades gerichtet?",
     "options": [
         { "value": "answer1", "label": "Parallel zum Drehimpuls." },
         { "value": "answer2", "label": "Antiparallel zum Drehimpuls." },
@@ -85,12 +85,12 @@ export const question4: SingleChoiceQuestion = {
     ],
     "correctAnswer": "answer1",
     "containerId": "question4-container",
-    "successMessage": "Die Schnur vergrößert den Betrag des Drehimpulses, ohne seine Richtung zu ändern. Dazu muss das Drehmoment parallel zu $\\vec{L}$ zeigen.",
-    "incorrectMessage": "Überlegen Sie, wie sich der Drehimpuls beim Andrehen ändert – im Betrag oder in der Richtung?",
+    "successMessage": "Die Schnur vergrößert den Betrag des Drehimpulses $\\vec{L}$, ohne seine Richtung zu ändern. Dazu muss das Drehmoment $\\vec{D}$ parallel zu $\\vec{L}$ zeigen.",
+    "incorrectMessage": "Überlegen Sie, wie sich der Drehimpuls $\\vec{L}$ beim Andrehen ändert – im Betrag oder in der Richtung?",
     "answerFeedback": {
-        "answer2": "Ein Drehmoment antiparallel zu $\\vec{L}$ verkürzt den Drehimpuls. So wirkt die Reibung, die das Rad abbremst.",
-        "answer3": "Ein Drehmoment senkrecht zu $\\vec{L}$ würde vor allem die Richtung der Achse ändern. Beim Andrehen ändert sich aber nur die Drehzahl.",
-        "answer4": "Die Schnur greift im Abstand von der Achse an. Kraft mal Hebelarm ergibt ein Drehmoment – sonst würde sich das Rad nicht schneller drehen."
+        "answer2": "Ein Drehmoment $\\vec{D}$ antiparallel zu $\\vec{L}$ verkürzt den Drehimpuls. So wirkt die Reibung, die das Rad abbremst.",
+        "answer3": "Ein Drehmoment $\\vec{D}$ senkrecht zu $\\vec{L}$ würde vor allem die Richtung der Achse ändern. Beim Andrehen ändert sich aber nur die Winkelgeschwindigkeit $\\omega$ des Rades.",
+        "answer4": "Die Schnur greift im Abstand von der Achse an. Kraft mal Hebelarm ergibt ein Drehmoment $\\vec{D}$ – sonst würde sich das Rad nicht schneller drehen."
     }
 };
 
@@ -98,7 +98,7 @@ export const question5: MultipleChoiceQuestion = {
     "questionId": "p2-rotation-5-drehmoment-aussagen",
     "question": "Welche Aussagen über $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ treffen zu?",
     "options": [
-        { "value": "answer1", "label": "Die Änderung des Drehimpulses zeigt in Richtung des Drehmoments." },
+        { "value": "answer1", "label": "Die Änderung des Drehimpulses $\\vec{L}$ zeigt in Richtung des Drehmoments $\\vec{D}$." },
         { "value": "answer2", "label": "Ein Drehmoment senkrecht zu $\\vec{L}$ ändert die Richtung von $\\vec{L}$, aber nicht seinen Betrag." },
         { "value": "answer3", "label": "Der Drehimpuls zeigt immer in Richtung des Drehmoments." },
         { "value": "answer4", "label": "Ohne Drehmoment bleibt der Drehimpuls nach Betrag und Richtung erhalten." },
@@ -108,7 +108,7 @@ export const question5: MultipleChoiceQuestion = {
         "answer1", "answer2", "answer4"
     ],
     "containerId": "question5-container",
-    "successMessage": "Das Drehmoment legt fest, in welche Richtung sich $\\vec{L}$ ändert. Steht es senkrecht auf $\\vec{L}$, dreht es den Drehimpuls, ohne ihn zu verlängern.",
+    "successMessage": "Das Drehmoment $\\vec{D}$ legt fest, in welche Richtung sich $\\vec{L}$ ändert. Steht es senkrecht auf $\\vec{L}$, dreht es den Drehimpuls, ohne ihn zu verlängern.",
     "incompleteMessage": "Unterscheiden Sie zwischen dem Drehimpuls $\\vec{L}$ und seiner Änderung $\\mathrm{d}\\vec{L}$.",
     "incorrectMessage": "Unterscheiden Sie zwischen dem Drehimpuls $\\vec{L}$ und seiner Änderung $\\mathrm{d}\\vec{L}$.",
     "answerFeedback": {
@@ -130,7 +130,7 @@ export const question5: MultipleChoiceQuestion = {
         "answer4": {
             "conceptId": "conservation",
             "order": 3,
-            "message": "Setzen Sie in $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ ein verschwindendes Drehmoment ein."
+            "message": "Setzen Sie in $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ ein verschwindendes Drehmoment $\\vec{D}$ ein."
         },
         "answer5": {
             "conceptId": "perpendicular",

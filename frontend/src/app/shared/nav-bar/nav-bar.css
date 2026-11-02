@@ -9,6 +9,7 @@
 /* ── Sidebar container ─────────────────────────────────────────────────── */
 .nav-bar {
     --nav-gutter: 38px;
+    --nav-indent: 0px;  /* sub-chapters: the row moves in, its marker and the line stay */
     --nav-gap: 0.2rem;
     height: 100%;
     background: var(--bg-primary);
@@ -37,8 +38,8 @@
 /* ── Rows: Startseite, segments, Abschluss ─────────────────────────────── */
 .nav-row {
     position: relative;
-    width: calc(100% - var(--nav-gutter));
-    margin-left: var(--nav-gutter);
+    width: calc(100% - var(--nav-gutter) - var(--nav-indent));
+    margin-left: calc(var(--nav-gutter) + var(--nav-indent));
     padding: 0.6rem 0.75rem;
     border: 1px solid transparent;
     border-radius: 5px;
@@ -89,6 +90,18 @@
     pointer-events: none;
 }
 
+/* sub-chapter: indented and smaller, with a dot on the line */
+.nav-row--sub,
+.nav-row--sub + .seg-dropdown {
+    --nav-indent: 0.85rem;
+}
+
+.nav-row--sub {
+    padding-top: 0.45rem;
+    padding-bottom: 0.45rem;
+    font-size: 0.95rem;
+}
+
 /* dev-mode glossary link: not a station, so off the line */
 .nav-row--plain {
     margin-top: 1.25rem;
@@ -98,7 +111,7 @@
 .nav-marker {
     position: absolute;
     z-index: 1;
-    left: calc(var(--nav-gutter) * -1 + 1px);
+    left: calc(var(--nav-gutter) * -1 - var(--nav-indent) + 1px);
     top: 50%;
     width: 28px;
     height: 28px;
@@ -122,6 +135,13 @@
     fill: currentColor;
 }
 
+.nav-row--sub .nav-marker {
+    left: calc(var(--nav-gutter) * -1 - var(--nav-indent) + 8px);
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+}
+
 .nav-row--open .nav-marker,
 .nav-row--active .nav-marker {
     border-color: var(--text-primary);
@@ -138,7 +158,7 @@
 .sub-btn::after {
     content: '';
     position: absolute;
-    left: calc(var(--nav-gutter) * -1 + 14px);
+    left: calc(var(--nav-gutter) * -1 - var(--nav-indent) + 14px);
     top: -0.7rem;   /* bridges the gaps and borders up to the piece above */
     bottom: 0;
     width: 2px;
@@ -177,7 +197,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
-    margin: 0 0 0 var(--nav-gutter);
+    margin: 0 0 0 calc(var(--nav-gutter) + var(--nav-indent));
     padding: 0.15rem 0 0.35rem;
 }
 
@@ -202,7 +222,7 @@
 
 /* the line takes the row's 2px border into account */
 .sub-btn::after {
-    left: calc(var(--nav-gutter) * -1 + 13px);
+    left: calc(var(--nav-gutter) * -1 - var(--nav-indent) + 13px);
     bottom: -0.25rem;
 }
 

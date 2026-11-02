@@ -98,6 +98,7 @@ export class P4Gyroscope implements OnInit, AfterViewInit, OnDestroy {
 	gyroText3a!: SafeHtml;
 	gyroText3b!: SafeHtml;
 	gyroText3c!: SafeHtml;
+	gyroText3d!: SafeHtml;
 
 
     ngOnInit() {
@@ -129,6 +130,7 @@ export class P4Gyroscope implements OnInit, AfterViewInit, OnDestroy {
         this.gyroText3a = this.sanitizer.bypassSecurityTrustHtml(p4Content.gyroText3a);
         this.gyroText3b = this.sanitizer.bypassSecurityTrustHtml(p4Content.gyroText3b);
         this.gyroText3c = this.sanitizer.bypassSecurityTrustHtml(p4Content.gyroText3c);
+        this.gyroText3d = this.sanitizer.bypassSecurityTrustHtml(p4Content.gyroText3d);
     }
 
 

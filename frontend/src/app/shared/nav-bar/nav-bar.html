@@ -19,8 +19,8 @@
 
         <!-- Learning path -->
         <div class="seg-list">
-            @for (seg of segments; track seg.id; let i = $index) {
-                <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg, number: i + 1 }"></ng-container>
+            @for (seg of segments; track seg.id) {
+                <ng-container *ngTemplateOutlet="segmentBlock; context: { $implicit: seg }"></ng-container>
             }
         </div>
 
@@ -49,14 +49,21 @@
     </div>
 </nav>
 
-<ng-template #segmentBlock let-seg let-number="number">
+<ng-template #segmentBlock let-seg>
     <button class="nav-row"
+        [class.nav-row--sub]="seg.sub"
         [class.nav-row--open]="canOpenSegment(seg)"
         [class.nav-row--active]="activeSegment === seg.id"
         [attr.aria-current]="activeSegment === seg.id ? 'step' : null"
         [disabled]="!canOpenSegment(seg)"
         (click)="onSegmentClick(seg)">
-        <span class="nav-marker" aria-hidden="true">{{ number }}</span>
+        <span class="nav-marker" aria-hidden="true">
+            @if (seg.icon) {
+                <svg viewBox="0 0 16 16"><path [attr.d]="seg.icon"/></svg>
+            } @else {
+                {{ seg.number }}
+            }
+        </span>
         {{ seg.label }}
     </button>
     @if (activeSegment === seg.id) {

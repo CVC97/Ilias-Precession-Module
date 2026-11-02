@@ -1,11 +1,11 @@
-// ── Page 1: Reibung und Drehzahl ───────────────────────────────────────────
+// ── Page 1: Reibung ────────────────────────────────────────────────────────
 
 export const measureText1a = `
-    Reibung in den Lagern und der Luftwiderstand bremsen das Rad ständig ab: $\\omega_R$ nimmt während jeder Messung ab.
+    Reibung in den Lagern und der Luftwiderstand bremsen das Rad ständig ab: Seine Winkelgeschwindigkeit $\\omega_R$ nimmt während jeder Messung ab.
     Nach $\\omega_P = m_z g r/(I\\omega_R)$ wird die Präzession dabei schneller.
     Für die Auswertung brauchen Sie aber zu jeder Präzessionsmessung den passenden Wert von $\\omega_R$.<br><br>
-    Deshalb messen Sie $T_R$ unmittelbar <strong>vor und nach</strong> der Präzessionsmessung und verwenden den Mittelwert.
-    Nimmt die Drehzahl während der kurzen Messung ungefähr gleichmäßig ab, entspricht der Mittelwert gerade der Drehzahl
+    Deshalb messen Sie die Umlaufdauer $T_R$ unmittelbar <strong>vor und nach</strong> der Präzessionsmessung und verwenden den Mittelwert.
+    Nimmt $\\omega_R$ während der kurzen Messung ungefähr gleichmäßig ab, entspricht der Mittelwert gerade dem Wert
     in der Mitte der Messung.
 `;
 
@@ -25,7 +25,7 @@ export const measureText2a = `
     <a data-glossary="nutation" class="glossary-link">Nutation</a>
     und nickt während der Präzession deutlich auf und ab. Die Zeit für eine halbe Umdrehung lässt sich dann nur ungenau ablesen.<br><br>
     Das Versuchsskript empfiehlt deshalb, den Kreisel vorsichtig mit der Hand in die Präzessionsbewegung zu führen:
-    Sie geben der Achse von Anfang an ungefähr die passende Präzessionsgeschwindigkeit mit. Dann bleibt die Nutation klein,
+    Sie geben der Achse von Anfang an ungefähr die passende Präzessionsgeschwindigkeit $\\omega_P$ mit. Dann bleibt die Nutation klein,
     und der Kreisel präzediert gleichmäßig.
 `;
 
@@ -49,7 +49,7 @@ export const measureText3a = `
         <li><strong>Ausbalancieren:</strong> Bleibt ohne Zusatzgewicht ein Rest-Drehmoment, präzediert der Kreisel schon ohne Belastung,
             und alle gemessenen $\\omega_P$ sind verfälscht. Prüfen Sie, ob der Kreisel ohne Zusatzgewicht mit waagrechter Achse in Ruhe bleibt.</li>
         <li><strong>Abstand $r$:</strong> $I$ ist proportional zu $r$. Messen Sie den Abstand der Kerbe vom Unterstützungspunkt sorgfältig.</li>
-        <li><strong>Schneller Kreisel:</strong> Die Formel setzt $\\omega_P \\ll \\omega_R$ voraus. Wählen Sie die Drehzahl nicht zu klein
+        <li><strong>Schneller Kreisel:</strong> Die Formel beruht auf der Näherung für den schnellen Kreisel, $\\omega_P \\ll \\omega_R$. Wählen Sie $\\omega_R$ nicht zu klein
             und das Zusatzgewicht nicht zu groß.</li>
         <li><strong>Umlaufdauer $T_R$:</strong> Halten Sie den Kreisel für diese Messung so, dass der Streifen am Rad durch die Lichtschranke läuft.</li>
         <li><strong>Stoppuhr:</strong> Mehrere Messungen von $T_P$ verringern den Einfluss Ihrer Reaktionszeit.</li>

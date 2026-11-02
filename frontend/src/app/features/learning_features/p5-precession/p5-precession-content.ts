@@ -12,7 +12,7 @@ export const precessionText1a = `
 
 export const precessionText1b = `
     Links: Bei der Neigung $\\theta$ ändert sich $\\vec{L}$ im Zeitabschnitt $\\mathrm{d}t$ um $\\mathrm{d}\\vec{L} = \\vec{D}\\,\\mathrm{d}t$,
-    die Spitze von $\\vec{L}$ dreht sich um $\\mathrm{d}\\phi$. Rechts: der Versuchskreisel mit Zusatzgewicht,
+    die Spitze von $\\vec{L}$ dreht sich um $\\mathrm{d}\\phi$. Rechts: der Versuchskreisel mit Zusatzgewicht, Hebelarm $\\vec{r}$ (der Übersicht halber neben der Achse gezeichnet),
     Drehimpuls $\\vec{L}$, Drehmoment $\\vec{D}$ und Präzessionsgeschwindigkeit $\\vec{\\omega}_P$.
     (Im Versuchsskript, Bild 4.3, heißt das Drehmoment $\\vec{T}$.)
 `;
@@ -30,7 +30,7 @@ export const precessionText1c = `
 
 export const precessionText1d = `
     $$\\vec{D} = \\vec{\\omega}_P\\times\\vec{L}, \\qquad \\omega_P = \\frac{D}{L\\sin\\theta}$$
-    Ein Drehmoment senkrecht zum Drehimpuls lässt den Kreisel präzedieren. Je größer der Drehimpuls, desto langsamer die Präzession.
+    Ein Drehmoment $\\vec{D}$ senkrecht zum Drehimpuls $\\vec{L}$ lässt den Kreisel präzedieren. Je größer der Drehimpuls, desto langsamer die Präzession.
 `;
 
 
@@ -54,9 +54,10 @@ export const precessionText2c = `
 `;
 
 export const precessionText2d = `
-    <strong>Gültigkeit:</strong> Die Formel setzt einen schnellen Kreisel voraus, also $\\omega_P \\ll \\omega_R$.
-    Präzediert der Kreisel zu schnell – bei kleiner Drehzahl oder großem Zusatzgewicht –, trägt die Präzessionsbewegung selbst merklich
-    zum Drehimpuls bei, und die Näherung $L = I\\omega_R$ wird ungenau.
+    <strong>Gültigkeit:</strong> Die Formel beruht auf der Näherung für den schnellen Kreisel, also $\\omega_P \\ll \\omega_R$.
+    Präzediert der Kreisel zu schnell – bei kleiner Winkelgeschwindigkeit $\\omega_R$ oder großem Zusatzgewicht –, sackt die Achse merklich ab
+    und nickt auf und ab. Sobald sie dabei geneigt ist, trägt außerdem die Präzessionsbewegung selbst zum Drehimpuls $\\vec{L}$ bei,
+    und die Näherung $L = I\\omega_R$ wird ungenau.
 `;
 
 
@@ -67,8 +68,8 @@ export const precessionText3a = `
     das Drehmoment $\\vec{D}$, die senkrechte Drehachse der Präzession und der Kegel, den die Achse dabei überstreicht.
     Unter der Simulation werden $\\omega_R$ und $\\omega_P$ angezeigt.
     <ol>
-        <li>Verändern Sie die Drehzahl und beobachten Sie, wie schnell der Kreisel präzediert. Bestätigt sich $\\omega_P \\propto 1/\\omega_R$?</li>
-        <li>Verändern Sie bei gleicher Drehzahl den Neigungswinkel $\\theta_0$ der Achse. Hängt die Präzessionsgeschwindigkeit vom Winkel ab?</li>
+        <li>Verändern Sie die Winkelgeschwindigkeit $\\omega_R$ (Regler „Drehzahl“) und beobachten Sie, wie schnell der Kreisel präzediert. Bestätigt sich $\\omega_P \\propto 1/\\omega_R$?</li>
+        <li>Verändern Sie bei gleichem $\\omega_R$ den Neigungswinkel $\\theta_0$ der Achse. Hängt die Präzessionsgeschwindigkeit vom Winkel ab?</li>
         <li>Achten Sie auf die Pfeile: In welche Richtung zeigt $\\vec{D}$ relativ zu $\\vec{L}$, und in welche Richtung präzediert der Kreisel?</li>
     </ol>
 `;

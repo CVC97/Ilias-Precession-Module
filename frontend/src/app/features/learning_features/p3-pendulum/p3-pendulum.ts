@@ -8,7 +8,6 @@ import { MultipleChoice } from '../../../shared/evaluation/multiple-choice/multi
 import { SingleChoice } from '../../../shared/evaluation/single-choice/single-choice';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { GlossaryOverlay } from '../../../shared/glossary-overlay/glossary-overlay.service';
-import { DevModeService } from '../../../core/services/dev-mode';
 import * as p3Questions from './p3-pendulum-questions';
 import * as p3Content from './p3-pendulum-content';
 
@@ -27,8 +26,7 @@ export class P3Pendulum implements OnInit, AfterViewInit, OnDestroy {
         private route: ActivatedRoute,
         private router: Router,
 		private trackingService: ResultsTracking,
-        public glossaryOverlay: GlossaryOverlay,
-        public devMode: DevModeService
+        public glossaryOverlay: GlossaryOverlay
     ) {}
 
     private mathJaxTimeout: ReturnType<typeof setTimeout> | null = null;
@@ -178,16 +176,13 @@ export class P3Pendulum implements OnInit, AfterViewInit, OnDestroy {
     // navigation helpers
 	currentView: string = 'pendulum1';
 
-    get isFirstPage(): boolean {
-        return this.currentView === 'pendulum1';
-    }
     get isLastPage(): boolean {
         return this.currentView === 'pendulum2';
     }
 
 
 
-    // going back shows the previous subpage / the previous segment (dev mode only)
+    // going back shows the previous subpage; page 1 continues from Grundlagen (3/5)
     goBack() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         const page = Number(this.currentView.replace('pendulum', ''));

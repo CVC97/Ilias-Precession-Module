@@ -97,6 +97,7 @@ export class P1Setup implements OnInit, AfterViewInit, OnDestroy {
 
 	setupText2a!: SafeHtml;
 	setupText2b!: SafeHtml;
+	setupText2c!: SafeHtml;
 
 	setupText3a!: SafeHtml;
 	setupText3b!: SafeHtml;
@@ -128,6 +129,7 @@ export class P1Setup implements OnInit, AfterViewInit, OnDestroy {
 
         this.setupText2a = this.sanitizer.bypassSecurityTrustHtml(p1Content.setupText2a);
         this.setupText2b = this.sanitizer.bypassSecurityTrustHtml(p1Content.setupText2b);
+        this.setupText2c = this.sanitizer.bypassSecurityTrustHtml(p1Content.setupText2c);
 
         this.setupText3a = this.sanitizer.bypassSecurityTrustHtml(p1Content.setupText3a);
         this.setupText3b = this.sanitizer.bypassSecurityTrustHtml(p1Content.setupText3b);

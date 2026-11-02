@@ -14,7 +14,7 @@ export const question1: SingleChoiceQuestion = {
     "successMessage": "Beim kräftefreien Kreisel steht $\\vec{L}$ fest, und die Figurenachse läuft auf dem Nutationskegel um sie herum.",
     "incorrectMessage": "Beim kräftefreien Kreisel ist $\\vec{L}$ im Raum fest. Welche Achse bewegt sich um $\\vec{L}$?",
     "answerFeedback": {
-        "answer2": "Eine Drehung von $\\vec{L}$ um die Senkrechte ist die Präzession. Sie braucht ein Drehmoment – beim kräftefreien Kreisel steht $\\vec{L}$ fest.",
+        "answer2": "Eine Drehung von $\\vec{L}$ um die Senkrechte ist die Präzession. Sie braucht ein Drehmoment $\\vec{D}$ – beim kräftefreien Kreisel steht $\\vec{L}$ fest.",
         "answer3": "Diese Bewegung beschreibt einen der beiden anderen Kegel. Beim Nutationskegel geht es um die Achse, auf der das Rad sitzt.",
         "answer4": "Das ist die schnelle Drehung des Rades selbst. Die Nutation ist eine Bewegung der Achse."
     }
@@ -68,7 +68,7 @@ export const question2: MultipleChoiceQuestion = {
 
 export const question3: SingleChoiceQuestion = {
     "questionId": "p6-nutation-3-drehzahl",
-    "question": "Sie erhöhen die Drehzahl des Rades und geben der Achse einen gleich starken Stoß wie zuvor. Wie verändert sich die Nutation?",
+    "question": "Sie erhöhen die Winkelgeschwindigkeit $\\omega_R$ des Rades und geben der Achse einen gleich starken Stoß wie zuvor. Wie verändert sich die Nutation?",
     "options": [
         { "value": "answer1", "label": "Sie wird schneller, und die Achse weicht weniger weit aus." },
         { "value": "answer2", "label": "Sie wird langsamer, und die Achse weicht weiter aus." },
@@ -77,11 +77,11 @@ export const question3: SingleChoiceQuestion = {
     ],
     "correctAnswer": "answer1",
     "containerId": "question3-container",
-    "successMessage": "Die Nutationsfrequenz wächst mit der Drehzahl. Gleichzeitig macht derselbe Stoß bei größerem Drehimpuls nur eine kleinere Richtungsänderung – der Nutationskegel wird enger.",
-    "incorrectMessage": "Überlegen Sie getrennt: Wie hängt die Nutationsfrequenz von der Drehzahl ab, und wie stark ändert derselbe Stoß die Richtung eines größeren Drehimpulses?",
+    "successMessage": "Die Nutationskreisfrequenz $\\omega_N$ wächst mit der Winkelgeschwindigkeit $\\omega_R$. Gleichzeitig macht derselbe Stoß bei größerem Drehimpuls $\\vec{L}$ nur eine kleinere Richtungsänderung – der Nutationskegel wird enger.",
+    "incorrectMessage": "Überlegen Sie getrennt: Wie hängt die Nutationskreisfrequenz $\\omega_N$ von der Winkelgeschwindigkeit $\\omega_R$ ab, und wie stark ändert derselbe Stoß die Richtung eines größeren Drehimpulses $\\vec{L}$?",
     "answerFeedback": {
-        "answer2": "Laut Versuchsskript wächst $\\omega_N$ linear mit $\\omega_R$. Und: Derselbe Stoß ändert einen größeren Drehimpuls in seiner Richtung weniger stark.",
-        "answer3": "Die Frequenz stimmt. Überlegen Sie aber, wie stark derselbe Stoß die Richtung eines größeren Drehimpulses ändern kann.",
-        "answer4": "Der Stoß ist gleich, aber der Drehimpuls, auf den er wirkt, ist größer. Außerdem wächst die Nutationsfrequenz laut Versuchsskript mit der Drehzahl."
+        "answer2": "Laut Versuchsskript wächst $\\omega_N$ linear mit $\\omega_R$. Und: Derselbe Stoß ändert einen größeren Drehimpuls $\\vec{L}$ in seiner Richtung weniger stark.",
+        "answer3": "Die Frequenz stimmt. Überlegen Sie aber, wie stark derselbe Stoß die Richtung eines größeren Drehimpulses $\\vec{L}$ ändern kann.",
+        "answer4": "Der Stoß ist gleich, aber der Drehimpuls $\\vec{L}$, auf den er wirkt, ist größer. Außerdem wächst die Nutationskreisfrequenz $\\omega_N$ laut Versuchsskript mit der Winkelgeschwindigkeit $\\omega_R$."
     }
 };

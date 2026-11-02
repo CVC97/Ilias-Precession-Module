@@ -1,7 +1,8 @@
 // ── Page 1: Das physikalische Pendel ───────────────────────────────────────
 
 export const pendulumText1a = `
-    Die erste Messmethode für das Trägheitsmoment des Rades kommt ohne Kreiselbewegung aus.
+    Das Trägheitsmoment $I$ haben Sie auf der Seite „Drehimpuls“ kennengelernt. Im Versuch bestimmen Sie es nicht nur aus der Geometrie,
+    sondern auch mit einer Messmethode, die ohne Kreiselbewegung auskommt.
     Der Kreisel wird festgestellt, sodass sich nur noch das Rad um seine Achse drehen kann.
     Dann wird ein Pendelgewicht der Masse $m_p$ im Abstand $d$ von der Achse in das Rad geschraubt.<br><br>
     Das ausbalancierte Rad allein hat seinen Schwerpunkt auf der Achse und bleibt in jeder Stellung in Ruhe.
@@ -19,7 +20,7 @@ export const pendulumText1c = `
     $D = -m_p g d \\sin\\varphi$ aus. Das gesamte Trägheitsmoment um die Radachse setzt sich aus dem des Rades ($I$, gesucht)
     und dem des Pendelgewichts ($I_p$) zusammen. Die Bewegungsgleichung lautet damit
     $$(I + I_p)\\,\\ddot{\\varphi} = -m_p g d\\,\\sin\\varphi.$$
-    Für kleine Auslenkungen ist $\\sin\\varphi \\approx \\varphi$, und es ergibt sich eine harmonische Schwingung mit der Periodendauer
+    Für kleine Auslenkungen ist $\\sin\\varphi \\approx \\varphi$, und es ergibt sich eine harmonische Schwingung mit der Periodendauer $T$:
 `;
 
 export const pendulumText1d = `
@@ -46,7 +47,7 @@ export const pendulumText2a = `
         <li><strong>Dreimal wiederholen:</strong> Aus den Wiederholungen bilden Sie einen Mittelwert und schätzen ab,
             wie stark die Messwerte streuen.</li>
         <li><strong>Zwei gegenüberliegende Positionen:</strong> Kein Rad ist perfekt ausgewuchtet. Liegt der Schwerpunkt
-            des Rades selbst ein wenig neben der Achse (Unwucht), erzeugt auch er ein kleines Drehmoment. In der einen Position
+            des Rades selbst ein wenig neben der Achse (Unwucht), erzeugt auch er ein kleines Drehmoment $D$. In der einen Position
             verstärkt es das Drehmoment des Pendelgewichts, in der gegenüberliegenden schwächt es dieses ab.
             Mittelt man über beide Positionen, hebt sich der Einfluss der Unwucht in erster Näherung heraus.</li>
         <li><strong>Kleine Auslenkung:</strong> Nur dann gilt $\\sin\\varphi \\approx \\varphi$ und damit die Formel für $T$.</li>
@@ -59,7 +60,7 @@ export const pendulumText2b = `
 `;
 
 export const pendulumText2c = `
-    Damit kennen Sie neben der Berechnung aus der Geometrie die zweite Methode für das Trägheitsmoment.
+    Damit kennen Sie neben der Berechnung aus der Geometrie die zweite Methode für das Trägheitsmoment $I$.
     Die dritte Methode nutzt die Kreiselbewegung selbst. Dafür sehen Sie sich im nächsten Abschnitt an,
     was einen Kreisel von einem einfach rotierenden Rad unterscheidet.
 `;

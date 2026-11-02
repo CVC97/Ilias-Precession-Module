@@ -13,6 +13,18 @@
     }
 }
 
+.video-container {
+    margin: 2rem auto;
+}
+
+.video-frame {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 8px;
+}
+
 /* the script photo is small (≈380 px): cap it instead of stretching */
 .full-width-image-container {
     margin: 2rem auto;
@@ -47,8 +59,8 @@
 .image-content {
     flex: 0 0 350px;
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
 }
 
 .image-content img {

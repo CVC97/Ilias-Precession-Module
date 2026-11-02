@@ -17,8 +17,8 @@
                     um die Senkrechte. Diese Bewegung heißt Präzession.
                 </p>
                 <p>
-                    Der Schlüssel liegt im Vektorcharakter der Rotation: Winkelgeschwindigkeit, Drehimpuls und
-                    Drehmoment sind Vektoren, und ein Drehmoment ändert den Drehimpuls in seine eigene Richtung.
+                    Der Schlüssel liegt im Vektorcharakter der Rotation: Winkelgeschwindigkeit ω, Drehimpuls L und
+                    Drehmoment D sind Vektoren, und ein Drehmoment ändert den Drehimpuls in seine eigene Richtung.
                     Dasselbe Prinzip erklärt die Präzession der Erdachse, die Stabilität eines rollenden Fahrrads
                     oder eines Kreiselkompasses und die Präzession von Kernspins im Magnetfeld, die der
                     Kernspinresonanz (MRT) zugrunde liegt.
@@ -30,7 +30,7 @@
             <summary class="spoiler-summary">Wie funktioniert das Lernmodul?</summary>
             <div class="spoiler-content">
                 <p>
-                    Das Lernmodul ist ein linearer Weg aus sieben Abschnitten. Unterwegs beantworten Sie Fragen,
+                    Das Lernmodul ist ein linearer Weg. Unterwegs beantworten Sie Fragen,
                     die Sie beliebig oft wiederholen können, und arbeiten mit einer 3D-Simulation des Kreisels,
                     in der Sie die Vektoren direkt beobachten können.
                 </p>
@@ -47,13 +47,18 @@
                     <h3 class="path-card-title">Ihr Weg durch das Lernmodul</h3>
                     <p class="path-card-focus">Vom Versuchsaufbau über die Physik zur Messung</p>
                     <ol class="path-card-steps">
-                        <li>Einstieg: Versuchsaufbau</li>
-                        <li>Grundlagen der Rotation</li>
-                        <li>Trägheitsmoment: physikalisches Pendel</li>
-                        <li>Der Kreisel</li>
-                        <li>Präzession</li>
-                        <li>Nutation</li>
-                        <li>Messstrategie und Fehlerquellen</li>
+                        @for (seg of segments; track seg.id) {
+                            <li class="path-step" [class.path-step--sub]="seg.sub">
+                                <span class="path-marker" aria-hidden="true">
+                                    @if (seg.icon) {
+                                        <svg viewBox="0 0 16 16"><path [attr.d]="seg.icon"/></svg>
+                                    } @else {
+                                        {{ seg.number }}
+                                    }
+                                </span>
+                                {{ seg.label }}
+                            </li>
+                        }
                     </ol>
                     <a routerLink="/learning/p1-setup" class="btn path-card-btn">Lernmodul starten</a>
                 </div>

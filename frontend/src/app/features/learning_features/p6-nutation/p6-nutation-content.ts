@@ -1,7 +1,7 @@
 // ── Page 1: Was ist Nutation? ──────────────────────────────────────────────
 
 export const nutationText1a = `
-    Im letzten Abschnitt haben Sie gesehen: Ein Drehmoment senkrecht zu $\\vec{L}$ lässt den Kreisel gleichmäßig präzedieren.
+    Im letzten Abschnitt haben Sie gesehen: Ein Drehmoment $\\vec{D}$ senkrecht zu $\\vec{L}$ lässt den Kreisel gleichmäßig präzedieren.
     Das ist aber nur der einfachste Fall. Erhält der Kreisel einen Stoß – oder wird er so losgelassen, dass seine Achse nicht von Anfang an
     mit der passenden Geschwindigkeit präzediert –, kommt eine zweite, schnellere Bewegung der Achse hinzu: die
     <a data-glossary="nutation" class="glossary-link">Nutation</a>.<br><br>
@@ -39,7 +39,7 @@ export const nutationText2a = `
 `;
 
 export const nutationText2b = `
-    Die drei Kegel des kräftefreien Versuchskreisels. Weil sein Trägheitsmoment senkrecht zur Figurenachse größer ist als um sie,
+    Die drei Kegel des kräftefreien Versuchskreisels. Weil sein Trägheitsmoment $I_2$ senkrecht zur Figurenachse größer ist als das Trägheitsmoment $I_1$ um sie,
     liegt $\\vec{\\omega}$ zwischen Figurenachse und $\\vec{L}$. Das Versuchsskript (Bild 4.2) zeigt den umgekehrten Fall eines flachen Kreisels.
 `;
 
@@ -52,15 +52,15 @@ export const nutationText2c = `
 // ── Page 3: Nutation im Versuch ────────────────────────────────────────────
 
 export const nutationText3a = `
-    Im Versuch erzeugen Sie die Nutation gezielt: Sie bringen das Rad auf Drehzahl und geben der Achse des ausbalancierten Kreisels
+    Im Versuch erzeugen Sie die Nutation gezielt: Sie bringen das Rad auf eine hohe Winkelgeschwindigkeit $\\omega_R$ und geben der Achse des ausbalancierten Kreisels
     einen kräftigen Stoß. Die Figurenachse beginnt, auf ihrem Nutationskegel zu kreisen. Mit der Stoppuhr messen Sie die Nutationsperiode $T_N$,
-    mit der Lichtschranke die Umlaufdauer $T_R$ des Rades – für mehrere Drehzahlen.
+    mit der Lichtschranke die Umlaufdauer $T_R$ des Rades – für mehrere Werte von $\\omega_R$.
 `;
 
 export const nutationText3b = `
     <strong>Aufgabe:</strong> Der Kreisel in der Simulation ist ausbalanciert und trägt kein Zusatzgewicht – wie im Versuch.
     Geben Sie der Achse mit „Stoß“ einen kräftigen Stoß und beobachten Sie die Figurenachse (gestrichelt) und den Drehimpuls $\\vec{L}$.
-    Erhöhen Sie dann die Drehzahl und stoßen Sie erneut an. Wie ändern sich die Frequenz der Nutation und die Weite des Nutationskegels?<br><br>
+    Erhöhen Sie dann $\\omega_R$ (Regler „Drehzahl“) und stoßen Sie erneut an. Wie ändern sich die Frequenz der Nutation und die Weite des Nutationskegels?<br><br>
     Mit den Schaltern unter der Simulation blenden Sie die Kegel einzeln ein und aus. Zum Rastpol- und zum Gangpolkegel erscheint
     zusätzlich $\\vec{\\omega}$: die Linie, auf der sich die beiden Kegel berühren. Vergleichen Sie mit der Abbildung auf der vorigen Seite.
     Bei schneller Nutation hilft die Zeitlupe.

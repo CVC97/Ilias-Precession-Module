@@ -46,15 +46,51 @@
     color: var(--text-secondary);
 }
 
+/* the same markers as in the nav bar: number, dot for a sub-chapter, icon */
 .path-card-steps {
     margin: 0 0 1.25rem;
-    padding-left: 1.4rem;
+    padding: 0;
+    list-style: none;
     line-height: 1.8;
 }
 
-.path-card-steps li::marker {
+.path-step {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.path-marker {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 2px solid var(--path-accent);
+    border-radius: 50%;
     color: var(--path-accent);
+    font-size: 0.8rem;
     font-weight: 700;
+    line-height: 1;
+}
+
+.path-marker svg {
+    display: block;
+    width: 0.85rem;
+    height: 0.85rem;
+    fill: currentColor;
+}
+
+.path-step--sub {
+    padding-left: 2rem;
+    font-size: 0.95rem;
+}
+
+.path-step--sub .path-marker {
+    width: 0.6rem;
+    height: 0.6rem;
+    background: var(--path-accent);
 }
 
 .path-card-btn,

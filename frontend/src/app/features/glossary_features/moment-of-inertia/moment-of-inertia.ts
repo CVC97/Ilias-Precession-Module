@@ -39,7 +39,7 @@ export class MomentOfInertia extends GlossaryBase {
 	// bypassing math rendering errors
     initContent() {
         this.moiText = this.sanitizer.bypassSecurityTrustHtml(`
-            Das Trägheitsmoment $I$ ist ein Maß für den Widerstand, den ein Körper der Änderung seiner Winkelgeschwindigkeit entgegensetzt.
+            Das Trägheitsmoment $I$ ist ein Maß für den Widerstand, den ein Körper der Änderung seiner Winkelgeschwindigkeit $\\omega$ entgegensetzt.
 			Es spielt damit bei einer Drehbewegung die gleiche Rolle wie die (träge) Masse im Verhältnis von Kraft und Beschleunigung (Translationsbewegung).
 			Es hängt nicht nur von der Masse ab, sondern auch davon, wie weit die Masse von der Drehachse entfernt ist.
         `);

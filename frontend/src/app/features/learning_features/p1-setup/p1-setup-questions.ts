@@ -63,18 +63,18 @@ export const question2: SingleChoiceQuestion = {
     "question": "Wozu dient das Ausgleichsgewicht?",
     "options": [
         { "value": "answer1", "label": "Es bremst das Rad, damit es nicht zu schnell rotiert." },
-        { "value": "answer2", "label": "Es verschiebt den Schwerpunkt des Kreisels in den Unterstützungspunkt, sodass die Gewichtskraft kein Drehmoment auf den Kreisel ausübt." },
-        { "value": "answer3", "label": "Es erzeugt das Drehmoment, das den Kreisel im Versuch in Bewegung setzt." },
-        { "value": "answer4", "label": "Es vergrößert das Trägheitsmoment des Rades, damit der Kreisel stabiler läuft." }
+        { "value": "answer2", "label": "Es verschiebt den Schwerpunkt des Kreisels in den Unterstützungspunkt, sodass die Gewichtskraft kein Drehmoment $\\vec{D}$ auf den Kreisel ausübt." },
+        { "value": "answer3", "label": "Es erzeugt das Drehmoment $\\vec{D}$, das den Kreisel im Versuch in Bewegung setzt." },
+        { "value": "answer4", "label": "Es vergrößert das Trägheitsmoment $I$ des Rades, damit der Kreisel stabiler läuft." }
     ],
     "correctAnswer": "answer2",
     "containerId": "question2-container",
-    "successMessage": "Der ausbalancierte Kreisel ist frei von Drehmomenten durch die Schwerkraft. Das Drehmoment im Versuch stammt allein vom Zusatzgewicht – und ist dadurch genau bekannt.",
+    "successMessage": "Der ausbalancierte Kreisel ist frei von Drehmomenten durch die Schwerkraft. Das Drehmoment $\\vec{D}$ im Versuch stammt allein vom Zusatzgewicht – und ist dadurch genau bekannt.",
     "incorrectMessage": "Lesen Sie noch einmal nach, was „ausbalanciert“ für den Schwerpunkt des Kreisels bedeutet.",
     "answerFeedback": {
         "answer1": "Das Ausgleichsgewicht sitzt auf der Achse, nicht am Rad, und berührt das Rad nicht. Bremsend wirkt im Versuch nur die Reibung.",
-        "answer3": "Ein Drehmoment entsteht durch eine Kraft mit Hebelarm. Fragen Sie sich, wo der Schwerpunkt des ausbalancierten Kreisels liegt und welchen Hebelarm die Gewichtskraft dann hat.",
-        "answer4": "Das Ausgleichsgewicht dreht sich nicht mit dem Rad um dessen Achse. Für das Trägheitsmoment des Rades spielt es keine Rolle."
+        "answer3": "Ein Drehmoment $\\vec{D}$ entsteht durch eine Kraft mit Hebelarm. Fragen Sie sich, wo der Schwerpunkt des ausbalancierten Kreisels liegt und welchen Hebelarm die Gewichtskraft dann hat.",
+        "answer4": "Das Ausgleichsgewicht dreht sich nicht mit dem Rad um dessen Achse. Für das Trägheitsmoment $I$ des Rades spielt es keine Rolle."
     }
 };
 
@@ -85,14 +85,14 @@ export const question3: MultipleChoiceQuestion = {
         { "value": "answer1", "label": "Mit der Lichtschranke wird die Umlaufdauer $T_R$ des Rades gemessen." },
         { "value": "answer2", "label": "Mit der Stoppuhr wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen." },
         { "value": "answer3", "label": "Mit der Lichtschranke wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen." },
-        { "value": "answer4", "label": "Die Pendelgewichte werden beim Präzessionsversuch an die Achse gehängt und erzeugen das Drehmoment." },
-        { "value": "answer5", "label": "Das Zusatzgewicht hängt im Abstand $r$ vom Unterstützungspunkt und erzeugt ein bekanntes Drehmoment." }
+        { "value": "answer4", "label": "Die Pendelgewichte werden beim Präzessionsversuch an die Achse gehängt und erzeugen das Drehmoment $\\vec{D}$." },
+        { "value": "answer5", "label": "Das Zusatzgewicht hängt im Abstand $r$ vom Unterstützungspunkt und erzeugt ein bekanntes Drehmoment $\\vec{D}$." }
     ],
     "correctAnswers": [
         "answer1", "answer2", "answer5"
     ],
     "containerId": "question3-container",
-    "successMessage": "Die schnelle Drehung des Rades wird elektronisch gemessen, die langsame Bewegung des ganzen Kreisels von Hand. Das Drehmoment liefert das Zusatzgewicht.",
+    "successMessage": "Die schnelle Drehung des Rades wird elektronisch gemessen, die langsame Bewegung des ganzen Kreisels von Hand. Das Drehmoment $\\vec{D}$ liefert das Zusatzgewicht.",
     "incompleteMessage": "Ordnen Sie jedem Messgerät die Bewegung zu, für die es geeignet ist: die schnelle Drehung des Rades oder die langsame Bewegung des ganzen Kreisels.",
     "incorrectMessage": "Ordnen Sie jedem Messgerät die Bewegung zu, für die es geeignet ist: die schnelle Drehung des Rades oder die langsame Bewegung des ganzen Kreisels.",
     "answerFeedback": {
@@ -139,7 +139,7 @@ export const question4: SingleChoiceQuestion = {
     "incorrectMessage": "Das wäre eine plausible Erwartung, aber der rotierende Kreisel verhält sich anders. Probieren Sie es unten in der Simulation aus und vergleichen Sie mit Ihrer Erwartung.",
     "answerFeedback": {
         "answer1": "So verhält sich der Kreisel, solange das Rad stillsteht. Mit schnell rotierendem Rad passiert etwas anderes. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut.",
-        "answer3": "Das Rad stabilisiert die Achse zwar gegen Kippen, aber das Drehmoment des Zusatzgewichts bleibt nicht ohne Wirkung. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut.",
-        "answer4": "Das Zusatzgewicht hängt an der Achse und übt kein Drehmoment um die Achse des Rades aus. Seine Wirkung zeigt sich in der Bewegung der Achse. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut."
+        "answer3": "Das Rad stabilisiert die Achse zwar gegen Kippen, aber das Drehmoment $\\vec{D}$ des Zusatzgewichts bleibt nicht ohne Wirkung. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut.",
+        "answer4": "Das Zusatzgewicht hängt an der Achse und übt kein Drehmoment $\\vec{D}$ um die Achse des Rades aus. Seine Wirkung zeigt sich in der Bewegung der Achse. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut."
     }
 };

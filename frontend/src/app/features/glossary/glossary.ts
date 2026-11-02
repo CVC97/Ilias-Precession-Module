@@ -30,12 +30,12 @@ export class Glossary {
     terms: GlossaryTerm[] = [
         {
             title: 'Drehimpuls',
-            definition: 'Der Drehimpuls L ist das Gegenstück zum Impuls bei Drehbewegungen. Er ist ein Vektor, dessen Richtung die Drehachse angibt. Für einen um eine Symmetrieachse rotierenden starren Körper gilt L = I·ω. Ohne äußeres Drehmoment bleibt er nach Betrag und Richtung erhalten.',
+            definition: 'Der Drehimpuls L ist das Gegenstück zum Impuls bei Drehbewegungen. Er ist ein Vektor, dessen Richtung die Drehachse angibt. Für einen um eine Symmetrieachse rotierenden starren Körper gilt L = I·ω. Ohne äußeres Drehmoment D bleibt er nach Betrag und Richtung erhalten.',
 			link: '/glossary/angular-momentum'
         },
         {
             title: 'Drehmoment',
-            definition: 'Das Drehmoment D beschreibt die Drehwirkung einer Kraft auf einen Körper: D = r × F. Es spielt bei Drehbewegungen die Rolle der Kraft und ändert den Drehimpuls in seine eigene Richtung: dL/dt = D.',
+            definition: 'Das Drehmoment D beschreibt die Drehwirkung einer Kraft auf einen Körper: D = r × F. Es spielt bei Drehbewegungen die Rolle der Kraft und ändert den Drehimpuls L in seine eigene Richtung: dL/dt = D.',
 			link: '/glossary/torque'
         },
         {
@@ -45,7 +45,7 @@ export class Glossary {
         },
         {
             title: 'Kreuzprodukt und Rechte-Hand-Regel',
-            definition: 'Das Kreuzprodukt a × b zweier Vektoren steht senkrecht auf beiden; sein Betrag ist a·b·sin α. Die Richtung folgt aus der Rechte-Hand-Regel. Drehmoment, Drehimpuls und Bahngeschwindigkeit sind Kreuzprodukte.',
+            definition: 'Das Kreuzprodukt a × b zweier Vektoren steht senkrecht auf beiden; sein Betrag ist a·b·sin α. Die Richtung folgt aus der Rechte-Hand-Regel. Drehmoment D, Drehimpuls L und Bahngeschwindigkeit v sind Kreuzprodukte.',
 			link: '/glossary/cross-product'
         },
         {
@@ -60,7 +60,7 @@ export class Glossary {
         },
         {
             title: 'Nutation',
-            definition: 'Nutation ist eine Bewegung der Figurenachse eines Kreisels um die Richtung seines Drehimpulses. Beim kräftefreien Kreisel läuft die Figurenachse auf dem Nutationskegel um die raumfeste Drehimpulsachse.',
+            definition: 'Nutation ist eine Bewegung der Figurenachse eines Kreisels um die Richtung seines Drehimpulses L. Beim kräftefreien Kreisel läuft die Figurenachse auf dem Nutationskegel um die raumfeste Drehimpulsachse.',
 			link: '/glossary/nutation'
         },
         {
@@ -75,7 +75,7 @@ export class Glossary {
         },
         {
             title: 'Präzession',
-            definition: 'Präzession ist die Drehung der Drehimpulsachse eines Kreisels unter einem Drehmoment senkrecht zu seinem Drehimpuls. Statt zu kippen, weicht der Kreisel seitlich aus; die Präzessionsgeschwindigkeit ist ω_P = D/(L sin θ).',
+            definition: 'Präzession ist die Drehung der Drehimpulsachse eines Kreisels unter einem Drehmoment D senkrecht zu seinem Drehimpuls L. Statt zu kippen, weicht der Kreisel seitlich aus; die Präzessionsgeschwindigkeit ist ω_P = D/(L sin θ).',
 			link: '/glossary/precession'
         },
         {
@@ -85,7 +85,7 @@ export class Glossary {
         },
         {
             title: 'Trägheitsmoment',
-            definition: 'Das Trägheitsmoment I ist ein Maß für den Widerstand, den ein Körper der Änderung seiner Winkelgeschwindigkeit entgegensetzt. Es spielt damit bei einer Drehbewegung die gleiche Rolle wie die (träge) Masse im Verhältnis von Kraft und Beschleunigung (Translationsbewegung).',
+            definition: 'Das Trägheitsmoment I ist ein Maß für den Widerstand, den ein Körper der Änderung seiner Winkelgeschwindigkeit ω entgegensetzt. Es spielt damit bei einer Drehbewegung die gleiche Rolle wie die (träge) Masse im Verhältnis von Kraft und Beschleunigung (Translationsbewegung).',
 			link: '/glossary/moment-of-inertia'
         },
         {

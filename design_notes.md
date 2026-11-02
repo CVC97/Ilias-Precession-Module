@@ -7,9 +7,9 @@ Built with Claude by Carlo (physics education group, Göttingen), 2026-10-26 to 
 Related: the simulation repo ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), everything on `master`) has its own `design_notes.md` (physics model, module build, bridge, pitfalls) and README (release steps); the rough lab data are in its gitignored `experimental.md`. The infrastructure comes from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module); its developer guide is `../ilias-pohl-module/.learning_module_readme.md`.
 
 
-## 1 Status (2026-10-30)
+## 1 Status (2026-11-02)
 
-Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.1.0`. Seven segments with 20 sub-pages, 28 retryable questions, 13 glossary terms, six embedded simulations; the target page "Abschluss" with a free simulation, the summary and the HTML report. Open items: section 10.
+Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.3.0`. Four chapters (Der Kreisel with two sub-chapters) on seven routes with 20 sub-pages, 28 retryable questions, 13 glossary terms, six embedded simulations; the target page "Abschluss" with a free simulation, the summary and the HTML report. Open items: section 10.
 
 
 ## 2 Concept
@@ -34,9 +34,15 @@ Versuch 4 *Kreiselpräzession* (Grundpraktikum Experimentalphysik I). In the lab
 | **15 px base font, hyphenated justified text** (Carlo, 2026-11-01) | The text stays justified; hyphenation (`hyphens: auto`, not for headings and nav labels) keeps the word gaps small. The base size is set once on `html` (93.75 %, phones 100 %), so text, spacing and the rem-based column scale together. With the 62 rem column (870 px of content) lines reach about 100 characters: don't go wider or smaller. "Weiter" and "Zurück" together fill the column, each taking half minus the gap; a lone button keeps its half on its own side. |
 | **Question boxes and the sim panel follow the theme** (Carlo, 2026-11-01) | Replaces Pohl's "stay light in dark mode": they were glaring white blocks on the dark page. All surfaces read theme tokens. Only the Unity canvas and the figures stay light (each figure has its own white plate). The HTML report has its own CSS and paper stays white. |
 | **Lab → simple top → lab** (Carlo) | p1 meets the real apparatus; p2 and p4 show the fundamentals on a simple top without counterweight and string around the arrows; p5 bridges back (the add-on weight takes the role of the top's own weight); p6, p7 are the lab's own experiments. |
+| **Fewer chapters in the nav, same routes** (collaborators and Carlo, 2026-11-02) | Trägheitsmoment is pages 4–5 of Grundlagen (5 sub-pages are still fine), Präzession and Nutation are sub-chapters of Der Kreisel: indented rows with a dot on the line (merged, Der Kreisel would run to 1/9). `SEGMENTS` (`shared/nav-bar/segments.ts`) holds this and also feeds the start page's list. **Routes, question and tracking IDs stay** (`p3-pendulum` is now only an internal name), so saved visits stay valid; the summary shows p3's pages as 4/5 and 5/5 via `PAGE_OFFSETS`. Portable to Pohl: `SegmentDef.icon` and `sub`. |
+| **Stopwatch instead of a number on Messstrategie** (Carlo, 2026-11-02) | The chapter is about measuring, and fewer numbers remain. Not Pohl's wrench: it marks "Versuchsaufbau" there, which here is chapter 1, still numbered. The start page's list uses the same markers, so the numbers match the nav; the Pohl module's list has the same circled numbers. |
+| **One word per quantity, symbol right after it** (collaborators and Carlo, 2026-11-02) | `Winkelgeschwindigkeit` with the page's symbol (ω on p2, ω₁ on p4, otherwise ω_R; a magnitude is not ω⃗). "Drehzahl" remains only for what the slider is called: its label, gate hints, tasks in the form "(Regler „Drehzahl“)", the free simulation's list of sliders, the glossary's definition. No "Drehsinn", no "Drehgeschwindigkeit". Symbol at the first mention per page and in every question and feedback text; headings and nav labels are exempt. |
+| **The Lehrportal's video on p1, a plain YouTube embed** (collaborators and Carlo, 2026-11-02) | It shows the experiment and its purpose and replaces Bild 4.1 on page 1. No "Weiter" gate and no link to YouTube on the page; the report, which cannot embed it, carries the URL. The labelled photo stays on page 2, where it serves as a reference beside the component list, and question 1 moved there with it. |
 | **Never spoil the Auswertung** | The slope of ω_N vs. ω_R is I₃/I₁ for a fast gyroscope (Auswertung 5), and the moments of inertia are to be compared. No text, readout, preset or fit gives either, not even numerically: the sim reports no moments of inertia, there is no T_N readout, the cones show I₁/I₃ only geometrically. Segment 6 says only that ω_N ∝ ω_R and that the slope is dimensionless. |
 
 ### Learning path
+
+Chapters as the nav shows them: 1 = `p1`, 2 = `p2` + `p3`, 3 = `p4` with the sub-chapters `p5` and `p6`, stopwatch = `p7`. The numbers below are the routes.
 
 | # | Route | Content | Sim |
 |---|---|---|---|
@@ -55,7 +61,8 @@ The order follows the physics, not the lab (which starts with the pendulum).
 
 - Lab notation from the script: torque **D** (the script's figures say T; the module says so where a figure shows T), angular momentum **L**, moment of inertia **I**, tilt θ. In segment 4 the indices follow Bild 4.2 (1 = figure axis, 2 = perpendicular).
 - θ is the angle between L⃗ (the wheel side) and the vertical, in the texts and in the sim.
-- **Colours are the sim's everywhere** (sim and drawn figures): ω uni-blau-1, L uni-blau-3, D physik-gelb, ω_P / precession jura-rot, forces and figure axis graphite. Students must not see L in two colours.
+- **Colours are the sim's everywhere** (sim and drawn figures): ω uni-blau-1, L uni-blau-3, D physik-gelb, ω_P / precession jura-rot, forces and figure axis graphite. Students must not see L in two colours. The two blues stay (critique from the 2026-11-02 meeting; contrast 3.5:1, lightness 22 vs. 56). Colour means quantity, so apparatus never takes a vector's colour: the figures' stand is metallic grey.
+- Every figure has a caption, except the answer options of image questions. Vectors drawn beside the axis for legibility say so there (p2 L⃗ and ω⃗, p5 r⃗).
 - Drawn figures are generated SVGs (`tools/make_figures.py`). The script's Bild 4.2/4.3 are redrawn for the **lab case** (I about the pivot ⊥ figure axis ≈ 0.05 kg m² > I about the figure axis ≈ 0.01 kg m²: ω⃗ lies between figure axis and L⃗, the Gangpolkegel rolls on the outside), stated only as an ordering, never as a ratio. Only the setup photo Bild 4.1 is from the script.
 
 
@@ -105,7 +112,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 
 1. **One learning target per embed.** The sim answers the page's task and nothing else; p5's three tasks are one experiment with three knobs.
 2. **Helpers off by default**; a preset switches on only what the target needs.
-3. **At most three controls that change the experiment** (sliders and action buttons), in lab language (Drehzahl, Zusatzgewicht, Neigung, Zeitlupe, Stoß, Loslassen / Geführt starten). Helper switches don't count.
+3. **At most three controls that change the experiment** (sliders and action buttons), in lab language (Drehzahl in U/min, Zusatzgewicht, Neigung, Zeitlupe, Stoß, Loslassen / Geführt starten); the page text uses Winkelgeschwindigkeit and names the slider where a task needs it. Helper switches don't count.
 4. **Parameters are always sliders**, also two-valued ones (p1 weight 0/30 g). **Switches only show or hide helpers**, off state grey (not Pohl's red: off isn't an error), one switch per helper (p6: one per cone; ω⃗ comes along with the Rastpol- or Gangpolkegel, the line where they touch).
 5. **Panel layout:** sliders in the first row, switches below, readouts, then one button row: the page's buttons, **Pause/Weiter** (always), **Zurücksetzen** (back to the page's start values; only where there is a slider or switch to reset). Phones: sliders and switches stacked, two buttons per row. Restarts and pushes resume a paused sim; slider changes keep it paused (set up, then continue).
 6. **Sliders that change the run send on release**; the Zeitlupe slider follows while dragging.
@@ -119,7 +126,7 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 | Embed (page) | Target | Preset essentials | Controls | Gate |
 |---|---|---|---|---|
 | `p1-explore` (p1-setup 3/3) | the phenomenon without theory: with the weight the gyroscope doesn't tip but turns sideways, the slower the wheel the faster | lab, 400 rpm, **0 g** (the "before" of the prediction question), guided, no helpers | Zusatzgewicht 0/30 g, Drehzahl 150–800 | weight on + 2 rpm |
-| `p2-vectors` (p2-rotation 2/3) | L⃗ and ω⃗ along the axis, same direction, ∝ rpm | top, 2400 rpm, 60°, L, ω, labels | Drehzahl 1500–3000, Zeitlupe (slower precession makes the arrows easier to compare; same top as p4) | 2 rpm |
+| `p2-vectors` (p2-rotation 2/5; right after the figure, because the questions below would otherwise answer its target beforehand) | L⃗ and ω⃗ along the axis, same direction, ∝ rpm | top, 2400 rpm, 60°, L, ω, labels | Drehzahl 1500–3000, Zeitlupe (slower precession makes the arrows easier to compare; same top as p4) | 2 rpm |
 | `p4-axes` (p4-gyroscope 2/3) | figure axis, L⃗ and ω⃗ are three directions when the axis moves; they close in with more spin | top, 1000 rpm, 60°, `pushPhiDot` 4 then `Push`, Zeitlupe 0.25, L, ω, figure axis, labels | Drehzahl 1000–3000, Zeitlupe | 2 rpm |
 | `p5-precession` (p5 3/3) | ω_P ∝ 1/ω_R, independent of θ; D⃗ horizontal, ⊥ L⃗ | lab, 400 rpm, 30 g, 90°, guided (steady readout), L, D, vertical axis, precession cone, labels; ω⃗ off (on top of L⃗ for a fast gyroscope) | Drehzahl, Zusatzgewicht 10–60 g, Neigung 60–120° | 2 rpm + 2 θ₀ |
 | `p6-nutation` (p6 3/3) | the lab's step 6: nutation of the balanced gyroscope after a push; more spin → faster, narrower; the three cones of Bild 4.2 | lab, 0 g, 200 rpm, still until the first Stoß (`pushThetaDot` 2), L, figure axis, Nutationskegel, labels | Drehzahl 150–600, Zeitlupe, Stoß; switches per cone | a push at 2 rpm |
@@ -169,11 +176,13 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 - SSR is built but not deployed: still guard `window`, `document`, storage with `isPlatformBrowser()`.
 - Colours only via the CSS variables in `styles.css`, also in question boxes and the sim panel (dark mode; `styles_summary.css` has the summary's own); breakpoints 600 / 900 / 1200 px; overrides in the component CSS. A block placed outside `.card` needs the column itself (see `.summary-container`).
 - Question IDs and tracking IDs are stored in the database: choose once, never change. Retryable types: single-choice, multiple-choice, multiple-choice-image, image-choice (Pohl's learning drag-and-drop is an empty stub).
-- Student-facing text: German, formal "Sie".
+- Student-facing text: German, formal "Sie". Wording of quantities and symbols: section 2.
 
 
 ## 10 Open items
 
+- **Video check (Carlo):** watch the p1 video for Auswertung spoilers (slope, I₃/I₁). If it shows the precession, it gives away `p1-setup-4-erwartung` two pages later: reword that question's messages and `setupText3c` ("aus Ihrer Erwartung heraus").
+- **Metallic stand in the sim:** `ModuleBase.mat` has exactly ω's colour; requested from the sim repo (`ModuleTower.mat` as the model). Afterwards bump `sim.version`.
 - **Spoiler check (Carlo):** question `p5-precession-4-steigung` asks for the slope m_z g r / I of ω_P vs. 1/ω_R. Remove it if it's too much help for the Auswertung.
 - **Physics details not verifiable from the material** (Carlo to confirm): pendulum part (wheel clamped, pendulum weight screwed in, two opposite positions because of unbalance); light barrier one interruption per turn; the notch side of the add-on weight; the reason for timing half a precession turn (`measureText1b` gives only the friction argument); nutation measured on the balanced gyroscope.
 - **Sim polish:** p7's trail (thin light grey on the light stage) has weak contrast; the mouse wheel over the sim zooms instead of scrolling the page; no touch rotation on phones/tablets; p4 at 1000 rpm: the disk can hide the short arrows in some phases (re-check with the new camera); the Push sign quirk; `precessionArc`/`precessionVector` can be deleted sim-side.
@@ -185,6 +194,8 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 
 - Euler: (dL/dt)_Raum = (dL/dt)_Körper + ω × L.
 - Precession: D = ω_P × L, ω_P = D/(L sin θ). Lab: D = m_z g r sin θ, L = I ω_R, so ω_P = m_z g r/(I ω_R), **independent of θ**, ∝ 1/ω_R, the slope gives I. Simple top: D = m g l sin θ.
+- Steady precession, exactly (indices of segment 4): m_z g r = ω_P (I₁ω_R − I₂ω_P cos θ). The correction vanishes at θ = 90° (the part of L⃗ from the precession is then parallel to ω⃗_P), so a slow wheel spoils the horizontal measurement through the dip and nodding, which tilt the axle, not through this term directly. "Näherung für den schnellen Kreisel" is the module's name for the approximation; no separate established German term was found.
+- The Euler Exkurs (p4 3/3) stops at the vector form: solving the force-free component form leads straight to I₃/I₁.
 - Physical pendulum: T = 2π √(I/(m g d)) (I about the pivot axis; account for the pendulum weight's own contribution).
 - Nutation: ω_N ∝ ω_R; for a fast gyroscope supported at its centre of mass ω_N = (I₃/I₁) ω_R. **That is the answer to Auswertung 5: never state it.**
 - Balanced lab gyroscope (0 g): force-free, L⃗ fixed in space; after a push the figure axis circles L⃗ on the Nutationskegel; Rastpolkegel (ω⃗ around L⃗, fixed in space) and Gangpolkegel (ω⃗ around the figure axis, fixed in the body) roll on each other.

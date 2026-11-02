@@ -23,7 +23,7 @@ export const rotationText1b = `
 `;
 
 export const rotationText1c = `
-    Die Winkelgeschwindigkeit ist ein Vektor entlang der Drehachse. Ihr Betrag ist die Drehgeschwindigkeit,
+    Die Winkelgeschwindigkeit $\\vec{\\omega}$ ist ein Vektor entlang der Drehachse. Ihr Betrag gibt an, wie schnell sich der Körper dreht,
     ihre Richtung folgt aus der Rechte-Hand-Regel.
 `;
 
@@ -39,12 +39,12 @@ export const rotationText2a = `
 
 export const rotationText2b = `
     $$\\vec{L} = I\\,\\vec{\\omega}$$
-    Der Drehimpuls zeigt in dieselbe Richtung wie die Winkelgeschwindigkeit.
-    Sein Betrag wächst mit dem Trägheitsmoment $I$ und mit der Drehgeschwindigkeit.
+    Der Drehimpuls $\\vec{L}$ zeigt in dieselbe Richtung wie die Winkelgeschwindigkeit $\\vec{\\omega}$.
+    Sein Betrag wächst mit dem Trägheitsmoment $I$ und mit dem Betrag $\\omega$ der Winkelgeschwindigkeit.
 `;
 
 export const rotationText2c = `
-    Das <a data-glossary="moment-of-inertia" class="glossary-link">Trägheitsmoment</a>
+    Das <a data-glossary="moment-of-inertia" class="glossary-link">Trägheitsmoment</a> $I$
     beschreibt, wie die Masse um die Drehachse verteilt ist:
     $$I = \\int r_\\perp^2\\,\\mathrm{d}m,$$
     mit dem Abstand $r_\\perp$ jedes Massenelements $\\mathrm{d}m$ von der Achse. Masse weit außen zählt quadratisch stärker.
@@ -56,16 +56,21 @@ export const rotationText2c = `
 
 export const rotationText2d = `
     <strong>Aufgabe:</strong> In der Simulation sind $\\vec{L}$ und $\\vec{\\omega}$ als Pfeile eingeblendet.
-    Verändern Sie die Drehzahl. Wie ändern sich die Längen der beiden Pfeile, und in welche Richtung zeigen sie?<br><br>
+    Verändern Sie die Winkelgeschwindigkeit $\\omega$ (Regler „Drehzahl“). Wie ändern sich die Längen der beiden Pfeile, und in welche Richtung zeigen sie?<br><br>
     Dass sich die Achse dabei langsam um die Senkrechte dreht, ist die Präzession. Sie ist Thema des Abschnitts „Präzession“;
     achten Sie hier nur auf die beiden Pfeile.
+`;
+
+export const rotationText2e = `
+    Beide Vektoren liegen auf der Drehachse und zeigen in dieselbe Richtung;
+    nur der Lesbarkeit halber sind sie seitlich versetzt gezeichnet.
 `;
 
 
 // ── Page 3: Drehmoment ─────────────────────────────────────────────────────
 
 export const rotationText3a = `
-    Was ändert den Drehimpuls? Für geradlinige Bewegungen gilt das zweite Newtonsche Gesetz
+    Was ändert den Drehimpuls $\\vec{L}$? Für geradlinige Bewegungen gilt das zweite Newtonsche Gesetz
     $\\mathrm{d}\\vec{p}/\\mathrm{d}t = \\vec{F}$. Das Gegenstück für Drehungen lautet:
 `;
 
@@ -75,7 +80,7 @@ export const rotationText3b = `
 `;
 
 export const rotationText3c = `
-    Das <a data-glossary="torque" class="glossary-link">Drehmoment</a>
+    Das <a data-glossary="torque" class="glossary-link">Drehmoment</a> $\\vec{D}$
     entsteht, wenn eine Kraft $\\vec{F}$ am Ort $\\vec{r}$ (gemessen vom Drehpunkt) angreift.
     Als <a data-glossary="cross-product" class="glossary-link">Kreuzprodukt</a>
     steht es senkrecht auf $\\vec{r}$ und $\\vec{F}$; sein Betrag ist $D = rF\\sin\\alpha$.<br><br>
@@ -84,7 +89,7 @@ export const rotationText3c = `
     <ul>
         <li><strong>$\\vec{D}$ parallel zu $\\vec{L}$:</strong> $\\Delta\\vec{L}$ verlängert oder verkürzt $\\vec{L}$.
             Der Körper dreht sich schneller oder langsamer, die Achse bleibt, wo sie ist.
-            So bringen Sie mit der Antriebsschnur das Rad auf Drehzahl, und so bremst die Reibung es wieder ab.</li>
+            So bringen Sie mit der Antriebsschnur das Rad auf eine hohe Winkelgeschwindigkeit, und so bremst die Reibung es wieder ab.</li>
         <li><strong>$\\vec{D}$ senkrecht zu $\\vec{L}$:</strong> $\\Delta\\vec{L}$ steht senkrecht auf $\\vec{L}$.
             Der Betrag von $\\vec{L}$ bleibt dabei (in erster Ordnung in $\\Delta t$) gleich, nur seine Richtung dreht sich ein wenig.
             Bleibt das Drehmoment immer senkrecht zu $\\vec{L}$, dreht sich $\\vec{L}$ immer weiter.</li>
@@ -99,6 +104,6 @@ export const rotationText3d = `
 
 export const rotationText3e = `
     Im Versuch liefert das Zusatzgewicht genau so ein Drehmoment senkrecht zum Drehimpuls.
-    Was daraus folgt, sehen Sie im Abschnitt „Präzession“. Zuvor lernen Sie im nächsten Abschnitt,
-    wie man das Trägheitsmoment des Rades mit einem Pendel misst.
+    Was daraus folgt, sehen Sie im Abschnitt „Präzession“. Zuvor lernen Sie auf den nächsten beiden Seiten,
+    wie man das Trägheitsmoment $I$ des Rades mit einem Pendel misst.
 `;

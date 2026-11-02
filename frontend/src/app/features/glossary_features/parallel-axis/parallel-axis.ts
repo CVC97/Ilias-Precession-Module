@@ -31,7 +31,7 @@ export class ParallelAxis extends GlossaryBase {
 	// bypassing math rendering errors
     initContent() {
         this.parallelAxisText = this.sanitizer.bypassSecurityTrustHtml(`
-			Der Steinersche Satz verknüpft das Trägheitsmoment eines Körpers bezüglich einer beliebigen Achse
+			Der Steinersche Satz verknüpft das Trägheitsmoment $I$ eines Körpers bezüglich einer beliebigen Achse
 			mit dem bezüglich einer dazu parallelen Achse durch seinen Schwerpunkt.
         `);
 

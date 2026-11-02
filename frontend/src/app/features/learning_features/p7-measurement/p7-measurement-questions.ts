@@ -4,18 +4,18 @@ export const question1: SingleChoiceQuestion = {
     "questionId": "p7-measurement-1-tr-vorher-nachher",
     "question": "Warum wird die Umlaufdauer $T_R$ sowohl vor als auch nach der Präzessionsmessung bestimmt?",
     "options": [
-        { "value": "answer1", "label": "Weil das Rad durch Reibung langsamer wird; der Mittelwert schätzt die Drehzahl während der Präzessionsmessung." },
+        { "value": "answer1", "label": "Weil das Rad durch Reibung langsamer wird; der Mittelwert schätzt die Winkelgeschwindigkeit $\\omega_R$ während der Präzessionsmessung." },
         { "value": "answer2", "label": "Um zu prüfen, ob die Lichtschranke zuverlässig funktioniert." },
         { "value": "answer3", "label": "Weil das Zusatzgewicht das Rad während der Präzession beschleunigt." },
         { "value": "answer4", "label": "Um mehr Messwerte für die Statistik zu erhalten." }
     ],
     "correctAnswer": "answer1",
     "containerId": "question1-container",
-    "successMessage": "Die Drehzahl ändert sich während der Messung. Der Mittelwert aus vorher und nachher ist die beste Schätzung für die Drehzahl, die zur gemessenen Präzession gehört.",
-    "incorrectMessage": "Überlegen Sie, wie sich die Drehzahl des Rades während der Präzessionsmessung verändert.",
+    "successMessage": "Die Winkelgeschwindigkeit $\\omega_R$ ändert sich während der Messung. Der Mittelwert aus vorher und nachher ist die beste Schätzung für den Wert, der zur gemessenen Präzession gehört.",
+    "incorrectMessage": "Überlegen Sie, wie sich die Winkelgeschwindigkeit $\\omega_R$ des Rades während der Präzessionsmessung verändert.",
     "answerFeedback": {
         "answer2": "Dafür würde eine Kontrollmessung genügen. Der zeitliche Abstand zur Präzessionsmessung spielt hier eine Rolle: Was passiert mit dem Rad in dieser Zeit?",
-        "answer3": "Das Drehmoment des Zusatzgewichts steht senkrecht zu $\\vec{L}$ und ändert die Drehzahl nicht. Welche Kraft wirkt aber ständig auf das Rad?",
+        "answer3": "Das Drehmoment $\\vec{D}$ des Zusatzgewichts steht senkrecht zu $\\vec{L}$ und ändert die Winkelgeschwindigkeit $\\omega_R$ nicht. Welche Kraft wirkt aber ständig auf das Rad?",
         "answer4": "Für mehr Messwerte könnten Sie $T_R$ auch mehrmals hintereinander messen. Entscheidend ist hier, wann gemessen wird."
     }
 };
@@ -44,16 +44,16 @@ export const question3: MultipleChoiceQuestion = {
     "questionId": "p7-measurement-3-sanft-einleiten",
     "question": "Warum sollen Sie den Kreisel nach dem Anhängen des Zusatzgewichts vorsichtig mit der Hand in die Präzession führen?",
     "options": [
-        { "value": "answer1", "label": "Damit die Achse von Anfang an ungefähr mit der Präzessionsgeschwindigkeit läuft." },
+        { "value": "answer1", "label": "Damit die Achse von Anfang an ungefähr mit der Präzessionsgeschwindigkeit $\\omega_P$ läuft." },
         { "value": "answer2", "label": "Damit die Nutation klein bleibt und sich die Präzessionszeit genauer messen lässt." },
         { "value": "answer3", "label": "Weil der Kreisel ohne Hilfe gar nicht präzedieren würde." },
-        { "value": "answer4", "label": "Um dem Rad zusätzlichen Drehimpuls um seine Figurenachse zu geben." }
+        { "value": "answer4", "label": "Um dem Rad zusätzlichen Drehimpuls $\\vec{L}$ um seine Figurenachse zu geben." }
     ],
     "correctAnswers": [
         "answer1", "answer2"
     ],
     "containerId": "question3-container",
-    "successMessage": "Losgelassen aus dem Stillstand startet die Achse ohne Präzessionsgeschwindigkeit und nutiert stark. Mit der Hand geführt, bleibt die Nutation klein.",
+    "successMessage": "Losgelassen aus dem Stillstand startet die Achse ohne Präzessionsgeschwindigkeit $\\omega_P$ und nutiert stark. Mit der Hand geführt, bleibt die Nutation klein.",
     "incompleteMessage": "Vergleichen Sie die beiden Bahnen in der Abbildung: Was unterscheidet den Start aus dem Stillstand vom geführten Start?",
     "incorrectMessage": "Vergleichen Sie die beiden Bahnen in der Abbildung: Was unterscheidet den Start aus dem Stillstand vom geführten Start?",
     "answerFeedback": {
@@ -70,12 +70,12 @@ export const question3: MultipleChoiceQuestion = {
         "answer3": {
             "conceptId": "precesses-anyway",
             "order": 2,
-            "message": "Auch losgelassen präzediert der Kreisel – das Drehmoment sorgt dafür. Die Bahn ist dann aber von starker Nutation überlagert."
+            "message": "Auch losgelassen präzediert der Kreisel – das Drehmoment $\\vec{D}$ sorgt dafür. Die Bahn ist dann aber von starker Nutation überlagert."
         },
         "answer4": {
             "conceptId": "spin-unchanged",
             "order": 3,
-            "message": "Die Hand bewegt nur die Achse seitlich. Den Drehimpuls um die Figurenachse erhält das Rad allein durch die Antriebsschnur."
+            "message": "Die Hand bewegt nur die Achse seitlich. Den Drehimpuls $\\vec{L}$ um die Figurenachse erhält das Rad allein durch die Antriebsschnur."
         }
     }
 };
@@ -86,7 +86,7 @@ export const question4: MultipleChoiceQuestion = {
     "options": [
         { "value": "answer1", "label": "Den Kreisel vor dem Anhängen des Zusatzgewichts sorgfältig ausbalancieren." },
         { "value": "answer2", "label": "Den Abstand $r$ der Kerbe vom Unterstützungspunkt genau messen." },
-        { "value": "answer3", "label": "Ein möglichst großes Zusatzgewicht bei möglichst kleiner Drehzahl wählen, damit die Präzession schnell und gut sichtbar ist." },
+        { "value": "answer3", "label": "Ein möglichst großes Zusatzgewicht bei möglichst kleiner Winkelgeschwindigkeit $\\omega_R$ wählen, damit die Präzession schnell und gut sichtbar ist." },
         { "value": "answer4", "label": "Die Achse exakt waagrecht halten, weil $\\omega_P$ stark vom Neigungswinkel abhängt." }
     ],
     "correctAnswers": [
@@ -100,22 +100,22 @@ export const question4: MultipleChoiceQuestion = {
         "answer1": {
             "conceptId": "known-torque",
             "order": 1,
-            "message": "Die Formel setzt voraus, dass das Drehmoment allein vom Zusatzgewicht stammt. Was bewirkt ein zusätzliches, unbekanntes Drehmoment?"
+            "message": "Die Formel setzt voraus, dass das Drehmoment $\\vec{D}$ allein vom Zusatzgewicht stammt. Was bewirkt ein zusätzliches, unbekanntes Drehmoment?"
         },
         "answer2": {
             "conceptId": "known-torque",
             "order": 1,
-            "message": "Die Formel setzt voraus, dass das Drehmoment allein vom Zusatzgewicht stammt. Was bewirkt ein zusätzliches, unbekanntes Drehmoment?"
+            "message": "Die Formel setzt voraus, dass das Drehmoment $\\vec{D}$ allein vom Zusatzgewicht stammt. Was bewirkt ein zusätzliches, unbekanntes Drehmoment?"
         },
         "answer3": {
             "conceptId": "fast-gyro",
             "order": 2,
-            "message": "Die Formel gilt nur für den schnellen Kreisel, $\\omega_P \\ll \\omega_R$. Was passiert mit dieser Bedingung bei großem Zusatzgewicht und kleiner Drehzahl?"
+            "message": "Die Formel beruht auf der Näherung für den schnellen Kreisel, $\\omega_P \\ll \\omega_R$. Was passiert mit dieser Bedingung bei großem Zusatzgewicht und kleiner Winkelgeschwindigkeit $\\omega_R$?"
         },
         "answer4": {
             "conceptId": "theta",
             "order": 3,
-            "message": "Erinnern Sie sich an den Abschnitt „Präzession“: Auch das Drehmoment des Zusatzgewichts hängt vom Neigungswinkel ab."
+            "message": "Erinnern Sie sich an den Abschnitt „Präzession“: Auch das Drehmoment $D$ des Zusatzgewichts hängt vom Neigungswinkel ab."
         }
     }
 };

@@ -15,7 +15,7 @@ GRAPH = 'rgb(59,59,58)'       # graphite: figure axis, forces, rotation sense
 GREY = 'rgb(135,135,134)'     # construction lines
 LIGHT = 'rgb(200,205,212)'    # apparatus shading
 PALE = 'rgb(230,233,238)'
-STAND = 'rgb(21,50,104)'
+STAND = 'rgb(135,141,150)'    # metallic grey: never a vector's colour
 FONT = 'font-family="Helvetica, Arial, sans-serif"'
 
 COLOURS = {'navy': NAVY, 'L': LCOL, 'D': DCOL, 'P': PCOL, 'graph': GRAPH, 'grey': GREY}
@@ -189,17 +189,16 @@ b = line(cx, cy + 80, cx, cy - 10, GREY, 4)
 b += disk(cx, cy, 130, 38, +1)
 b += arrow(cx, cy, cx, 60, OMEGA, 6)
 b += vec_label(cx + 14, 82, 'ω', OMEGA)
-b += text(cx + 150, cy + 70, 'Drehsinn', GRAPH, 17, 'end', 'normal', 'normal')
+b += text(cx + 170, cy + 84, 'Drehrichtung', GRAPH, 17, 'end', 'normal', 'normal')
 write('p2_rotation/omega_vektor.svg', svg(400, 330, b))
 
-# ── p2: L = I ω, both along the axis ───────────────────────────────────────
+# ── p2: L and ω, both along the axis (drawn side by side so neither hides the other) ─
 b = line(cx, cy + 80, cx, cy - 10, GREY, 4)
 b += disk(cx, cy, 130, 38, +1)
 b += arrow(cx + 10, cy, cx + 10, 130, OMEGA, 5)
 b += arrow(cx - 10, cy, cx - 10, 40, LCOL, 7)
 b += vec_label(cx + 24, 150, 'ω', OMEGA)
 b += vec_label(cx - 26, 62, 'L', LCOL, anchor='end')
-b += text(cx + 150, cy + 70, 'L = I ω', NAVY, 18, 'end', 'italic', 'normal')
 write('p2_rotation/drehimpuls_vektor.svg', svg(400, 330, b))
 
 # ── p2 question: disk turning clockwise seen from above → ω points down ───
@@ -229,7 +228,7 @@ b += (f'<path d="M{cx},{cy + ar} A{ar},{ar} 0 0 0 {cx + ar * math.sin(phi):.1f},
 b += text(cx + 3, cy + ar + 17, 'φ', NAVY, 18)
 b += text(cx + d / 2 * math.sin(phi) + 10, cy + d / 2 * math.cos(phi) - 4, 'd', NAVY, 20)
 b += arrow(px, py + 16, px, py + 120, GRAPH, 4)
-b += sym_label(px + 10, py + 110, 'm', GRAPH, 19, sub='p') + text(px + 37, py + 110, 'g', GRAPH, 19)
+b += sym_label(px + 10, py + 110, 'm', GRAPH, 19, sub='p') + vec_label(px + 37, py + 110, 'g', GRAPH, 19)
 b += text(cx - 12, cy - 14, 'Radachse', NAVY, 15, 'end', 'normal', 'normal')
 b += text(cx + R + 10, py + 5, 'Pendelgewicht', NAVY, 15, 'start', 'normal', 'normal')
 b += line(cx + R + 8, py, px + 17, py, GREY, 1.5)
@@ -326,7 +325,9 @@ b += arrow(*o, *P(Lv2), LCOL, 3, '7 5')
 b += arrow(*o, *P(Lv), LCOL, 5.5)
 b += vec_label(t1[0] + 8, t1[1] + 26, 'L', LCOL, 22)
 b += arrow(*t1, *t2, DCOL, 4.5)
-b += vec_label(t1[0] + 14, t1[1] - 26, 'dL = D dt', DCOL, 18, text_col=DTEXT)
+dx, dy = t1[0] + 14, t1[1] - 26
+b += (text(dx, dy, 'd', DTEXT, 18) + vec_label(dx + 11, dy, 'L', DCOL, 18, text_col=DTEXT) + text(dx + 25, dy, '=', DTEXT, 18) +
+      vec_label(dx + 39, dy, 'D', DCOL, 18, text_col=DTEXT) + text(dx + 55, dy, 'dt', DTEXT, 18))
 b += arrow(*P((0, 0, 0.95)), *P((0, 0, 1.3)), PCOL, 5)
 b += vec_label(P((0, 0, 1.3))[0] + 12, P((0, 0, 1.3))[1] + 18, 'ω', PCOL, 22, sub='P')
 b += f'<circle cx="{o[0]:.1f}" cy="{o[1]:.1f}" r="5" fill="{NAVY}"/>'
@@ -371,11 +372,11 @@ for k in range(3):
     b += polygon(disc, 'rgb(90,96,108)', GRAPH, 1)
 b += arrow(*P((0.27, 0, -0.15)), *P((0.27, 0, -0.27)), GRAPH, 3.5)
 b += sym_label(P((0.27, 0, -0.24))[0] + 10, P((0.27, 0, -0.24))[1], 'm', GRAPH, 19, sub='z') + \
-     text(P((0.27, 0, -0.24))[0] + 37, P((0.27, 0, -0.24))[1], 'g', GRAPH, 19)
-# lever arm r above the axle
+     vec_label(P((0.27, 0, -0.24))[0] + 37, P((0.27, 0, -0.24))[1], 'g', GRAPH, 19)
+# lever arm r: from the pivot to the notch, drawn below the axle so it stays visible
 r1, r2 = P((0, 0, -0.055)), P((0.27, 0, -0.055))
-b += line(*r1, *r2, GRAPH, 1.4) + line(r1[0], r1[1] - 6, r1[0], r1[1] + 6, GRAPH, 1.4) + line(r2[0], r2[1] - 6, r2[0], r2[1] + 6, GRAPH, 1.4)
-b += sym_label((r1[0] + r2[0]) / 2, (r1[1] + r2[1]) / 2 + 22, 'r', GRAPH, 19, anchor='middle')
+b += arrow(*r1, *r2, GRAPH, 2.5)
+b += vec_label((r1[0] + r2[0]) / 2, (r1[1] + r2[1]) / 2 + 26, 'r', GRAPH, 19, anchor='middle')
 # vectors: vertical axis with ω_P (down), L through the wheel, D into the page
 b += line(*P((0, 0, 0.02)), *P((0, 0, 0.30)), GREY, 2, '7 6')
 b += arrow(*P((0, 0, 0.29)), *P((0, 0, 0.12)), PCOL, 5)

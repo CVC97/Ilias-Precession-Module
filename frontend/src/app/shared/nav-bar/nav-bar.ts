@@ -6,79 +6,7 @@ import { filter } from 'rxjs/operators';
 import { DevModeService } from '../../core/services/dev-mode';
 import { NavDrawerService } from '../../core/services/nav-drawer';
 import { VisitedPages } from '../../core/services/visited-pages';
-
-
-interface SubpageItem {
-    label: string;
-    route: string;
-    queryParams?: Record<string, string>;
-}
-
-interface SegmentDef {
-    id: string;
-    label: string;
-    subpages: SubpageItem[];
-}
-
-
-// The module's single learning path, in order.
-const SEGMENTS: SegmentDef[] = [
-    {
-        id: 'p1-setup', label: 'Einstieg: Versuchsaufbau',
-        subpages: [
-            { label: '(1/3) - Einführung', route: '/learning/p1-setup', queryParams: { page: '1' } },
-            { label: '(2/3) - Komponenten', route: '/learning/p1-setup', queryParams: { page: '2' } },
-            { label: '(3/3) - Messprogramm', route: '/learning/p1-setup', queryParams: { page: '3' } },
-        ]
-    },
-    {
-        id: 'p2-rotation', label: 'Grundlagen der Rotation',
-        subpages: [
-            { label: '(1/3) - Winkelgeschwindigkeit', route: '/learning/p2-rotation', queryParams: { page: '1' } },
-            { label: '(2/3) - Drehimpuls', route: '/learning/p2-rotation', queryParams: { page: '2' } },
-            { label: '(3/3) - Drehmoment', route: '/learning/p2-rotation', queryParams: { page: '3' } },
-        ]
-    },
-    {
-        id: 'p3-pendulum', label: 'Physikalisches Pendel',
-        subpages: [
-            { label: '(1/2) - Das Rad als Pendel', route: '/learning/p3-pendulum', queryParams: { page: '1' } },
-            { label: '(2/2) - Messung und Fehlerquellen', route: '/learning/p3-pendulum', queryParams: { page: '2' } },
-        ]
-    },
-    {
-        id: 'p4-gyroscope', label: 'Der Kreisel',
-        subpages: [
-            { label: '(1/3) - Drei Achsen', route: '/learning/p4-gyroscope', queryParams: { page: '1' } },
-            { label: '(2/3) - Der schnelle Kreisel', route: '/learning/p4-gyroscope', queryParams: { page: '2' } },
-            { label: '(3/3) - Raum- und Körpersystem', route: '/learning/p4-gyroscope', queryParams: { page: '3' } },
-        ]
-    },
-    {
-        id: 'p5-precession', label: 'Präzession',
-        subpages: [
-            { label: '(1/3) - Drehmoment senkrecht zu L', route: '/learning/p5-precession', queryParams: { page: '1' } },
-            { label: '(2/3) - Präzession im Versuch', route: '/learning/p5-precession', queryParams: { page: '2' } },
-            { label: '(3/3) - Simulation', route: '/learning/p5-precession', queryParams: { page: '3' } },
-        ]
-    },
-    {
-        id: 'p6-nutation', label: 'Nutation',
-        subpages: [
-            { label: '(1/3) - Nutationskegel', route: '/learning/p6-nutation', queryParams: { page: '1' } },
-            { label: '(2/3) - Drei Kegel', route: '/learning/p6-nutation', queryParams: { page: '2' } },
-            { label: '(3/3) - Nutation im Versuch', route: '/learning/p6-nutation', queryParams: { page: '3' } },
-        ]
-    },
-    {
-        id: 'p7-measurement', label: 'Messstrategie',
-        subpages: [
-            { label: '(1/3) - Reibung und Drehzahl', route: '/learning/p7-measurement', queryParams: { page: '1' } },
-            { label: '(2/3) - Präzession sauber starten', route: '/learning/p7-measurement', queryParams: { page: '2' } },
-            { label: '(3/3) - Weitere Fehlerquellen', route: '/learning/p7-measurement', queryParams: { page: '3' } },
-        ]
-    },
-];
+import { SEGMENTS, SegmentDef, SubpageItem } from './segments';
 
 
 @Component({
@@ -132,7 +60,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.includes('/glossary')) return 'glossary';
         if (path.startsWith('/learning/p1')) return 'p1-setup';
         if (path.startsWith('/learning/p2')) return 'p2-rotation';
-        if (path.startsWith('/learning/p3')) return 'p3-pendulum';
+        if (path.startsWith('/learning/p3')) return 'p2-rotation';   // the Trägheitsmoment pages belong to Grundlagen
         if (path.startsWith('/learning/p4')) return 'p4-gyroscope';
         if (path.startsWith('/learning/p5')) return 'p5-precession';
         if (path.startsWith('/learning/p6')) return 'p6-nutation';

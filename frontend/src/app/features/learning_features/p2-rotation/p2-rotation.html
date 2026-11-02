@@ -1,13 +1,13 @@
 <div class="container">
     <div class="card">
         @if (currentView === 'rotation1') {
-            <h1>Grundlagen der Rotation (1/3)</h1>
+            <h1>Grundlagen der Rotation (1/5)</h1>
             <p class="page-subheadline">Winkelgeschwindigkeit als Vektor</p>
         } @else if (currentView === 'rotation2') {
-            <h1>Grundlagen der Rotation (2/3)</h1>
+            <h1>Grundlagen der Rotation (2/5)</h1>
             <p class="page-subheadline">Drehimpuls</p>
         } @else {
-            <h1>Grundlagen der Rotation (3/3)</h1>
+            <h1>Grundlagen der Rotation (3/5)</h1>
             <p class="page-subheadline">Drehmoment</p>
         }
 
@@ -47,7 +47,13 @@
                     </div>
                     <div class="full-width-image-container figure-small">
                         <img src="assets/images/p2_rotation/drehimpuls_vektor.svg" alt="Rotierende Scheibe mit Drehimpuls- und Winkelgeschwindigkeitsvektor" class="full-width-image">
+                        <p class="image-description" [innerHTML]="rotationText2e"></p>
                     </div>
+
+                    <p [innerHTML]="rotationText2d"></p>
+
+                    <app-sim-embed presetId="p2-vectors"></app-sim-embed>
+
                     <p [innerHTML]="rotationText2c"></p>
 
                     <app-single-choice
@@ -73,10 +79,6 @@
                         [incorrectMessage]="question3.incorrectMessage"
                         (onAnswerEvaluated)="onQuestion3Answered($event)">
                     </app-single-choice>
-
-                    <p [innerHTML]="rotationText2d"></p>
-
-                    <app-sim-embed presetId="p2-vectors"></app-sim-embed>
                 </div>
             }
 
@@ -132,7 +134,7 @@
             }
 
             @if (isLastPage) {
-                <button class="btn" (click)="goForward()">Weiter zum physikalischen Pendel →</button>
+                <button class="btn" (click)="goForward()">Weiter →</button>
             } @else {
                 <!-- on sub-page 2: released by the simulation's gate (SIM_PRESETS['p2-vectors'].gate) -->
                 <button class="btn" (click)="goForward()"

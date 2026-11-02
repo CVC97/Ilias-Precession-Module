@@ -31,13 +31,13 @@ export class Nutation extends GlossaryBase {
 	// bypassing math rendering errors
     initContent() {
         this.nutationText = this.sanitizer.bypassSecurityTrustHtml(`
-			Nutation ist eine Bewegung der Figurenachse eines Kreisels um die Richtung seines Drehimpulses.
+			Nutation ist eine Bewegung der Figurenachse eines Kreisels um die Richtung seines Drehimpulses $\\vec{L}$.
 			Beim kräftefreien Kreisel läuft die Figurenachse dabei auf einem Kegel – dem Nutationskegel – um die raumfeste Drehimpulsachse.
         `);
 
         this.nutationFormulaText = this.sanitizer.bypassSecurityTrustHtml(`
 			Nutation entsteht, wenn der Kreisel nicht genau um seine Figurenachse rotiert, zum Beispiel nach einem Stoß gegen die Achse.
-			Wirkt zusätzlich ein Drehmoment, überlagern sich Nutation und Präzession: Die Achse nickt auf und ab, während sie präzediert.<br><br>
+			Wirkt zusätzlich ein Drehmoment $\\vec{D}$, überlagern sich Nutation und Präzession: Die Achse nickt auf und ab, während sie präzediert.<br><br>
 			Je schneller der Kreisel rotiert, desto schneller ist die Nutation, und desto enger wird der Nutationskegel bei gleich starkem Stoß.
 			Der Name kommt vom lateinischen <i>nutare</i>, nicken.
         `);

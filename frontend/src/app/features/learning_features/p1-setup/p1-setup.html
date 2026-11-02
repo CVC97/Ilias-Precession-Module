@@ -15,11 +15,32 @@
             @if (currentView === 'setup1') {
                 <div>
                     <p [innerHTML]="setupText1a"></p>
-                    <div class="full-width-image-container">
-                        <img src="assets/images/p1_setup/versuchsaufbau.png" alt="Versuchsaufbau Kreiselpräzession mit Beschriftung" class="full-width-image">
+                    <div class="video-container">
+                        <iframe class="video-frame" src="https://www.youtube-nocookie.com/embed/tuvwWrP1FVA"
+                            title="Video zum Versuch Kreiselpräzession" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                         <p class="image-description" [innerHTML]="setupText1b"></p>
                     </div>
                     <p [innerHTML]="setupText1c"></p>
+                </div>
+            }
+
+            @if (currentView === 'setup2') {
+                <div>
+                    <!-- horizontal layout: text + image -->
+                    <div class="text-image-container">
+                        <div class="image-content">
+                            <img src="assets/images/p1_setup/versuchsaufbau.png" alt="Versuchsaufbau Kreiselpräzession mit Beschriftung">
+                            <p class="image-description" [innerHTML]="setupText2c"></p>
+                        </div>
+                        <div class="text-content">
+                            <div [innerHTML]="setupText2a"></div>
+                        </div>
+                    </div>
+
+                    <div class="learning-lamp">
+                        <div class="learning-lamp-text" [innerHTML]="setupText2b"></div>
+                    </div>
 
                     <app-multiple-choice
                         [questionId]="question1.questionId"
@@ -33,24 +54,6 @@
                         [incorrectMessage]="question1.incorrectMessage"
                         (onAnswerEvaluated)="onQuestion1Answered($event)">
                     </app-multiple-choice>
-                </div>
-            }
-
-            @if (currentView === 'setup2') {
-                <div>
-                    <!-- horizontal layout: text + image -->
-                    <div class="text-image-container">
-                        <div class="image-content">
-                            <img src="assets/images/p1_setup/versuchsaufbau.png" alt="Versuchsaufbau Kreiselpräzession mit Beschriftung">
-                        </div>
-                        <div class="text-content">
-                            <div [innerHTML]="setupText2a"></div>
-                        </div>
-                    </div>
-
-                    <div class="learning-lamp">
-                        <div class="learning-lamp-text" [innerHTML]="setupText2b"></div>
-                    </div>
 
                     <app-single-choice
                         [questionId]="question2.questionId"

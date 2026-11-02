@@ -31,7 +31,7 @@ export class Precession extends GlossaryBase {
 	// bypassing math rendering errors
     initContent() {
         this.precessionText = this.sanitizer.bypassSecurityTrustHtml(`
-			Präzession ist die Drehung der Drehimpulsachse eines Kreisels, wenn ein Drehmoment senkrecht zu seinem Drehimpuls wirkt.
+			Präzession ist die Drehung der Drehimpulsachse eines Kreisels, wenn ein Drehmoment $\\vec{D}$ senkrecht zu seinem Drehimpuls $\\vec{L}$ wirkt.
 			Statt der Kraft nachzugeben und zu kippen, weicht der Kreisel seitlich aus.
         `);
 

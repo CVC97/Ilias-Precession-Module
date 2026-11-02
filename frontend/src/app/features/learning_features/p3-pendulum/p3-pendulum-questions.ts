@@ -11,12 +11,12 @@ export const question1: SingleChoiceQuestion = {
     ],
     "correctAnswer": "answer1",
     "containerId": "question1-container",
-    "successMessage": "Quadrieren, mit $m_p g d/(4\\pi^2)$ multiplizieren und $I_p$ abziehen. Aus der gemessenen Periodendauer erhalten Sie so das Trägheitsmoment des Rades.",
+    "successMessage": "Quadrieren, mit $m_p g d/(4\\pi^2)$ multiplizieren und $I_p$ abziehen. Aus der gemessenen Periodendauer $T$ erhalten Sie so das Trägheitsmoment $I$ des Rades.",
     "incorrectMessage": "Quadrieren Sie beide Seiten der Gleichung und isolieren Sie dann $I$.",
     "answerFeedback": {
-        "answer2": "Dieser Ausdruck ist das Trägheitsmoment von Rad und Pendelgewicht zusammen. Gesucht ist das des Rades allein.",
-        "answer3": "Prüfen Sie die Einheiten: Ein Trägheitsmoment hat die Einheit $\\mathrm{kg\\,m^2}$. Welche Einheit hat Ihr Ausdruck?",
-        "answer4": "Die Periodendauer steht unter einer Wurzel. Um $I$ zu isolieren, müssen Sie beide Seiten quadrieren."
+        "answer2": "Dieser Ausdruck ist das Trägheitsmoment $I + I_p$ von Rad und Pendelgewicht zusammen. Gesucht ist das des Rades allein.",
+        "answer3": "Prüfen Sie die Einheiten: Ein Trägheitsmoment $I$ hat die Einheit $\\mathrm{kg\\,m^2}$. Welche Einheit hat Ihr Ausdruck?",
+        "answer4": "Die Periodendauer $T$ steht unter einer Wurzel. Um $I$ zu isolieren, müssen Sie beide Seiten quadrieren."
     }
 };
 
@@ -27,8 +27,8 @@ export const question2: MultipleChoiceQuestion = {
         { "value": "answer1", "label": "Die Auslenkung ist klein, sodass $\\sin\\varphi \\approx \\varphi$ gilt." },
         { "value": "answer2", "label": "Die Reibung in der Lagerung des Rades ist vernachlässigbar." },
         { "value": "answer3", "label": "Das Rad allein hat seinen Schwerpunkt auf der Drehachse." },
-        { "value": "answer4", "label": "Das Pendelgewicht ist so leicht, dass sein eigenes Trägheitsmoment keine Rolle spielt." },
-        { "value": "answer5", "label": "Die Periodendauer wird mit wachsender Amplitude deutlich kürzer." }
+        { "value": "answer4", "label": "Das Pendelgewicht ist so leicht, dass sein eigenes Trägheitsmoment $I_p$ keine Rolle spielt." },
+        { "value": "answer5", "label": "Die Periodendauer $T$ wird mit wachsender Amplitude deutlich kürzer." }
     ],
     "correctAnswers": [
         "answer1", "answer2", "answer3"
@@ -41,17 +41,17 @@ export const question2: MultipleChoiceQuestion = {
         "answer1": {
             "conceptId": "small-angle",
             "order": 1,
-            "message": "Erst die Näherung $\\sin\\varphi \\approx \\varphi$ macht die Bewegungsgleichung harmonisch. Bei harmonischen Schwingungen hängt die Periodendauer nicht von der Amplitude ab."
+            "message": "Erst die Näherung $\\sin\\varphi \\approx \\varphi$ macht die Bewegungsgleichung harmonisch. Bei harmonischen Schwingungen hängt die Periodendauer $T$ nicht von der Amplitude ab."
         },
         "answer2": {
             "conceptId": "torques",
             "order": 2,
-            "message": "In der Bewegungsgleichung steht nur das Drehmoment der Gewichtskraft des Pendelgewichts. Welche anderen Drehmomente könnten in der Realität noch wirken?"
+            "message": "In der Bewegungsgleichung steht nur das Drehmoment $D$ der Gewichtskraft des Pendelgewichts. Welche anderen Drehmomente könnten in der Realität noch wirken?"
         },
         "answer3": {
             "conceptId": "torques",
             "order": 2,
-            "message": "In der Bewegungsgleichung steht nur das Drehmoment der Gewichtskraft des Pendelgewichts. Welche anderen Drehmomente könnten in der Realität noch wirken?"
+            "message": "In der Bewegungsgleichung steht nur das Drehmoment $D$ der Gewichtskraft des Pendelgewichts. Welche anderen Drehmomente könnten in der Realität noch wirken?"
         },
         "answer4": {
             "conceptId": "steiner",
@@ -61,7 +61,7 @@ export const question2: MultipleChoiceQuestion = {
         "answer5": {
             "conceptId": "small-angle",
             "order": 1,
-            "message": "Erst die Näherung $\\sin\\varphi \\approx \\varphi$ macht die Bewegungsgleichung harmonisch. Bei harmonischen Schwingungen hängt die Periodendauer nicht von der Amplitude ab."
+            "message": "Erst die Näherung $\\sin\\varphi \\approx \\varphi$ macht die Bewegungsgleichung harmonisch. Bei harmonischen Schwingungen hängt die Periodendauer $T$ nicht von der Amplitude ab."
         }
     }
 };
@@ -72,23 +72,23 @@ export const question3: SingleChoiceQuestion = {
     "options": [
         { "value": "answer1", "label": "Damit sich der Einfluss einer Unwucht des Rades beim Mitteln heraushebt." },
         { "value": "answer2", "label": "Um doppelt so viele Messwerte für die Statistik zu erhalten." },
-        { "value": "answer3", "label": "Weil die Periodendauer auch bei einem perfekt ausgewuchteten Rad von der Position des Gewichts abhängt." },
+        { "value": "answer3", "label": "Weil die Periodendauer $T$ auch bei einem perfekt ausgewuchteten Rad von der Position des Gewichts abhängt." },
         { "value": "answer4", "label": "Damit das Rad nicht dauerhaft in eine Richtung verdreht bleibt." }
     ],
     "correctAnswer": "answer1",
     "containerId": "question3-container",
-    "successMessage": "Das Drehmoment einer Unwucht verstärkt in der einen Position das des Pendelgewichts und schwächt es in der anderen ab. Im Mittel hebt es sich heraus.",
+    "successMessage": "Das Drehmoment $D$ einer Unwucht verstärkt in der einen Position das des Pendelgewichts und schwächt es in der anderen ab. Im Mittel hebt es sich heraus.",
     "incorrectMessage": "Überlegen Sie, was sich zwischen den beiden Positionen ändert, wenn das Rad nicht perfekt ausgewuchtet ist.",
     "answerFeedback": {
         "answer2": "Für mehr Messwerte würde es genügen, an derselben Position öfter zu messen. Die gegenüberliegende Position hat einen anderen Zweck.",
-        "answer3": "Bei einem perfekt ausgewuchteten Rad sind beide Positionen gleichwertig: Gleicher Abstand $d$, gleiche Masse, gleiche Periodendauer.",
+        "answer3": "Bei einem perfekt ausgewuchteten Rad sind beide Positionen gleichwertig: Gleicher Abstand $d$, gleiche Masse, gleiche Periodendauer $T$.",
         "answer4": "Nach der Messung kehrt das Rad in seine Ruhelage zurück, egal wo das Gewicht sitzt. Überlegen Sie, was ein nicht ganz ausgewuchtetes Rad ändert."
     }
 };
 
 export const question4: SingleChoiceQuestion = {
     "questionId": "p3-pendulum-4-zehn-perioden",
-    "question": "Die Zeitmessung von Hand hat eine Unsicherheit von insgesamt etwa 0,2&nbsp;s, eine Periode dauert etwa 2&nbsp;s. Wie groß ist ungefähr die relative Unsicherheit der Periodendauer, wenn Sie 10 Perioden auf einmal messen?",
+    "question": "Die Zeitmessung von Hand hat eine Unsicherheit von insgesamt etwa 0,2&nbsp;s, eine Periode dauert etwa 2&nbsp;s. Wie groß ist ungefähr die relative Unsicherheit der Periodendauer $T$, wenn Sie 10 Perioden auf einmal messen?",
     "options": [
         { "value": "answer1", "label": "etwa 1 %" },
         { "value": "answer2", "label": "etwa 10 %" },

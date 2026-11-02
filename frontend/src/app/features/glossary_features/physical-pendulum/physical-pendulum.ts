@@ -37,7 +37,7 @@ export class PhysicalPendulum extends GlossaryBase {
 
         this.physicalPendulumFormulaText = this.sanitizer.bypassSecurityTrustHtml(`
 			Liegt der Schwerpunkt im Abstand $d$ von der Drehachse, übt die Gewichtskraft bei der Auslenkung $\\varphi$ das rücktreibende
-			Drehmoment $-mgd\\sin\\varphi$ aus. Für kleine Auslenkungen schwingt das Pendel harmonisch mit der Periodendauer
+			Drehmoment $-mgd\\sin\\varphi$ aus. Für kleine Auslenkungen schwingt das Pendel harmonisch mit der Periodendauer $T$:
 			$$T = 2\\pi\\sqrt{\\frac{I}{m\\,g\\,d}},$$
 			wobei $I$ das Trägheitsmoment bezüglich der Drehachse ist. Misst man $T$, $m$ und $d$, lässt sich daraus $I$ bestimmen.<br><br>
 			Das mathematische Pendel ist der Sonderfall einer Punktmasse an einem masselosen Faden der Länge $\\ell$:

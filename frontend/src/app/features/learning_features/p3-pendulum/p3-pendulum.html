@@ -1,11 +1,11 @@
 <div class="container">
     <div class="card">
         @if (currentView === 'pendulum1') {
-            <h1>Physikalisches Pendel (1/2)</h1>
-            <p class="page-subheadline">Das Rad als Pendel</p>
+            <h1>Grundlagen der Rotation (4/5)</h1>
+            <p class="page-subheadline">Trägheitsmoment: Das Rad als Pendel</p>
         } @else {
-            <h1>Physikalisches Pendel (2/2)</h1>
-            <p class="page-subheadline">Messung und Fehlerquellen</p>
+            <h1>Grundlagen der Rotation (5/5)</h1>
+            <p class="page-subheadline">Trägheitsmoment: Messung und Fehlerquellen</p>
         }
 
         <!-- Content sections -->
@@ -88,13 +88,7 @@
 
         <!-- navigation buttons -->
         <div class="button-container">
-            @if (isFirstPage) {
-                @if (devMode.isEnabled) {
-                    <button class="btn btn-back" (click)="goBack()">← Zurück zu den Grundlagen</button>
-                }
-            } @else {
-                <button class="btn btn-back" (click)="goBack()">← Zurück</button>
-            }
+            <button class="btn btn-back" (click)="goBack()">← Zurück</button>
 
             @if (isLastPage) {
                 <button class="btn" (click)="goForward()">Weiter zum Kreisel →</button>

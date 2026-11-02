@@ -3,15 +3,15 @@
 export const setupText1a = `
     Ein Kreisel ist ein starrer Körper, der sich schnell um eine Achse dreht und dabei in einem festen Punkt gelagert ist.
     In diesem Versuch untersuchen Sie, wie ein solcher Kreisel auf ein äußeres
-    <a data-glossary="torque" class="glossary-link">Drehmoment</a>
+    <a data-glossary="torque" class="glossary-link">Drehmoment</a> $\\vec{D}$
     reagiert. Dabei bestimmen Sie das
-    <a data-glossary="moment-of-inertia" class="glossary-link">Trägheitsmoment</a>
+    <a data-glossary="moment-of-inertia" class="glossary-link">Trägheitsmoment</a> $I$
     des Kreiselrades auf mehreren, voneinander unabhängigen Wegen.<br><br>
     Machen Sie sich zunächst mit dem Versuchsaufbau vertraut.
 `;
 
 export const setupText1b = `
-    Der Versuch „Kreiselpräzession“ mit Zubehör (Bild 4.1 aus dem Versuchsskript).
+    Der Versuch „Kreiselpräzession“ im Video (Lehrportal der Universität Göttingen).
 `;
 
 export const setupText1c = `
@@ -30,12 +30,12 @@ export const setupText2a = `
     Jedes Bauteil hat im Versuch eine bestimmte Aufgabe:
     <ul>
         <li><strong>Rad:</strong> der rotierende Körper. Seine schnelle Drehung verleiht dem Kreisel einen großen
-            <a data-glossary="angular-momentum" class="glossary-link">Drehimpuls</a>.</li>
+            <a data-glossary="angular-momentum" class="glossary-link">Drehimpuls</a> $\\vec{L}$.</li>
         <li><strong>Ausgleichsgewicht:</strong> lässt sich auf der Achse verschieben. Damit wird der Kreisel so ausbalanciert,
             dass er mit waagrechter Achse in Ruhe bleibt.</li>
         <li><strong>Zusatzgewichte</strong> (Masse $m_z$ zwischen 10 und 60&nbsp;g): werden an einer Kerbe der Achse im Abstand $r$
             vom Unterstützungspunkt eingehängt und belasten den Kreisel gezielt auf einer Seite.</li>
-        <li><strong>Antriebsschnur:</strong> wird um die Achse des Rades gewickelt und abgezogen. So bringen Sie das Rad auf eine hohe Drehzahl.</li>
+        <li><strong>Antriebsschnur:</strong> wird um die Achse des Rades gewickelt und abgezogen. So bringen Sie das Rad auf eine hohe Winkelgeschwindigkeit $\\omega_R$.</li>
         <li><strong>Lichtschranke</strong> mit dem <strong>Streifen</strong> am Rad: Der Streifen unterbricht bei jeder Umdrehung den Lichtstrahl.
             So messen Sie die Umlaufdauer $T_R$ des Rades.</li>
         <li><strong>Stoppuhr:</strong> für die langsamen Bewegungen des Kreisels als Ganzes, die Sie mit dem Auge verfolgen können.</li>
@@ -47,7 +47,11 @@ export const setupText2a = `
 export const setupText2b = `
     Ist der Kreisel ausbalanciert, liegt sein Schwerpunkt genau im Unterstützungspunkt.
     Die Gewichtskraft greift dann im Unterstützungspunkt an und hat keinen Hebelarm:
-    Sie übt kein Drehmoment auf den Kreisel aus. Erst ein Zusatzgewicht erzeugt ein Drehmoment, und zwar ein genau bekanntes.
+    Sie übt kein Drehmoment $\\vec{D}$ auf den Kreisel aus. Erst ein Zusatzgewicht erzeugt ein Drehmoment, und zwar ein genau bekanntes.
+`;
+
+export const setupText2c = `
+    Der Versuch „Kreiselpräzession“ mit Zubehör (Bild 4.1 aus dem Versuchsskript).
 `;
 
 
@@ -59,7 +63,7 @@ export const setupText3a = `
     <ol>
         <li><strong>Aus der Geometrie:</strong> Sie messen Abmessungen und Masse des Rades und berechnen $I$.</li>
         <li><strong>Aus Pendelschwingungen:</strong> Der Kreisel wird festgestellt, ein Pendelgewicht in das Rad geschraubt.
-            Aus der Schwingungsdauer des Pendels folgt $I$.</li>
+            Aus der Schwingungsdauer $T$ des Pendels folgt $I$.</li>
         <li><strong>Aus der Präzession:</strong> Sie lassen das Rad schnell rotieren, hängen ein Zusatzgewicht an und messen,
             wie sich der Kreisel daraufhin bewegt. Gemessen werden die Umlaufdauer $T_R$ des Rades mit der Lichtschranke
             und die Dauer $T_P$ der Präzessionsbewegung mit der Stoppuhr, für mehrere Zusatzgewichte.</li>
@@ -81,10 +85,10 @@ export const setupText3c = `
 export const setupText3d = `
     <strong>Aufgabe:</strong> Die Simulation zeigt den Versuchskreisel mit schnell rotierendem Rad.
     Hängen Sie mit dem Regler unter der Simulation das Zusatzgewicht an und beobachten Sie die Achse.
-    Verringern Sie dann die Drehzahl schrittweise: Was ändert sich?
+    Verringern Sie dann die Winkelgeschwindigkeit $\\omega_R$ (Regler „Drehzahl“) schrittweise: Was ändert sich?
 `;
 
 export const setupText3e = `
     Warum sich der Kreisel so verhält, erarbeiten Sie in den nächsten Abschnitten.
-    Dafür brauchen Sie zuerst die Grundlagen der Rotation: Winkelgeschwindigkeit, Drehimpuls und Drehmoment als Vektoren.
+    Dafür brauchen Sie zuerst die Grundlagen der Rotation: Winkelgeschwindigkeit $\\vec{\\omega}$, Drehimpuls $\\vec{L}$ und Drehmoment $\\vec{D}$ als Vektoren.
 `;

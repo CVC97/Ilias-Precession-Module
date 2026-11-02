@@ -30,10 +30,8 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         title: '[1] Einstieg: Versuchsaufbau', subtitle: 'Einführung',
         blocks: [
             { type: 'text',  html: p1Content.setupText1a },
-            { type: 'image', src: 'assets/images/p1_setup/versuchsaufbau.png',
-              alt: 'Versuchsaufbau Kreiselpräzession', caption: p1Content.setupText1b },
+            { type: 'text',  html: `Der Versuch im Video: <a href="https://www.youtube.com/watch?v=tuvwWrP1FVA">youtube.com/watch?v=tuvwWrP1FVA</a>` },
             { type: 'text',  html: p1Content.setupText1c },
-            { type: 'question', questionId: 'p1-setup-1-kreisel-teile' },
         ],
     },
     {
@@ -41,9 +39,10 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         title: '[1] Einstieg: Versuchsaufbau', subtitle: 'Komponenten',
         blocks: [
             { type: 'image', src: 'assets/images/p1_setup/versuchsaufbau.png',
-              alt: 'Versuchsaufbau Kreiselpräzession' },
+              alt: 'Versuchsaufbau Kreiselpräzession', caption: p1Content.setupText2c },
             { type: 'text', html: p1Content.setupText2a },
             { type: 'text', html: p1Content.setupText2b, style: 'lamp' },
+            { type: 'question', questionId: 'p1-setup-1-kreisel-teile' },
             { type: 'question', questionId: 'p1-setup-2-ausgleichsgewicht' },
             { type: 'question', questionId: 'p1-setup-3-messgeraete' },
         ],
@@ -80,11 +79,11 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'text',  html: p2Content.rotationText2a },
             { type: 'text',  html: p2Content.rotationText2b, style: 'lamp' },
             { type: 'image', src: 'assets/images/p2_rotation/drehimpuls_vektor.svg',
-              alt: 'Drehimpuls und Winkelgeschwindigkeit' },
+              alt: 'Drehimpuls und Winkelgeschwindigkeit', caption: p2Content.rotationText2e },
+            { type: 'text',  html: p2Content.rotationText2d },
             { type: 'text',  html: p2Content.rotationText2c },
             { type: 'question', questionId: 'p2-rotation-2-drehzahl-drehimpuls' },
             { type: 'question', questionId: 'p2-rotation-3-ring-scheibe' },
-            { type: 'text',  html: p2Content.rotationText2d },
         ],
     },
     {
@@ -101,10 +100,10 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         ],
     },
 
-    // ── 3: Trägheitsmoment: physikalisches Pendel ─────────────────────────
+    // ── 2: Grundlagen der Rotation, Trägheitsmoment ───────────────────────
     {
         route: '/learning/p3-pendulum', page: 1,
-        title: '[3] Trägheitsmoment: physikalisches Pendel', subtitle: 'Das Rad als Pendel',
+        title: '[2] Grundlagen der Rotation', subtitle: 'Trägheitsmoment: Das Rad als Pendel',
         blocks: [
             { type: 'text',  html: p3Content.pendulumText1a },
             { type: 'image', src: 'assets/images/p3_pendulum/pendel_skizze.svg',
@@ -118,7 +117,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p3-pendulum', page: 2,
-        title: '[3] Trägheitsmoment: physikalisches Pendel', subtitle: 'Messung und Fehlerquellen',
+        title: '[2] Grundlagen der Rotation', subtitle: 'Trägheitsmoment: Messung und Fehlerquellen',
         blocks: [
             { type: 'text', html: p3Content.pendulumText2a },
             { type: 'question', questionId: 'p3-pendulum-3-gegenueber' },
@@ -128,10 +127,10 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         ],
     },
 
-    // ── 4: Der Kreisel ────────────────────────────────────────────────────
+    // ── 3: Der Kreisel ────────────────────────────────────────────────────
     {
         route: '/learning/p4-gyroscope', page: 1,
-        title: '[4] Der Kreisel', subtitle: 'Drei Achsen',
+        title: '[3] Der Kreisel', subtitle: 'Drei Achsen',
         blocks: [
             { type: 'text',  html: p4Content.gyroText1a },
             { type: 'image', src: 'assets/images/p4_gyroscope/kreiselachsen.svg',
@@ -143,7 +142,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p4-gyroscope', page: 2,
-        title: '[4] Der Kreisel', subtitle: 'Der schnelle Kreisel',
+        title: '[3] Der Kreisel', subtitle: 'Der schnelle Kreisel',
         blocks: [
             { type: 'text', html: p4Content.gyroText2a },
             { type: 'text', html: p4Content.gyroText2b },
@@ -153,19 +152,20 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p4-gyroscope', page: 3,
-        title: '[4] Der Kreisel', subtitle: 'Raumfestes und körperfestes System',
+        title: '[3] Der Kreisel', subtitle: 'Raumfestes und körperfestes System',
         blocks: [
             { type: 'text', html: p4Content.gyroText3a },
             { type: 'text', html: p4Content.gyroText3b, style: 'lamp' },
+            { type: 'spoiler', label: 'EXKURS: Herleitung der Eulerschen Kreiselgleichung', html: p4Content.gyroText3d },
             { type: 'text', html: p4Content.gyroText3c },
             { type: 'question', questionId: 'p4-gyroscope-3-raumfest' },
         ],
     },
 
-    // ── 5: Präzession ─────────────────────────────────────────────────────
+    // ── 3: Der Kreisel, Präzession ────────────────────────────────────────
     {
         route: '/learning/p5-precession', page: 1,
-        title: '[5] Präzession', subtitle: 'Drehmoment senkrecht zum Drehimpuls',
+        title: '[3] Der Kreisel: Präzession', subtitle: 'Drehmoment senkrecht zum Drehimpuls',
         blocks: [
             { type: 'text',  html: p5Content.precessionText1a },
             { type: 'image', src: 'assets/images/p5_precession/praezession_skizze.svg',
@@ -178,7 +178,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p5-precession', page: 2,
-        title: '[5] Präzession', subtitle: 'Präzession im Versuch',
+        title: '[3] Der Kreisel: Präzession', subtitle: 'Präzession im Versuch',
         blocks: [
             { type: 'text', html: p5Content.precessionText2a },
             { type: 'text', html: p5Content.precessionText2b, style: 'lamp' },
@@ -190,7 +190,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p5-precession', page: 3,
-        title: '[5] Präzession', subtitle: 'Präzession in der Simulation',
+        title: '[3] Der Kreisel: Präzession', subtitle: 'Präzession in der Simulation',
         blocks: [
             { type: 'text', html: p5Content.precessionText3a },
             { type: 'text', html: p5Content.precessionText3b },
@@ -199,10 +199,10 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         ],
     },
 
-    // ── 6: Nutation ───────────────────────────────────────────────────────
+    // ── 3: Der Kreisel, Nutation ──────────────────────────────────────────
     {
         route: '/learning/p6-nutation', page: 1,
-        title: '[6] Nutation', subtitle: 'Die Figurenachse kreist um den Drehimpuls',
+        title: '[3] Der Kreisel: Nutation', subtitle: 'Die Figurenachse kreist um den Drehimpuls',
         blocks: [
             { type: 'text', html: p6Content.nutationText1a },
             { type: 'text', html: p6Content.nutationText1b, style: 'lamp' },
@@ -212,7 +212,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p6-nutation', page: 2,
-        title: '[6] Nutation', subtitle: 'Nutationskegel, Rastpolkegel, Gangpolkegel',
+        title: '[3] Der Kreisel: Nutation', subtitle: 'Nutationskegel, Rastpolkegel, Gangpolkegel',
         blocks: [
             { type: 'text',  html: p6Content.nutationText2a },
             { type: 'image', src: 'assets/images/p6_nutation/kreiselkegel.svg',
@@ -223,7 +223,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p6-nutation', page: 3,
-        title: '[6] Nutation', subtitle: 'Nutation im Versuch',
+        title: '[3] Der Kreisel: Nutation', subtitle: 'Nutation im Versuch',
         blocks: [
             { type: 'text', html: p6Content.nutationText3a },
             { type: 'text', html: p6Content.nutationText3b },
@@ -232,10 +232,10 @@ export const PAGE_REGISTRY: PageDefinition[] = [
         ],
     },
 
-    // ── 7: Messstrategie und Fehlerquellen ────────────────────────────────
+    // ── Messstrategie ────────────────────────────────────────────────────
     {
         route: '/learning/p7-measurement', page: 1,
-        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Reibung und Drehzahl',
+        title: 'Messstrategie und Fehlerquellen', subtitle: 'Reibung',
         blocks: [
             { type: 'text', html: p7Content.measureText1a },
             { type: 'question', questionId: 'p7-measurement-1-tr-vorher-nachher' },
@@ -245,7 +245,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p7-measurement', page: 2,
-        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Die Präzession sauber starten',
+        title: 'Messstrategie und Fehlerquellen', subtitle: 'Die Präzession sauber starten',
         blocks: [
             { type: 'text',  html: p7Content.measureText2a },
             { type: 'image', src: 'assets/images/p7_measurement/achsenbahn.svg',
@@ -256,7 +256,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
     },
     {
         route: '/learning/p7-measurement', page: 3,
-        title: '[7] Messstrategie und Fehlerquellen', subtitle: 'Weitere Fehlerquellen',
+        title: 'Messstrategie und Fehlerquellen', subtitle: 'Weitere Fehlerquellen',
         blocks: [
             { type: 'text', html: p7Content.measureText3a },
             { type: 'question', questionId: 'p7-measurement-4-fehlerquellen' },

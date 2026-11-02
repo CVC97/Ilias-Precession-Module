@@ -59,11 +59,11 @@ export class SummaryService {
     private readonly MODULE_LABELS: Record<string, string> = {
         'p1-setup-module':                      '[1] Einstieg: Versuchsaufbau',
         'p2-rotation-module':                   '[2] Grundlagen der Rotation',
-        'p3-pendulum-module':                   '[3] Trägheitsmoment: physikalisches Pendel',
-        'p4-gyroscope-module':                  '[4] Der Kreisel',
-        'p5-precession-module':                 '[5] Präzession',
-        'p6-nutation-module':                   '[6] Nutation',
-        'p7-measurement-module':                '[7] Messstrategie und Fehlerquellen',
+        'p3-pendulum-module':                   '[2] Grundlagen der Rotation: Trägheitsmoment',
+        'p4-gyroscope-module':                  '[3] Der Kreisel',
+        'p5-precession-module':                 '[3] Der Kreisel: Präzession',
+        'p6-nutation-module':                   '[3] Der Kreisel: Nutation',
+        'p7-measurement-module':                'Messstrategie und Fehlerquellen',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
@@ -71,23 +71,28 @@ export class SummaryService {
 
     private readonly PAGE_TOTALS: Record<string, number> = {
         '/learning/p1-setup':                   3,
-        '/learning/p2-rotation':                3,
-        '/learning/p3-pendulum':                2,
+        '/learning/p2-rotation':                5,
+        '/learning/p3-pendulum':                5,
         '/learning/p4-gyroscope':               3,
         '/learning/p5-precession':              3,
         '/learning/p6-nutation':                3,
         '/learning/p7-measurement':             3,
     };
 
+    // the Trägheitsmoment route holds pages 4 and 5 of Grundlagen der Rotation
+    private readonly PAGE_OFFSETS: Record<string, number> = {
+        '/learning/p3-pendulum':                3,
+    };
+
     private readonly PAGE_LABELS: Record<string, string> = {
         '/':                                                            'Startseite: Kreiselpräzession',
         '/learning/p1-setup':                                           '[1] Einstieg: Versuchsaufbau',
         '/learning/p2-rotation':                                        '[2] Grundlagen der Rotation',
-        '/learning/p3-pendulum':                                        '[3] Trägheitsmoment: physikalisches Pendel',
-        '/learning/p4-gyroscope':                                       '[4] Der Kreisel',
-        '/learning/p5-precession':                                      '[5] Präzession',
-        '/learning/p6-nutation':                                        '[6] Nutation',
-        '/learning/p7-measurement':                                     '[7] Messstrategie und Fehlerquellen',
+        '/learning/p3-pendulum':                                        '[2] Grundlagen der Rotation',
+        '/learning/p4-gyroscope':                                       '[3] Der Kreisel',
+        '/learning/p5-precession':                                      '[3] Der Kreisel: Präzession',
+        '/learning/p6-nutation':                                        '[3] Der Kreisel: Nutation',
+        '/learning/p7-measurement':                                     'Messstrategie und Fehlerquellen',
 
         '/target/tar-precession':                                       '[Tar] Abschluss Kreiselpräzession',
     };
@@ -110,7 +115,8 @@ export class SummaryService {
                 const pageNum = params?.get('page') ?? (this.PAGE_TOTALS[basePath] !== undefined ? '1' : null);
                 const baseLabel = this.PAGE_LABELS[basePath] ?? basePath;
                 const total = pageNum ? (this.PAGE_TOTALS[basePath] ?? null) : null;
-                const label = pageNum && total ? `${baseLabel} (${pageNum}/${total})` : baseLabel;
+                const shownPage = Number(pageNum) + (this.PAGE_OFFSETS[basePath] ?? 0);
+                const label = pageNum && total ? `${baseLabel} (${shownPage}/${total})` : baseLabel;
                 return { page: v.page, label, durationSeconds: Math.round(v.duration_s!) };
             });
 

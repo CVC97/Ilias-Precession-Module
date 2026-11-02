@@ -33,7 +33,7 @@ export class Torque extends GlossaryBase {
         this.torqueText = this.sanitizer.bypassSecurityTrustHtml(`
 			Das Drehmoment $\\vec{D}$ beschreibt die Drehwirkung einer Kraft auf einen Körper.
 			Es spielt bei Drehbewegungen die Rolle, die die Kraft bei geradlinigen Bewegungen spielt:
-			So wie eine Kraft den Impuls ändert, ändert ein Drehmoment den Drehimpuls.
+			So wie eine Kraft den Impuls ändert, ändert ein Drehmoment den Drehimpuls $\\vec{L}$.
 			Ein Drehmoment entsteht, wenn eine Kraft im Abstand $r$ von der Drehachse angreift.
 			Je größer dieser Abstand und je größer die Kraft, desto größer ist das Drehmoment.
         `);

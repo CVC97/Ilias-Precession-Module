@@ -16,7 +16,7 @@ export const gyroText1a = `
 
 export const gyroText1b = `
     Zerlegung von $\\vec{\\omega}$ und $\\vec{L}$ in Komponenten entlang der Figurenachse (Index 1) und senkrecht dazu (Index 2).
-    Hier ist das Trägheitsmoment senkrecht zur Figurenachse größer als um sie – wie beim Versuchskreisel, der um den Unterstützungspunkt schwenkt.
+    Hier ist das Trägheitsmoment $I_2$ senkrecht zur Figurenachse größer als das Trägheitsmoment $I_1$ um sie – wie beim Versuchskreisel, der um den Unterstützungspunkt schwenkt.
 `;
 
 export const gyroText1c = `
@@ -37,13 +37,13 @@ export const gyroText1d = `
 
 export const gyroText2a = `
     <strong>Aufgabe:</strong> In der Simulation sind $\\vec{L}$, $\\vec{\\omega}$ und die Figurenachse (gestrichelt) eingeblendet.
-    Der Kreisel startet mit kleiner Drehzahl, und seine Achse erhält zu Beginn einen seitlichen Stoß.
+    Der Kreisel startet mit kleiner Winkelgeschwindigkeit $\\omega_1$ um die Figurenachse, und seine Achse erhält zu Beginn einen seitlichen Stoß.
     Vergleichen Sie die Richtungen von $\\vec{L}$, $\\vec{\\omega}$ und der Figurenachse.
-    Erhöhen Sie dann die Drehzahl schrittweise: Was passiert mit den Winkeln zwischen den drei Achsen?
+    Erhöhen Sie dann $\\omega_1$ (Regler „Drehzahl“) schrittweise: Was passiert mit den Winkeln zwischen den drei Achsen?
 `;
 
 export const gyroText2b = `
-    Bei kleiner Drehzahl ist die Drehung um die Figurenachse ($\\omega_1$) nicht viel schneller als das Schwenken der Achse ($\\omega_2$).
+    Bei kleiner Winkelgeschwindigkeit $\\omega_1$ ist die Drehung um die Figurenachse nicht viel schneller als das Schwenken der Achse ($\\omega_2$).
     Die drei Achsen weichen dann sichtbar voneinander ab. Je schneller das Rad rotiert, desto mehr überwiegt $L_1 = I_1\\omega_1$,
     und desto enger rücken $\\vec{L}$ und $\\vec{\\omega}$ an die Figurenachse heran.
 `;
@@ -51,7 +51,7 @@ export const gyroText2b = `
 export const gyroText2c = `
     <strong>Schneller Kreisel:</strong> Ist $I_1\\omega_1 \\gg I_2\\omega_2$, liegt $\\vec{L}$ nahezu auf der Figurenachse, und es gilt
     $$\\vec{L} \\approx I_1\\,\\vec{\\omega}_R,$$
-    wobei $\\vec{\\omega}_R$ die Drehung des Rades um seine Achse ist. Diese Näherung verwenden Sie bei der Präzession.
+    wobei $\\vec{\\omega}_R$ die Drehung des Rades um seine Achse ist. Diese <strong>Näherung für den schnellen Kreisel</strong> verwenden Sie bei der Präzession.
 `;
 
 
@@ -59,7 +59,7 @@ export const gyroText2c = `
 
 export const gyroText3a = `
     Die Gleichung $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ gilt in einem ruhenden Bezugssystem, dem <strong>raumfesten System</strong> (Laborsystem).
-    Für einen Kreisel ist es oft bequemer, mit dem Körper mitzurotieren: Im <strong>körperfesten System</strong> sind die Trägheitsmomente konstant,
+    Für einen Kreisel ist es oft bequemer, mit dem Körper mitzurotieren: Im <strong>körperfesten System</strong> sind die Trägheitsmomente $I_1$ und $I_2$ konstant,
     weil sich die Masseverteilung relativ zu den Achsen nicht ändert.<br><br>
     Beide Beschreibungen hängen über die Eulersche Kreiselgleichung zusammen:
 `;
@@ -78,4 +78,17 @@ export const gyroText3c = `
     Im körperfesten System dagegen ändert sich $\\vec{L}$ in diesem Fall ständig: Für den mitrotierenden Beobachter wandert die Drehimpulsachse
     um die Figurenachse herum. Für den ruhenden Beobachter ist es umgekehrt: Die Figurenachse bewegt sich um die feste Drehimpulsachse.
     Diese Bewegung heißt Nutation; Sie lernen sie im Abschnitt „Nutation“ genauer kennen.
+`;
+
+export const gyroText3d = `
+    Schreiben Sie den Drehimpuls $\\vec{L}$ in den drei körperfesten Achsen mit den Einheitsvektoren $\\hat{e}_i$:
+    $$\\vec{L} = \\sum_i L_i\\,\\hat{e}_i$$
+    Für den mitrotierenden Beobachter stehen die Einheitsvektoren still; er sieht nur, wie sich die Komponenten $L_i$ ändern:
+    $$\\left(\\frac{\\mathrm{d}\\vec{L}}{\\mathrm{d}t}\\right)_{\\text{Körper}} = \\sum_i \\dot{L}_i\\,\\hat{e}_i$$
+    Für den ruhenden Beobachter drehen sich die Einheitsvektoren mit dem Körper. Nach der Produktregel kommt ein zweiter Term hinzu:
+    $$\\left(\\frac{\\mathrm{d}\\vec{L}}{\\mathrm{d}t}\\right)_{\\text{Raum}} = \\sum_i \\dot{L}_i\\,\\hat{e}_i + \\sum_i L_i\\,\\frac{\\mathrm{d}\\hat{e}_i}{\\mathrm{d}t}$$
+    Die Spitze eines körperfesten Vektors bewegt sich auf einem Kreis um die momentane Drehachse. Ihre Geschwindigkeit ist $\\vec{v} = \\vec{\\omega}\\times\\vec{r}$,
+    für die Einheitsvektoren also $\\mathrm{d}\\hat{e}_i/\\mathrm{d}t = \\vec{\\omega}\\times\\hat{e}_i$. Damit wird der zweite Term zu
+    $$\\sum_i L_i\\,(\\vec{\\omega}\\times\\hat{e}_i) = \\vec{\\omega}\\times\\sum_i L_i\\,\\hat{e}_i = \\vec{\\omega}\\times\\vec{L},$$
+    und es folgt die Eulersche Kreiselgleichung. Die Herleitung benutzt nichts, was nur für $\\vec{L}$ gilt: Derselbe Zusammenhang gilt für jeden Vektor.
 `;

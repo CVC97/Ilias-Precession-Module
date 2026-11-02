@@ -105,6 +105,7 @@ export class P2Rotation implements OnInit, AfterViewInit, OnDestroy {
 	rotationText2b!: SafeHtml;
 	rotationText2c!: SafeHtml;
 	rotationText2d!: SafeHtml;
+	rotationText2e!: SafeHtml;
 
 	rotationText3a!: SafeHtml;
 	rotationText3b!: SafeHtml;
@@ -138,6 +139,7 @@ export class P2Rotation implements OnInit, AfterViewInit, OnDestroy {
         this.rotationText2b = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText2b);
         this.rotationText2c = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText2c);
         this.rotationText2d = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText2d);
+        this.rotationText2e = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText2e);
 
         this.rotationText3a = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText3a);
         this.rotationText3b = this.sanitizer.bypassSecurityTrustHtml(p2Content.rotationText3b);

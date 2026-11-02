@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { SEGMENTS } from '../../shared/nav-bar/segments';
 
 @Component({
 	selector: 'app-home',
@@ -10,4 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 
 export class Home {
+	readonly segments = SEGMENTS;
 }

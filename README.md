@@ -14,7 +14,7 @@ This README says how to run, deploy and extend the module. **Why** it is built t
 ## Project Structure Tree
 
 <details>
-<summary>Preject Structure Tree</summary>
+<summary>Project Structure Tree</summary>
 
 ```
 ilias_bridge.html                               // entry point from ILIAS; username + key form
@@ -77,7 +77,7 @@ design_notes.md                                 // decisions and their reasons, 
             │
             ├── shared/
             │   ├── header/ footer/
-            │   ├── nav-bar/                    // sidebar (drawer on mobile): segments and sub-pages
+            │   ├── nav-bar/                    // sidebar (drawer on mobile); segments.ts: the learning path, also for the start page
             │   ├── glossary-overlay/           // glossary popups opened from content links
             │   ├── sim-embed/                  // Unity sim in an iframe (postMessage bridge) + sim-presets.ts
             │   ├── sim-panel/                  // control panel below the sim: sliders, switches, buttons, readouts
@@ -214,23 +214,23 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 Every learning page needs, besides its component (`<page>.ts/.html/.css`) and its `<page>-content.ts` / `<page>-questions.ts`:
 
 1. Route in `app.routes.ts`
-2. Segment and sub-pages in `SEGMENTS` and the route in `segmentFromUrl()` (`shared/nav-bar/nav-bar.ts`). Segment labels carry no number (the marker shows it), sub-page labels start with `(k/n) - `
-3. Tracking ID in `MODULE_LABELS`, route in `PAGE_LABELS` and `PAGE_TOTALS` (`summary.service.ts`)
+2. Segment and sub-pages in `SEGMENTS` (`shared/nav-bar/segments.ts`, which also fills the start page's list) and the route in `segmentFromUrl()` (`shared/nav-bar/nav-bar.ts`). Segment labels carry no number: the marker comes from `number`, `icon`, or `sub` (a sub-chapter's dot). Sub-page labels start with `(k/n) - `
+3. Tracking ID in `MODULE_LABELS`, route in `PAGE_LABELS` and `PAGE_TOTALS`, and in `PAGE_OFFSETS` if the route continues another route's chapter (`summary.service.ts`)
 4. One `PAGE_REGISTRY` entry per sub-page (`learning-report-registry.ts`)
 5. An entry in `PAGES` of `features/learning_features/learning-question-feedback.spec.ts`
 
 Tracking and question IDs are stored in the database: choose them once and keep them.
 
-Conventions: routes `learning/p<n>-<name>`, tracking IDs `p<n>-<name>-module`, question IDs `p<n>-<name>-<k>-<description>`. Notation follows the lab script: torque **D**, angular momentum **L**, moment of inertia **I**, tilt angle θ. All user-facing text is German with formal "Sie".
+Conventions: routes `learning/p<n>-<name>`, tracking IDs `p<n>-<name>-module`, question IDs `p<n>-<name>-<k>-<description>`. Notation follows the lab script: torque **D**, angular momentum **L**, moment of inertia **I**, tilt angle θ. In the text the quantity is `Winkelgeschwindigkeit` with its symbol; `Drehzahl` only names the slider. Symbols follow the name at the first mention per page and in every question and feedback text (`design_notes.md`, section 2). All user-facing text is German with formal "Sie".
 
 
 ## Features
 
 ### Learning Path
 
-One linear path of seven segments, followed by the target page. Questions are retryable and tracked. In the nav-bar every page already visited can be opened again (`core/services/visited-pages.ts`, also from the saved progress of a registered user); dev mode opens all.
+One linear path of four chapters on seven routes, followed by the target page. The nav shows: 1 Einstieg (`p1`), 2 Grundlagen der Rotation (`p2` + `p3`, sub-pages 1–5), 3 Der Kreisel (`p4`) with the sub-chapters Präzession (`p5`) and Nutation (`p6`), and Messstrategie (`p7`) with a stopwatch instead of a number. Questions are retryable and tracked. In the nav-bar every page already visited can be opened again (`core/services/visited-pages.ts`, also from the saved progress of a registered user); dev mode opens all.
 
-- **p1-setup** → `/learning/p1-setup` — Einstieg: Versuchsaufbau (3 pages)
+- **p1-setup** → `/learning/p1-setup` — Einstieg: Versuchsaufbau (3 pages; page 1 embeds the Lehrportal's video from YouTube)
 
 <details>
 <summary>Questions (4)</summary>
@@ -242,7 +242,7 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 </details>
 
-- **p2-rotation** → `/learning/p2-rotation` — Grundlagen der Rotation (3 pages)
+- **p2-rotation** → `/learning/p2-rotation` — Grundlagen der Rotation, sub-pages 1–3 of 5
 
 <details>
 <summary>Questions (5)</summary>
@@ -255,7 +255,7 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 </details>
 
-- **p3-pendulum** → `/learning/p3-pendulum` — Trägheitsmoment: physikalisches Pendel (2 pages)
+- **p3-pendulum** → `/learning/p3-pendulum` — Grundlagen der Rotation, sub-pages 4–5 of 5: Trägheitsmoment
 
 <details>
 <summary>Questions (4)</summary>
@@ -278,7 +278,7 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 </details>
 
-- **p5-precession** → `/learning/p5-precession` — Präzession (3 pages)
+- **p5-precession** → `/learning/p5-precession` — Präzession, sub-chapter of Der Kreisel (3 pages)
 
 <details>
 <summary>Questions (5)</summary>
@@ -291,7 +291,7 @@ One linear path of seven segments, followed by the target page. Questions are re
 
 </details>
 
-- **p6-nutation** → `/learning/p6-nutation` — Nutation (3 pages)
+- **p6-nutation** → `/learning/p6-nutation` — Nutation, sub-chapter of Der Kreisel (3 pages)
 
 <details>
 <summary>Questions (3)</summary>
@@ -329,7 +329,7 @@ Every panel has the page's sliders in the first row, switches (only for helpers)
 | Preset | Page | Purpose | Controls | Gate |
 |---|---|---|---|---|
 | `p1-explore` | p1-setup (3/3) | first contact: the weight makes the axis turn sideways | Zusatzgewicht (0/30 g), Drehzahl | weight on + 2 rpm |
-| `p2-vectors` | p2-rotation (2/3) | L and ω along the axis (simple top) | Drehzahl, Zeitlupe | 2 rpm |
+| `p2-vectors` | p2-rotation (2/5) | L and ω along the axis (simple top) | Drehzahl, Zeitlupe | 2 rpm |
 | `p4-axes` | p4-gyroscope (2/3) | L, ω and figure axis visibly apart (simple top) | Drehzahl, Zeitlupe | 2 rpm |
 | `p5-precession` | p5-precession (3/3) | ω_P ∝ 1/ω_R, independent of θ; readouts ω_R, ω_P | Drehzahl, Zusatzgewicht, Neigung | 2 rpm + 2 θ₀ |
 | `p6-nutation` | p6-nutation (3/3) | nutation of the balanced gyroscope after a push, the three cones | Drehzahl, Zeitlupe, Stoß; one switch per cone (ω⃗ with Rast-/Gangpolkegel) | push at 2 rpm |

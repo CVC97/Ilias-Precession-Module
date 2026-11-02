@@ -71,6 +71,10 @@
                     <div class="learning-lamp">
                         <div class="learning-lamp-text" [innerHTML]="gyroText3b"></div>
                     </div>
+                    <details class="spoiler">
+                        <summary class="spoiler-summary">EXKURS: Herleitung der Eulerschen Kreiselgleichung</summary>
+                        <div class="spoiler-content" [innerHTML]="gyroText3d"></div>
+                    </details>
                     <p [innerHTML]="gyroText3c"></p>
 
                     <app-single-choice
@@ -92,7 +96,7 @@
         <div class="button-container">
             @if (isFirstPage) {
                 @if (devMode.isEnabled) {
-                    <button class="btn btn-back" (click)="goBack()">← Zurück zum physikalischen Pendel</button>
+                    <button class="btn btn-back" (click)="goBack()">← Zurück zu den Grundlagen</button>
                 }
             } @else {
                 <button class="btn btn-back" (click)="goBack()">← Zurück</button>

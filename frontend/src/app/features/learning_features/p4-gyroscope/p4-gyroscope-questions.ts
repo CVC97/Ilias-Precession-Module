@@ -14,8 +14,8 @@ export const question1: SingleChoiceQuestion = {
     "successMessage": "Mit $L_1 = 2I_2\\omega_1$ und $L_2 = I_2\\omega_1$ ist die Komponente entlang der Figurenachse doppelt so groß wie die senkrechte. $\\vec{L}$ steht also unter etwa 27° zur Figurenachse, $\\vec{\\omega}$ unter 45°.",
     "incorrectMessage": "Berechnen Sie die beiden Komponenten $L_1 = I_1\\omega_1$ und $L_2 = I_2\\omega_2$ und vergleichen Sie ihr Verhältnis mit dem von $\\omega_1$ und $\\omega_2$.",
     "answerFeedback": {
-        "answer2": "Das gilt nur, wenn beide Trägheitsmomente gleich sind. Berechnen Sie $L_1$ und $L_2$ mit $I_1 = 2I_2$.",
-        "answer3": "Welche Komponente von $\\vec{L}$ wird durch das größere Trägheitsmoment verstärkt – die entlang der Figurenachse oder die senkrecht dazu?",
+        "answer2": "Das gilt nur, wenn beide Trägheitsmomente $I_1$ und $I_2$ gleich sind. Berechnen Sie $L_1$ und $L_2$ mit $I_1 = 2I_2$.",
+        "answer3": "Welche Komponente von $\\vec{L}$ wird durch das größere Trägheitsmoment $I_1$ verstärkt – die entlang der Figurenachse oder die senkrecht dazu?",
         "answer4": "Beide Komponenten von $\\vec{L}$ haben dasselbe Vorzeichen wie die von $\\vec{\\omega}$. Damit kann $\\vec{L}$ nicht senkrecht auf $\\vec{\\omega}$ stehen."
     }
 };
@@ -62,7 +62,7 @@ export const question2: MultipleChoiceQuestion = {
 
 export const question3: SingleChoiceQuestion = {
     "questionId": "p4-gyroscope-3-raumfest",
-    "question": "Der ausbalancierte Kreisel (kein Drehmoment) rotiert schnell und wird kurz angestoßen, sodass er nicht mehr genau um seine Figurenachse rotiert. Welche Achse bleibt danach im Raum fest?",
+    "question": "Der ausbalancierte Kreisel (kein Drehmoment $\\vec{D}$) rotiert schnell und wird kurz angestoßen, sodass er nicht mehr genau um seine Figurenachse rotiert. Welche Achse bleibt danach im Raum fest?",
     "options": [
         { "value": "answer1", "label": "Die Drehimpulsachse." },
         { "value": "answer2", "label": "Die Figurenachse." },
@@ -71,11 +71,11 @@ export const question3: SingleChoiceQuestion = {
     ],
     "correctAnswer": "answer1",
     "containerId": "question3-container",
-    "successMessage": "Ohne Drehmoment ist $\\vec{L}$ erhalten. Figurenachse und momentane Drehachse bewegen sich um die feste Drehimpulsachse.",
-    "incorrectMessage": "Welche Größe bleibt erhalten, wenn kein Drehmoment wirkt?",
+    "successMessage": "Ohne Drehmoment $\\vec{D}$ ist $\\vec{L}$ erhalten. Figurenachse und momentane Drehachse bewegen sich um die feste Drehimpulsachse.",
+    "incorrectMessage": "Welche Größe bleibt erhalten, wenn kein Drehmoment $\\vec{D}$ wirkt?",
     "answerFeedback": {
-        "answer2": "Die Figurenachse ist fest mit dem Kreisel verbunden. Nach dem Stoß rotiert er nicht mehr genau um sie, sie bewegt sich also mit. Welche Größe bleibt ohne Drehmoment erhalten?",
-        "answer3": "Die Richtung von $\\vec{\\omega}$ ist nicht erhalten, denn $\\vec{\\omega}$ und $\\vec{L}$ sind nicht mehr parallel. Welche Größe bleibt ohne Drehmoment erhalten?",
-        "answer4": "Nach dem Stoß wirkt kein Drehmoment mehr. Setzen Sie $\\vec{D} = 0$ in $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ ein."
+        "answer2": "Die Figurenachse ist fest mit dem Kreisel verbunden. Nach dem Stoß rotiert er nicht mehr genau um sie, sie bewegt sich also mit. Welche Größe bleibt ohne Drehmoment $\\vec{D}$ erhalten?",
+        "answer3": "Die Richtung von $\\vec{\\omega}$ ist nicht erhalten, denn $\\vec{\\omega}$ und $\\vec{L}$ sind nicht mehr parallel. Welche Größe bleibt ohne Drehmoment $\\vec{D}$ erhalten?",
+        "answer4": "Nach dem Stoß wirkt kein Drehmoment $\\vec{D}$ mehr. Setzen Sie $\\vec{D} = 0$ in $\\mathrm{d}\\vec{L}/\\mathrm{d}t = \\vec{D}$ ein."
     }
 };

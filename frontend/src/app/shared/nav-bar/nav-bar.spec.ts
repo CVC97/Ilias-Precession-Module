@@ -85,8 +85,24 @@ describe('NavBar', () => {
     it('numbers the segments in the markers, not in the labels', async () => {
         await openAt('/learning/p5-precession?page=2');
         const markers = [...fixture.nativeElement.querySelectorAll('.seg-list > .nav-row .nav-marker')] as HTMLElement[];
-        expect(markers.map(marker => marker.textContent!.trim())).toEqual(['1', '2', '3', '4', '5', '6', '7']);
+        expect(markers.map(marker => marker.textContent!.trim())).toEqual(['1', '2', '3', '', '', '']);
         expect(row('Einstieg').textContent).not.toContain('1.');
+    });
+
+    it('marks sub-chapters and draws the icon in place of a number', async () => {
+        await openAt('/learning/p5-precession?page=2');
+        expect(row('Präzession').classList).toContain('nav-row--sub');
+        expect(row('Nutation').classList).toContain('nav-row--sub');
+        expect(row('Der Kreisel').classList).not.toContain('nav-row--sub');
+        expect(row('Messstrategie').querySelector('.nav-marker svg')).not.toBeNull();
+    });
+
+    it('shows the Trägheitsmoment pages as pages 4 and 5 of Grundlagen', async () => {
+        visited.add('/learning/p3-pendulum|1');
+        await openAt('/learning/p3-pendulum?page=1');
+        expect(row('Grundlagen').getAttribute('aria-current')).toBe('step');
+        expect(row('(4/5)').getAttribute('aria-current')).toBe('page');
+        expect(row('(5/5)').disabled).toBe(true);
     });
 
     it('opens everything in dev mode', async () => {
