@@ -203,7 +203,7 @@
                 <path d="M 27 36 C 35 25, 57 22, 73 30 C 81 34, 85 39, 86 45" fill="none" stroke="rgb(21,50,104)" stroke-width="4" stroke-linecap="round" stroke-dasharray="7 5"/>
 
                 <!-- Direction arrow -->
-                <path d="M 80 40 L 87 45 L 79 47" fill="none" stroke="rgb(21,50,104)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- <path d="M 80 40 L 87 45 L 79 47" fill="none" stroke="rgb(21,50,104)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/> -->
             </svg>
             <span>Lernmodul<br>Kreiselpräzession</span>
         </div>
@@ -318,6 +318,11 @@
                     showCheckResult('error', 'Kursschlüssel ungültig.');
                     return;
                 }
+                if (checkRes.status === 400) {
+                    usernameInput.classList.add('error');
+                    showCheckResult('error', 'Benutzername ungültig: Bitte nur Buchstaben, Ziffern und . _ - @ verwenden.');
+                    return;
+                }
                 if (!checkRes.ok) throw new Error(`check failed: ${checkRes.status}`);
 
                 const data = await checkRes.json();
@@ -345,6 +350,7 @@
         // "Weiter" only runs after the check has already passed.
         async function handleSubmit() {
             const username = usernameInput.value.trim();
+            const key      = keyInput.value.trim();
 
             submitBtn.disabled = true;
             setStatus('info', userExists ? 'Willkommen zurück! Fortschritt wird geladen…' : 'Neuer Benutzer wird angelegt…', true);
@@ -354,7 +360,7 @@
                     const createRes = await fetch(`${API_BASE}/users/create`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username }),
+                        body: JSON.stringify({ username, key }),
                     });
                     if (!createRes.ok) throw new Error(`create failed: ${createRes.status}`);
                 }

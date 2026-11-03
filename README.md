@@ -39,6 +39,7 @@ design_notes.md                                 // decisions and their reasons, 
 │       db.php                                  // PDO connection (singleton)
 │       module.php                              // resolves MODULE_NAME → modules.id
 │       router.php                              // local dev router (php -S only)
+│       lib.php                                 // shared by all endpoints: responses, input checks, course key, user lookup
 │       schema.sql                              // database schema (run once to initialise)
 │       │
 │       ├── users/
@@ -162,7 +163,7 @@ Which simulation build is live: `https://interapt.uni-goettingen.de/precession/s
 Pushing to `master` triggers `.github/workflows/deploy.yml`:
 1. Installs Node, runs `npm ci`, fetches the simulation release named in `sim.version` (`tools/fetch-sim.sh`), builds the Angular app with `--base-href "https://interapt.uni-goettingen.de/precession/"`
 2. Writes a production `.htaccess` (`RewriteBase /precession/`) into the build output
-3. Uploads via SFTP: Angular dist incl. that `.htaccess` → `precession/`, `api/` (excluding `config.php`), `ilias_bridge.html`
+3. Uploads via SFTP: Angular dist incl. that `.htaccess` → `precession/`, `api/` (excluding `config.php` and the development files), `ilias_bridge.html`
 
 **One-time setup** — add these secrets in GitHub → repo → Settings → Secrets and variables → Actions:
 `SFTP_HOST`, `SFTP_PORT`, `SFTP_USER`, `SFTP_PASS`, `SFTP_REMOTE_DIR`
@@ -178,10 +179,10 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 
 | Method | Endpoint | File | Description |
 |--------|----------|------|-------------|
-| POST | `/api/users/check` | `users/check.php` | Validate course key; check if username exists |
-| POST | `/api/users/create` | `users/create.php` | Register a new user |
-| POST | `/api/progress/save` | `progress/save.php` | Save page visits and question results |
-| GET | `/api/progress/{username}` | `progress/load.php` | Load all saved progress for a user |
+| POST | `/api/users/check` | `users/check.php` | Validate username and course key; check if the user exists |
+| POST | `/api/users/create` | `users/create.php` | Register a new user (needs the course key) |
+| POST | `/api/progress/save` | `progress/save.php` | Save page visits and question attempts; a row sent twice is stored once |
+| GET | `/api/progress/{username}` | `progress/load.php` | Load page visits and the latest attempt per question |
 
 
 ## Database Schema
@@ -190,9 +191,8 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 |-------|---------|
 | `modules` | One row per learning module (e.g. `precession`, `pohl`) — scopes all user data |
 | `users` | One row per username per module |
-| `page_visits` | Page visit durations per session |
-| `module_results` | Learning question answers (retryable) |
-| `test_results` | Test answers — unused in this module, kept for compatibility with the shared API |
+| `page_visits` | One row per page visit: route, sub-page, query string, duration |
+| `question_attempts` | One row per submitted answer, each retry included; `kind` is always `learning` in this module |
 
 
 ## Project Services
@@ -200,9 +200,10 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 - **theme.ts:** light / dark mode
 - **session.ts:** reads `session_id` from the URL (set by the bridge), falls back to a `rogue_user_` identifier for direct access
 - **analytics.ts:** page visit durations on route changes
-- **results-tracking.ts:** learning question answers; allows retries, counts attempts
+- **results-tracking.ts:** learning question answers; allows retries and sends each attempt; per student in `localStorage`
+- **attempt-outbox.ts:** holds each submitted answer, also across reloads, until the server has confirmed it
 - **test-tracking.ts:** kept empty (no tests in this module); data-export, summary and report still read it
-- **data-export.ts:** saves progress on `beforeunload`, loads it on startup; skips rogue users
+- **data-export.ts:** sends what the server hasn't confirmed yet when the tab is hidden and on `pagehide`, loads progress on startup; skips rogue users
 - **summary.service.ts:** builds the Lernpfad summary; `MODULE_LABELS`, `PAGE_LABELS` and `PAGE_TOTALS` hold the display names
 - **html-report.service.ts:** generates the downloadable HTML report (images embedded, answers coloured)
 - **learning-report-registry.ts:** `PAGE_REGISTRY` — page content per route and sub-page for the report

@@ -187,6 +187,7 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 - **Physics details not verifiable from the material** (Carlo to confirm): pendulum part (wheel clamped, pendulum weight screwed in, two opposite positions because of unbalance); light barrier one interruption per turn; the notch side of the add-on weight; the reason for timing half a precession turn (`measureText1b` gives only the friction argument); nutation measured on the balanced gyroscope.
 - **Sim polish:** p7's trail (thin light grey on the light stage) has weak contrast; the mouse wheel over the sim zooms instead of scrolling the page; no touch rotation on phones/tablets; p4 at 1000 rpm: the disk can hide the short arrows in some phases (re-check with the new camera); the Push sign quirk; `precessionArc`/`precessionVector` can be deleted sim-side.
 - **QA not done systematically:** load time first visit vs. cached, memory when switching sub-pages and segments repeatedly.
+- **Backend open issues (login model, data protection and others):** kept with the shared backend, in *Open Issues* of the Pohl module's developer guide (`../ilias-pohl-module/.learning_module_readme.md`). The PHP and the schema are identical in both modules: change them together.
 - **Inherited from Pohl:** a cold load straight onto a learning page can log `MathJax.typesetPromise is not a function` (later renders work). The script figures are small and slightly upscaled.
 
 
