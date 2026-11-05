@@ -201,6 +201,7 @@ Create `api/config.php` on the server (copy from `config.example.php`) with the 
 - **session.ts:** reads `session_id` from the URL (set by the bridge), falls back to a `rogue_user_` identifier for direct access
 - **analytics.ts:** page visit durations on route changes
 - **results-tracking.ts:** learning question answers; allows retries and sends each attempt; per student in `localStorage`
+- **storage-prefix.ts:** `'precession:'`, the prefix of every `localStorage` key holding this module's state; the modules share one origin and so one `localStorage`, and must not read each other's data
 - **attempt-outbox.ts:** holds each submitted answer, also across reloads, until the server has confirmed it
 - **test-tracking.ts:** kept empty (no tests in this module); data-export, summary and report still read it
 - **data-export.ts:** sends what the server hasn't confirmed yet when the tab is hidden and on `pagehide`, loads progress on startup; skips rogue users
