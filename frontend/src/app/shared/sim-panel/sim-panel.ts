@@ -19,8 +19,9 @@ export class SimPanel {
     readonly draft = signal<Partial<Record<SimNumberKey, number>>>({});    // slider values while dragging
     readonly mouseHint = signal(false);                                     // no camera control on touch devices
 
-    // sliders that don't change the motion itself, only its pace, its slow decay or the next Stoß
-    private static readonly LIVE_KEYS: SimNumberKey[] = ['timeScale', 'frictionFactor', 'pushThetaDot'];
+    // sliders that don't change the motion itself, only its pace, its slow decay or the next Stoß; and the assembly
+    // game's counterweight, whose axle must tip while the slider moves
+    private static readonly LIVE_KEYS: SimNumberKey[] = ['timeScale', 'frictionFactor', 'pushThetaDot', 'balanceCm'];
 
     private readonly numberFormat = new Intl.NumberFormat('de-DE', { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
     private readonly sliderFormat = new Intl.NumberFormat('de-DE', { maximumFractionDigits: 2, useGrouping: false });
@@ -31,6 +32,17 @@ export class SimPanel {
 
     get disabled(): boolean {
         return this.embed.status() !== 'running';
+    }
+
+    // greyed out while loading, and the assembly game's controls outside their phase
+    off(control: SimControl): boolean {
+        return this.disabled || !this.embed.available(control);
+    }
+
+    // in the assembly game the wheel only turns from "Andrehen" on
+    get spinLimited(): boolean {
+        const phase = this.embed.assembly()?.phase;
+        return !!this.embed.state()?.spinLimited && (!phase || phase === 'spin' || phase === 'released');
     }
 
     get paused(): boolean {
@@ -75,6 +87,8 @@ export class SimPanel {
     onButton(control: SimControl) {
         if (control.kind !== 'button') return;
         if (control.action === 'push') this.embed.push();
+        else if (control.action === 'assemblySpin') this.embed.assemblyAction('spin');
+        else if (control.action === 'assemblyRelease') this.embed.assemblyAction('release');
         else this.embed.setStartMode(control.action);
     }
 

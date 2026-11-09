@@ -16,6 +16,10 @@ export type SimApparatus = 'lab' | 'top';
 export type SimStartMode = 'guided' | 'released';
 
 export interface SimPreset {
+    // 'assembly': the students build the lab gyroscope (from module-sim-v1.4.0). The sim then sets apparatus, values
+    // and helpers itself and only takes timeScale and paused from the preset; the other keys stay for completeness.
+    mode?: 'simulation' | 'assembly';
+    balanceCm?: number;                 // assembly only, page side: the counterweight slider's start (the sim's 11 cm)
     apparatus: SimApparatus;
     rpm: number;                        // lab ≤ 800, top ≤ 3000 (clamped by the sim)
     addOnMassGrams: number;             // lab only, 0 = balanced (no torque)
@@ -45,13 +49,39 @@ export interface SimState {
     spinLimited: boolean;               // drawn spin slower than the real one
 }
 
+// assembly game, on every event (ModuleAssemblyMessage in the sim). Part ids: pivot (Lagerbock), axle (Achse), wheel
+// (Rad), counterweight (Ausgleichsgewicht), lightgate (Lichtschranke), weight (Zusatzgewicht), pendulum (Pendelgewicht,
+// fits nowhere). Markers 1–6: rod top, bearing, wheel end, other end, beside the wheel, notch.
+export type SimAssemblyPhase = 'build' | 'balance' | 'weight' | 'spin' | 'released';
+export interface SimAssemblyMessage {
+    phase: SimAssemblyPhase;
+    placed: string[];                   // parts on their markers (or on the way there)
+    slots: number[];                    // markers shown now
+    selected: string;                   // part id or ''
+    event: 'begin' | 'select' | 'deselect' | 'grab' | 'place' | 'wrong' | 'back' | 'unavailable' |
+           'phase' | 'balanced' | 'spin' | 'spun' | 'release' | 'end';
+    part: string;                       // part id or ''
+    slot: number;                       // marker, 0 = none
+    seq: number;
+}
+
+// what the page keeps of the game: the panel's buttons and the gate read it
+export interface SimAssemblyProgress {
+    phase: SimAssemblyPhase;
+    placed: string[];
+    spun: boolean;                      // the wheel runs at full speed: "Loslassen" possible
+    released: boolean;                  // let go at least once since the page was opened
+    hint: string;                       // the page's hint for the last event (assembly-hints.ts)
+}
+
 export type SimCommand =
     'ApplyPreset' | 'SetHelpers' | 'SetApparatus' | 'SetStartMode' | 'SetRpm' | 'SetAddOnMassGrams' |
     'SetTheta0Deg' | 'SetFriction' | 'SetTimeScale' | 'SetPaused' | 'SetPushThetaDot' | 'SetPushPhiDot' |
-    'Restart' | 'Push';
+    'Restart' | 'Push' | 'AssemblyBalance' | 'AssemblyAction';
 
 // preset keys a control may change, and the command that changes each one alone
-export type SimNumberKey = 'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale' | 'frictionFactor' | 'pushThetaDot';
+export type SimNumberKey =
+    'rpm' | 'addOnMassGrams' | 'theta0Deg' | 'timeScale' | 'frictionFactor' | 'pushThetaDot' | 'balanceCm';
 // none of them restarts: the gyroscope goes on from where it is (a new θ₀ tilts the axle at its azimuth)
 export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     rpm: 'SetRpm',
@@ -60,18 +90,24 @@ export const SET_COMMAND: Record<SimNumberKey, SimCommand> = {
     timeScale: 'SetTimeScale',
     frictionFactor: 'SetFriction',
     pushThetaDot: 'SetPushThetaDot',    // strength of the next Stoß; from sim v1.3.0 (older builds drop it)
+    balanceCm: 'AssemblyBalance',       // the sim takes metres (SEND_FACTOR) and acts only in the balance phase
 };
+
+// slider value × factor = the command's value
+export const SEND_FACTOR: Partial<Record<SimNumberKey, number>> = { balanceCm: 0.01 };
 
 // label: HTML (sub/sup only, no MathJax: the panel updates at 10 Hz). Parameters are always
 // sliders (also two-valued ones like the weight on p1, and the bearing friction of the free simulation);
 // switches only show or hide helpers.
 // alsoShows: flags that are on while at least one switch naming them is on (p6: ω with either cone it touches).
 // Pause is on every panel, Zurücksetzen on panels with a slider or switch; neither is listed here.
+// The assembly game's buttons and its slider are greyed out outside their phase (SimEmbed.available).
 export type SimShowSwitch = { kind: 'switch'; show: SimShowFlag[]; label: string; alsoShows?: SimShowFlag[] };
+export type SimButtonAction = 'push' | SimStartMode | 'assemblySpin' | 'assemblyRelease';
 export type SimControl =
     | { kind: 'slider'; key: SimNumberKey; label: string; unit: string; min: number; max: number; step: number }
     | SimShowSwitch
-    | { kind: 'button'; label: string; action: 'push' | SimStartMode };
+    | { kind: 'button'; label: string; action: SimButtonAction };
 
 export type SimReadout = 'omegaR' | 'omegaP';
 
@@ -93,7 +129,8 @@ export interface SimEmbedConfig {
     afterPreset?: SimCommand[];         // sent right after every ApplyPreset
     controls: SimControl[];
     readouts?: SimReadout[];
-    gate?: (runs: SimRunRecord[]) => boolean;      // none: nothing to unlock (the free simulation)
+    // none: nothing to unlock (the free simulation); assembly: the game's progress, null on the other pages
+    gate?: (runs: SimRunRecord[], assembly?: SimAssemblyProgress | null) => boolean;
     gateHint?: string;                  // shown below the panel until the gate is reached
     free?: boolean;                     // free experimenting: all parameters, no limit on the number of controls
 }
@@ -116,6 +153,26 @@ const ZEITLUPE_SLIDER: SimControl = { kind: 'slider', key: 'timeScale', label: '
 
 
 export const SIM_PRESETS: Record<string, SimEmbedConfig> = {
+    // the assembly game (Melissa Atik): the parts lie on a tray and are placed with the mouse or a finger in the canvas;
+    // the page offers only what the canvas can't: the counterweight, spinning up and letting go
+    'p1-assembly': {
+        id: 'p1-assembly',
+        page: '/learning/p1-setup?page=2',
+        learningTarget: 'Wo jedes Bauteil sitzt und wozu: Lagerbock, Achse, Rad, Ausgleichsgewicht, Lichtschranke, Zusatzgewicht; ausbalancieren, dann kippt die Achse ohne Drehung mit dem Zusatzgewicht.',
+        preset: {
+            mode: 'assembly', balanceCm: 11,
+            apparatus: 'lab', rpm: 400, addOnMassGrams: 30, theta0Deg: 90, startMode: 'released',
+            pushThetaDot: 0, pushPhiDot: 0, frictionFactor: 0, timeScale: 1, paused: false,
+            show: { ...HIDE_ALL },
+        },
+        controls: [
+            { kind: 'slider', key: 'balanceCm', label: 'Ausgleichsgewicht', unit: 'cm', min: 8, max: 24, step: 0.5 },
+            { kind: 'button', label: 'Andrehen', action: 'assemblySpin' },
+            { kind: 'button', label: 'Loslassen', action: 'assemblyRelease' },
+        ],
+        gate: (_runs, assembly) => !!assembly?.released,
+        gateHint: 'Weiter geht es, sobald Sie den Kreisel vollständig aufgebaut, angedreht und losgelassen haben.',
+    },
     'p1-explore': {
         id: 'p1-explore',
         page: '/learning/p1-setup?page=3',

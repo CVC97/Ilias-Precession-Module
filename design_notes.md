@@ -7,9 +7,9 @@ Built with Claude by Carlo (physics education group, Göttingen), 2026-10-26 to 
 Related: the simulation repo ([Ilias-Precession-Module-Simulation](https://github.com/CVC97/Ilias-Precession-Module-Simulation), everything on `master`) has its own `design_notes.md` (physics model, module build, bridge, pitfalls) and README (release steps); the rough lab data are in its gitignored `experimental.md`. The infrastructure comes from the [Pohl module](https://github.com/CVC97/Ilias-Pohl-Module); its developer guide is `../ilias-pohl-module/.learning_module_readme.md`.
 
 
-## 1 Status (2026-11-02)
+## 1 Status (2026-11-09)
 
-Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.3.0`. Four chapters (Der Kreisel with two sub-chapters) on seven routes with 20 sub-pages, 28 retryable questions, 13 glossary terms, six embedded simulations; the target page "Abschluss" with a free simulation, the summary and the HTML report. Open items: section 10.
+Live at `https://interapt.uni-goettingen.de/precession/` with simulation release `module-sim-v1.3.0`. Four chapters (Der Kreisel with two sub-chapters) on seven routes with 20 sub-pages, 28 retryable questions, 13 glossary terms, seven embedded simulations (one of them the assembly game on p1, from `module-sim-v1.4.0`, built by Melissa Atik); the target page "Abschluss" with a free simulation, the summary and the HTML report. Open items: section 10.
 
 
 ## 2 Concept
@@ -38,6 +38,7 @@ Versuch 4 *Kreiselpräzession* (Grundpraktikum Experimentalphysik I). In the lab
 | **Stopwatch instead of a number on Messstrategie** (Carlo, 2026-11-02) | The chapter is about measuring, and fewer numbers remain. Not Pohl's wrench: it marks "Versuchsaufbau" there, which here is chapter 1, still numbered. The start page's list uses the same markers, so the numbers match the nav; the Pohl module's list has the same circled numbers. |
 | **One word per quantity, symbol right after it** (collaborators and Carlo, 2026-11-02) | `Winkelgeschwindigkeit` with the page's symbol (ω on p2, ω₁ on p4, otherwise ω_R; a magnitude is not ω⃗). "Drehzahl" remains only for what the slider is called: its label, gate hints, tasks in the form "(Regler „Drehzahl“)", the free simulation's list of sliders, the glossary's definition. No "Drehsinn", no "Drehgeschwindigkeit". Symbol at the first mention per page and in every question and feedback text; headings and nav labels are exempt. |
 | **The Lehrportal's video on p1, a plain YouTube embed** (collaborators and Carlo, 2026-11-02) | It shows the experiment and its purpose and replaces Bild 4.1 on page 1. No "Weiter" gate and no link to YouTube on the page; the report, which cannot embed it, carries the URL. The labelled photo stays on page 2, where it serves as a reference beside the component list, and question 1 moved there with it. |
+| **Assembly game on p1's "Komponenten" page, gated** (Carlo, 2026-11-09; the game: Melissa Atik) | The students build the lab gyroscope in the sim (parts onto markers, a distractor Pendelgewicht, balancing, add-on weight, spin up, let go). It sits between the component list with the photo (the reference) and the light bulb box on balancing, before the three questions, which it prepares: what the axle carries, what the counterweight does, where the light barrier measures. Not a sub-page of its own: inserting one would shift `?page=3`, which saved visits and `p1-explore` refer to. "Weiter" waits until the gyroscope was let go once. |
 | **Never spoil the Auswertung** | The slope of ω_N vs. ω_R is I₃/I₁ for a fast gyroscope (Auswertung 5), and the moments of inertia are to be compared. No text, readout, preset or fit gives either, not even numerically: the sim reports no moments of inertia, there is no T_N readout, the cones show I₁/I₃ only geometrically. Segment 6 says only that ω_N ∝ ω_R and that the slope is dimensionless. |
 
 ### Learning path
@@ -72,7 +73,7 @@ The order follows the physics, not the lab (which starts with the pendulum).
 
 The simulation repo has the **original** sim (GitHub Pages, tags `sim-v*`, a heavy top on a tip, `WebBridge` with `SetTheta0`/`SetPhiDot0`/`SetShowTorque`) and the **module build** (same `master`, scene `Assets/Module/ModuleScene.unity`, build profile *Web - Module - Release*, `ModuleWebBridge`, tags `module-sim-v*`). The module uses only the module build; the original's names don't exist there.
 
-The module build has two apparatus, chosen by the page: `lab` (the lab gyroscope with counterweight and add-on weight in the notch, r = 0.27 m) and `top` (a simple top, disk on an axle, tip on a tower). It has no Unity UI: the page provides all controls.
+The module build has two apparatus, chosen by the page: `lab` (the lab gyroscope with counterweight and add-on weight in the notch, r = 0.27 m) and `top` (a simple top, disk on an axle, tip on a tower). It has no Unity UI: the page provides all controls. From `module-sim-v1.4.0` it also has the **assembly mode** (Melissa Atik's game, merged from her fork into the sim repo's `master`), started by the page's preset. Opened directly, without a page, the build starts in the game with its own Unity panel; embedded it never does (`window.parent !== window`).
 
 ### Embedding
 
@@ -105,7 +106,8 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 - **Readouts:** `phiDeg` is continuous (not wrapped); `omegaP` is instantaneous (average it via `phiDeg`/`time`); `spinLimited` means the drawn spin is slower than the real one (hint "Darstellung der Raddrehung verlangsamt").
 - **Physics gating in the sim:** the precession cone only with torque; nutation, Rastpol- and Gangpolkegel only without (0 g) and only after a push.
 - **Ranges:** lab up to 800 rpm, θ₀ 60–120° (beyond, the wheel hits the stand), arrows scaled for ~400 rpm. Top up to 3000 rpm, θ₀ 20–100°, **no collision handling**: below ~600 rpm at 60° it falls through its tower.
-- **Camera:** mouse drag/zoom only, no touch rotation, no camera command; default yaw 50°, pitch 35° (the start pose φ = 0 would otherwise point the axle at the camera). One light look, no dark theme.
+- **Assembly game** (from v1.4.0): `ApplyPreset` with `mode:"assembly"` starts it (the sim then sets apparatus, values and helpers itself and takes only `timeScale` and `paused`); any other preset ends it and puts every part back. Parts are placed in the canvas (mouse or finger, `Pointer`); the page sends `AssemblyBalance` (counterweight in m, only in the balance phase; the panel's slider is in cm) and `AssemblyAction` `"spin"` / `"release"`. The sim answers every event with `type:'assembly'`: `phase` (build, balance, weight, spin, released), `placed`, `slots`, `selected`, `event`, `part`, `slot`, `seq`. The page writes the hint from event, part and marker (`shared/sim-embed/assembly-hints.ts`). The template also passes `AssemblySelect`, `AssemblyPlace`, `AssemblyReset`, `SetCameraView` (unused by the page). The usual `state` messages keep coming; the release restarts the run.
+- **Camera:** mouse drag/zoom only, no touch rotation, no camera command (the assembly game's prepared views aside); default yaw 50°, pitch 35° (the start pose φ = 0 would otherwise point the axle at the camera). One light look, no dark theme.
 
 
 ## 5 Embed and panel design rules (decided)
@@ -119,12 +121,14 @@ Full detail: `ModuleWebBridge.cs` and `ModuleGyroscopeController.cs` in the sim 
 7. **Explanations stay in the page text** (German, MathJax, tracked); the sim shows symbols only. Readouts only where the task needs a number (only p5: ω_R and the averaged ω_P; no T_P and no product, so students find ω_P ∝ 1/ω_R themselves).
 8. **Gate:** the sub-page's "Weiter" is shown greyed out until the gate rule holds, **never hidden** (Carlo; also applied to the Pohl module). A short italic hint under the panel says what's needed. Dev mode and a failed load release it.
 9. **The free simulation is the one exception** (`free: true` in the config): all lab parameters, no gate, no control limit, no helpers or readouts. Its bearing friction is a slider like every parameter ("Lagerreibung", 0–5 × the lab value, 0 at the start; Carlo replaced the earlier on/off switch); like Zeitlupe it acts while dragging.
+10. **The assembly game is played in the canvas.** The panel only adds what the canvas can't: the Ausgleichsgewicht slider (follows while dragging, so the axle tips as it moves), Andrehen and Loslassen. They are greyed out outside their phase (`SimEmbed.available`), never hidden. The hint line for the next step is the panel's first row, right below the canvas. Zurücksetzen puts every part back on the tray.
 
 
-## 6 The six embeds
+## 6 The seven embeds
 
 | Embed (page) | Target | Preset essentials | Controls | Gate |
 |---|---|---|---|---|
+| `p1-assembly` (p1-setup 2/3, after the component list) | where each part sits and what it does; balanced, the axle stays put; with the add-on weight and no spin it tips | `mode: 'assembly'` (the sim sets the rest: lab, 0 rpm while building, 30 g, released at 400 rpm), counterweight slider at 11 cm | Ausgleichsgewicht 8–24 cm (step 0.5; balance ≈ 17.3 cm, the sim accepts ± 4 mm), Andrehen, Loslassen; parts in the canvas | let go once |
 | `p1-explore` (p1-setup 3/3) | the phenomenon without theory: with the weight the gyroscope doesn't tip but turns sideways, the slower the wheel the faster | lab, 400 rpm, **0 g** (the "before" of the prediction question), guided, no helpers | Zusatzgewicht 0/30 g, Drehzahl 150–800 | weight on + 2 rpm |
 | `p2-vectors` (p2-rotation 2/5; right after the figure, because the questions below would otherwise answer its target beforehand) | L⃗ and ω⃗ along the axis, same direction, ∝ rpm | top, 2400 rpm, 60°, L, ω, labels | Drehzahl 1500–3000, Zeitlupe (slower precession makes the arrows easier to compare; same top as p4) | 2 rpm |
 | `p4-axes` (p4-gyroscope 2/3) | figure axis, L⃗ and ω⃗ are three directions when the axis moves; they close in with more spin | top, 1000 rpm, 60°, `pushPhiDot` 4 then `Push`, Zeitlupe 0.25, L, ω, figure axis, labels | Drehzahl 1000–3000, Zeitlupe | 2 rpm |
@@ -180,6 +184,8 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 
 
 ## 10 Open items
+
+- **Assembly game, release and QA:** needs `module-sim-v1.4.0` in `sim.version` (until then the live sim would ignore `mode` and show a running lab gyroscope on p1 page 2 whose gate never opens: release the sim before deploying the module). Tested end to end with a local build in headless Chrome (2026-11-09); dragging with a finger on phones and tablets is untested. The hint texts mirror the sim's `AssemblyMode.Texts` (standalone panel): check both when changing one.
 
 - **Video check (Carlo):** watch the p1 video for Auswertung spoilers (slope, I₃/I₁). The question revision on branch `fragen` makes `p1-setup-4-erwartung` an observation after the simulation, so seeing precession in the earlier video no longer conflicts with a prediction task.
 - **Metallic stand in the sim:** `ModuleBase.mat` has exactly ω's colour; requested from the sim repo (`ModuleTower.mat` as the model). Afterwards bump `sim.version`.

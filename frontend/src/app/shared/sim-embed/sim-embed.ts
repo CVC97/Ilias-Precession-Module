@@ -5,9 +5,10 @@ import { SimGateService } from '../../core/services/sim-gate';
 import { ThemeService } from '../../core/services/theme';
 import { SimPanel } from '../sim-panel/sim-panel';
 import {
-    SIM_PRESETS, SET_COMMAND, SimEmbedConfig, SimPreset, SimState, SimCommand, SimShowSwitch,
-    SimNumberKey, SimShowFlag, SimStartMode, SimRunRecord,
+    SIM_PRESETS, SET_COMMAND, SEND_FACTOR, SimEmbedConfig, SimPreset, SimState, SimCommand, SimShowSwitch,
+    SimNumberKey, SimShowFlag, SimStartMode, SimRunRecord, SimAssemblyMessage, SimAssemblyProgress, SimControl,
 } from './sim-presets';
+import { assemblyHint } from './assembly-hints';
 
 
 
@@ -33,6 +34,7 @@ export class SimEmbed implements OnInit, OnDestroy {
     readonly current = signal<SimPreset | null>(null);      // the preset as changed by the controls
     readonly progress = signal('');                         // download progress of the sim's own loader
     readonly runs = signal<SimRunRecord[]>([]);
+    readonly assembly = signal<SimAssemblyProgress | null>(null);       // the assembly game (p1-assembly), else null
 
     // ω_P averaged over the segment: |Δφ| / Δt since its first state, none during the first 2 s
     readonly omegaPAverage = computed(() => {
@@ -140,8 +142,23 @@ export class SimEmbed implements OnInit, OnDestroy {
             if (this.state()) this.applyPreset();
         } else if (data.type === 'state') {
             this.onState(data as SimState);
+        } else if (data.type === 'assembly' && this.config.preset.mode === 'assembly') {
+            this.onAssembly(data as SimAssemblyMessage);
         }
     };
+
+    private onAssembly(m: SimAssemblyMessage) {
+        const before = this.assembly();
+        const released = (before?.released ?? false) || m.event === 'release';     // stays after Zurücksetzen
+        this.assembly.set({
+            phase: m.phase,
+            placed: m.placed,
+            spun: m.event === 'spun' || (m.phase === 'spin' && m.event !== 'spin' && (before?.spun ?? false)),
+            released,
+            hint: assemblyHint(m, before?.hint ?? ''),
+        });
+        if (released) this.checkGate();
+    }
 
     // older sim builds have no segment: there every parameter change restarted the run
     private segmentOf(s: SimState): number {
@@ -175,7 +192,7 @@ export class SimEmbed implements OnInit, OnDestroy {
     }
 
     private checkGate() {
-        if (this.config.gate?.(this.runs())) this.simGate.markReached(this.presetId);
+        if (this.config.gate?.(this.runs(), this.assembly())) this.simGate.markReached(this.presetId);
     }
 
 
@@ -218,7 +235,7 @@ export class SimEmbed implements OnInit, OnDestroy {
     // no restart, and a paused sim stays paused: the student may set up the next step before going on
     setValue(key: SimNumberKey, value: number) {
         this.current.update(p => ({ ...p!, [key]: value }));
-        this.send(SET_COMMAND[key], value);
+        this.send(SET_COMMAND[key], value * (SEND_FACTOR[key] ?? 1));
     }
 
     // a switch's flags; the switches' alsoShows flags are on while at least one switch naming them is on
@@ -237,6 +254,25 @@ export class SimEmbed implements OnInit, OnDestroy {
         this.current.update(p => ({ ...p!, startMode: mode }));
         this.send('SetStartMode', mode);
         this.resume();
+    }
+
+    // the assembly game's "Andrehen" and "Loslassen"; a paused sim would freeze the hand and the release
+    assemblyAction(action: 'spin' | 'release') {
+        this.send('AssemblyAction', action);
+        this.resume();
+    }
+
+    // the assembly game's slider and buttons only in their phase (the sim ignores them otherwise anyway);
+    // every other control is always available
+    available(c: SimControl): boolean {
+        const a = this.assembly();
+        const assemblyControl = (c.kind === 'slider' && c.key === 'balanceCm')
+            || (c.kind === 'button' && (c.action === 'assemblySpin' || c.action === 'assemblyRelease'));
+        if (!assemblyControl) return true;
+        if (!a) return false;
+        if (c.kind === 'slider') return a.phase === 'balance';
+        if (c.action === 'assemblySpin') return a.phase === 'weight' && a.placed.includes('weight');
+        return a.phase === 'spin' && a.spun;
     }
 
     push() {

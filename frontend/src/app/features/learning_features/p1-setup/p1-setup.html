@@ -38,6 +38,10 @@
                         </div>
                     </div>
 
+                    <p [innerHTML]="setupText2d"></p>
+
+                    <app-sim-embed presetId="p1-assembly"></app-sim-embed>
+
                     <div class="learning-lamp">
                         <div class="learning-lamp-text" [innerHTML]="setupText2b"></div>
                     </div>
@@ -127,6 +131,10 @@
                 <!-- released by the simulation's gate (SIM_PRESETS['p1-explore'].gate) -->
                 <button class="btn" (click)="goForward()"
                     [disabled]="!(simGate.isReached('p1-explore') || devMode.isEnabled)">Weiter zu den Grundlagen →</button>
+            } @else if (currentView === 'setup2') {
+                <!-- released by the assembly game's gate (SIM_PRESETS['p1-assembly'].gate) -->
+                <button class="btn" (click)="goForward()"
+                    [disabled]="!(simGate.isReached('p1-assembly') || devMode.isEnabled)">Weiter →</button>
             } @else {
                 <button class="btn" (click)="goForward()">Weiter →</button>
             }

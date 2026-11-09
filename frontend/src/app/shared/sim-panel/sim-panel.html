@@ -1,4 +1,9 @@
 <div class="sim-controls-panel sim-panel">
+    <!-- assembly game: what to do next, right below the canvas -->
+    @if (embed.assembly()?.hint; as hint) {
+        <p class="sim-assembly-hint" aria-live="polite">{{ hint }}</p>
+    }
+
     @if (sliders.length) {
         <div class="sim-controls" [class.sim-controls--pairs]="sliders.length === 4"
             [class.sim-controls--triples]="sliders.length === 6">
@@ -9,7 +14,7 @@
                         <output>{{ sliderText(c.key, c.unit) }}</output>
                     </div>
                     <input class="sim-slider" type="range" [min]="c.min" [max]="c.max" [step]="c.step"
-                        [value]="sliderValue(c.key)" [disabled]="disabled"
+                        [value]="sliderValue(c.key)" [disabled]="off(c)"
                         (input)="onSliderInput(c.key, $event)" (change)="onSliderChange(c.key, $event)">
                 </div>
             }
@@ -44,7 +49,7 @@
 
     <div class="sim-run-controls">
         @for (c of buttons; track c.label) {
-            <button class="eval-btn" [disabled]="disabled" (click)="onButton(c)">{{ c.label }}</button>
+            <button class="eval-btn" [disabled]="off(c)" (click)="onButton(c)">{{ c.label }}</button>
         }
         <button class="eval-btn" [disabled]="disabled" (click)="embed.togglePause()">{{ paused ? 'Weiter' : 'Pause' }}</button>
         @if (resettable) {
@@ -53,7 +58,7 @@
     </div>
 
     <div class="sim-hints">
-        @if (embed.state()?.spinLimited) {
+        @if (spinLimited) {
             <p>Darstellung der Raddrehung verlangsamt</p>
         }
         @if (mouseHint()) {

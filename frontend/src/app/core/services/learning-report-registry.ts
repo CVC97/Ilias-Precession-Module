@@ -41,6 +41,7 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'image', src: 'assets/images/p1_setup/versuchsaufbau.png',
               alt: 'Versuchsaufbau Kreiselpräzession', caption: p1Content.setupText2c },
             { type: 'text', html: p1Content.setupText2a },
+            { type: 'text', html: p1Content.setupText2d },
             { type: 'text', html: p1Content.setupText2b, style: 'lamp' },
             { type: 'question', questionId: 'p1-setup-1-kreisel-teile' },
             { type: 'question', questionId: 'p1-setup-2-ausgleichsgewicht' },

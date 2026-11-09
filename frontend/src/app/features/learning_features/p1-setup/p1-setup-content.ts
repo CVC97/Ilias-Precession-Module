@@ -44,6 +44,13 @@ export const setupText2a = `
     </ul>
 `;
 
+export const setupText2d = `
+    <strong>Aufgabe:</strong> Bauen Sie den Kreisel in der Simulation selbst auf. Die Teile liegen auf dem Tisch vor dem Stativ;
+    ziehen Sie sie mit der Maus oder dem Finger auf die leuchtenden Markierungen. Nicht jedes Teil gehört zu diesem Aufbau.
+    Balancieren Sie den Kreisel dann mit dem Ausgleichsgewicht aus, hängen Sie das Zusatzgewicht ein,
+    drehen Sie das Rad an und lassen Sie los. Die Hinweise unter der Simulation helfen Ihnen dabei.
+`;
+
 export const setupText2b = `
     Beim ideal ausbalancierten Kreisel verläuft die Wirkungslinie der gesamten Gewichtskraft durch den Unterstützungspunkt.
     Ihr Hebelarm zu diesem Punkt verschwindet, sodass die Schwerkraft kein Drehmoment $\\vec{D}$ um ihn ausübt.
@@ -78,7 +85,7 @@ export const setupText3b = `
 `;
 
 export const setupText3c = `
-    Bevor es an die Physik geht, verschaffen Sie sich einen ersten Eindruck davon, wie sich ein Kreisel bewegt.
+    Bevor es an die Physik geht, sehen Sie sich genauer an, wie sich der Kreisel bewegt, wenn Sie ihn loslassen.
     Probieren Sie die Simulation aus und beantworten Sie anschließend die Frage anhand Ihrer Beobachtung.
     Vergleichen Sie die Bewegung auch mit dem zuvor gezeigten Video.
 `;

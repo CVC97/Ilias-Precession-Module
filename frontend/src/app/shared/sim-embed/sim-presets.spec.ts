@@ -8,7 +8,7 @@ describe('SIM_PRESETS', () => {
 
     it('has one entry per embed, keyed by its id', () => {
         expect(entries.map(([key]) => key)).toEqual(
-            ['p1-explore', 'p2-vectors', 'p4-axes', 'p5-precession', 'p6-nutation', 'p7-release', 'free-lab']);
+            ['p1-assembly', 'p1-explore', 'p2-vectors', 'p4-axes', 'p5-precession', 'p6-nutation', 'p7-release', 'free-lab']);
         for (const [key, config] of entries) expect(config.id).toBe(key);
     });
 
@@ -40,7 +40,8 @@ describe('SIM_PRESETS', () => {
         for (const [, config] of entries) {
             for (const c of config.controls) {
                 if (c.kind !== 'slider') continue;
-                const value = config.preset[c.key];
+                const value = config.preset[c.key]!;
+                expect(value).toBeDefined();
                 expect(value).toBeGreaterThanOrEqual(c.min);
                 expect(value).toBeLessThanOrEqual(c.max);
                 const steps = (value - c.min) / c.step;
@@ -65,6 +66,25 @@ describe('SIM_PRESETS', () => {
 
     it('shows nothing but the apparatus in the free simulation', () => {
         expect(Object.values(SIM_PRESETS['free-lab'].preset.show).every(on => !on)).toBe(true);
+    });
+
+    it('releases the assembly game only once the gyroscope was let go', () => {
+        const gate = SIM_PRESETS['p1-assembly'].gate!;
+        const progress = { phase: 'spin' as const, placed: [], spun: true, released: false, hint: '' };
+        expect(gate([run({}), run({ rpm: 300 })], null)).toBe(false);
+        expect(gate([], progress)).toBe(false);
+        expect(gate([], { ...progress, phase: 'released', released: true })).toBe(true);
+    });
+
+    // the balance position (1.3 kg · 12 cm / 0.9 kg ≈ 17.3 cm, LabGyroscope) must be reachable within the sim's 4 mm
+    it('lets the counterweight slider reach the balance position', () => {
+        const slider = SIM_PRESETS['p1-assembly'].controls.find(c => c.kind === 'slider')!;
+        if (slider.kind !== 'slider') throw new Error('no slider');
+        const balanceCm = 1.3 * 12 / 0.9;
+        const nearest = slider.min + Math.round((balanceCm - slider.min) / slider.step) * slider.step;
+        expect(Math.abs(nearest - balanceCm)).toBeLessThan(0.4);
+        expect(slider.min).toBeGreaterThanOrEqual(8);       // the sim's range, 0.08–0.24 m
+        expect(slider.max).toBeLessThanOrEqual(24);
     });
 
     it('releases p1 only after two rpm values with the weight on', () => {

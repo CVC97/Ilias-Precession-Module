@@ -150,6 +150,84 @@ describe('SimEmbed with the sim', () => {
         expect(sent.at(-1)).toEqual({ cmd: 'SetHelpers', value: { nutationCone: false, omega: false } });
     });
 
+    describe('assembly game (p1-assembly)', () => {
+        const assembly = (event: string, extra: object = {}) => fromSim({
+            type: 'assembly', phase: 'build', placed: [], slots: [1], selected: '', event, part: '', slot: 0, seq: 0, ...extra,
+        });
+        const control = (label: string) => embed.config.controls.find(c => c.label === label)!;
+
+        beforeEach(() => {
+            embed.presetId = 'p1-assembly';                     // the gate is stored under the embed's id
+            embed.config = SIM_PRESETS['p1-assembly'];
+            embed.current.set(structuredClone(embed.config.preset));
+            fromSim({ type: 'ready' });
+            state(1);
+            state(2);
+        });
+
+        it('starts the game with its preset', () => {
+            expect(sent[0]).toEqual({ cmd: 'ApplyPreset', value: expect.objectContaining({ mode: 'assembly' }) });
+        });
+
+        it('writes the page hint from event, part and marker', () => {
+            assembly('begin');
+            expect(embed.assembly()!.hint).toContain('Bauen Sie den Kreisel auf');
+            assembly('wrong', { part: 'wheel', slot: 4, slots: [3, 4] });
+            expect(embed.assembly()!.hint).toContain('Kerbe');
+            assembly('wrong', { part: 'lightgate', slot: 3, slots: [3, 4] });
+            expect(embed.assembly()!.hint).toContain('Ist das Rad schon eingebaut?');
+            assembly('wrong', { part: 'pendulum', slot: 3, slots: [3, 4] });
+            expect(embed.assembly()!.hint).toContain('Pendelversuch');
+            assembly('select', { part: 'axle' });
+            expect(embed.assembly()!.hint).toContain('Pendelversuch');    // selecting keeps the hint
+            assembly('place', { part: 'axle', slot: 2 });
+            expect(embed.assembly()!.hint).toBe('Richtig. Die Achse liegt im Lager.');
+        });
+
+        it('offers the counterweight, Andrehen and Loslassen only in their phase', () => {
+            const slider = control('Ausgleichsgewicht'), spin = control('Andrehen'), release = control('Loslassen');
+            expect([slider, spin, release].map(c => embed.available(c))).toEqual([false, false, false]);
+            assembly('phase', { phase: 'balance' });
+            expect([slider, spin, release].map(c => embed.available(c))).toEqual([true, false, false]);
+            assembly('balanced', { phase: 'weight' });
+            expect(embed.available(spin)).toBe(false);                  // the weight still lies on the tray
+            assembly('place', { phase: 'weight', part: 'weight', slot: 6, placed: ['weight'] });
+            expect([slider, spin, release].map(c => embed.available(c))).toEqual([false, true, false]);
+            assembly('spin', { phase: 'spin', placed: ['weight'] });
+            expect(embed.available(release)).toBe(false);               // still spinning up
+            assembly('spun', { phase: 'spin', placed: ['weight'] });
+            expect(embed.available(release)).toBe(true);
+            expect(embed.available(control('Andrehen'))).toBe(false);
+        });
+
+        it('sends the counterweight in metres and the actions as strings', () => {
+            embed.setValue('balanceCm', 17.5);
+            expect(sent.at(-1)!.cmd).toBe('AssemblyBalance');
+            expect(sent.at(-1)!.value).toBeCloseTo(0.175, 9);
+            embed.assemblyAction('release');
+            expect(sent.at(-1)).toEqual({ cmd: 'AssemblyAction', value: 'release' });
+        });
+
+        it('releases the gate on letting go, and keeps it after Zurücksetzen', () => {
+            const gate = TestBed.inject(SimGateService);
+            assembly('spun', { phase: 'spin' });
+            expect(gate.isReached('p1-assembly')).toBe(false);
+            assembly('release', { phase: 'released' });
+            expect(gate.isReached('p1-assembly')).toBe(true);
+            embed.reset();
+            assembly('begin');
+            expect(embed.assembly()!.released).toBe(true);
+            expect(embed.assembly()!.phase).toBe('build');
+        });
+    });
+
+    it('ignores assembly messages on the other pages', () => {
+        fromSim({ type: 'ready' });
+        state(1);
+        fromSim({ type: 'assembly', phase: 'build', placed: [], slots: [], selected: '', event: 'begin', part: '', slot: 0, seq: 1 });
+        expect(embed.assembly()).toBeNull();
+    });
+
     it('resets to the page preset', () => {
         fromSim({ type: 'ready' });
         state(1);

@@ -74,6 +74,14 @@
     margin-bottom: 1rem;
 }
 
+/* assembly game: the next step, the panel's first row; fixed to two lines so the panel doesn't jump with each hint */
+.sim-assembly-hint {
+    margin: 0 0 1.25rem;
+    min-height: 3em;
+    text-align: center;
+    color: var(--text-primary);
+}
+
 .sim-hints {
     text-align: center;
     font-size: 0.85rem;
