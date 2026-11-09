@@ -7,6 +7,7 @@ import { ShuffleOrder } from '../../../core/services/shuffle-order';
 import { isSolutionsMode } from '../../../core/services/report-mode';
 import { AnswerFeedback, QuestionOption } from '../question.types';
 import { buildSelectionErrorMessage } from '../multiple-choice-feedback';
+import { canRestoreAnswer, questionRevision } from '../question-revision';
 
 
 
@@ -47,6 +48,7 @@ export class MultipleChoice implements OnInit {
     isCorrect = false;
     resultMessage: SafeHtml = '';
     selectedValues: Set<string> = new Set();
+    hasRevisedQuestion = false;
 
 
     constructor(
@@ -83,6 +85,10 @@ export class MultipleChoice implements OnInit {
     private restorePreviousAnswer() {
         const previousResult = this.trackingService.getQuestionResult(this.questionId);
         if (!previousResult) return;
+        if (!canRestoreAnswer(previousResult, this.question, this.options)) {
+            this.hasRevisedQuestion = true;
+            return;
+        }
         const selected = previousResult.selectedAnswers;
         this.selectedValues = new Set(selected);
         const allCorrectSelected = this.correctAnswers.every(answer => this.selectedValues.has(answer));
@@ -114,6 +120,8 @@ export class MultipleChoice implements OnInit {
 
 
     evaluateAnswer() {
+        if (this.isCorrect) return;
+        this.hasRevisedQuestion = false;
         const selectedAnswers = Array.from(this.selectedValues);
 
         const allCorrectSelected = this.correctAnswers.every(answer =>
@@ -134,7 +142,7 @@ export class MultipleChoice implements OnInit {
             this.isCorrect,
             selectedAnswers,
             this.correctAnswers,
-            { questionText: this.question, selectedAnswerTexts, correctAnswerTexts }
+            { questionText: this.question, questionRevision: questionRevision(this.question, this.options), selectedAnswerTexts, correctAnswerTexts }
         );
 
         if (this.isCorrect) {

@@ -32,7 +32,8 @@ export class AngularMomentum extends GlossaryBase {
     initContent() {
         this.angular_momentumText = this.sanitizer.bypassSecurityTrustHtml(`
 			Der Drehimpuls $\\vec{L}$ ist das Gegenstück zum Impuls bei Drehbewegungen.
-			Er ist ein Vektor: Sein Betrag gibt an, wie viel Rotation in einem Körper steckt, seine Richtung gibt an, um welche Achse er rotiert.
+			Er ist ein Vektor und beschreibt den Rotationszustand bezüglich eines Bezugspunkts.
+            Seine Richtung ist die Drehimpulsachse; sie muss nicht mit der momentanen Drehachse übereinstimmen.
 			Wirkt kein äußeres Drehmoment $\\vec{D}$, bleibt der Drehimpuls nach Betrag und Richtung erhalten.
         `);
 

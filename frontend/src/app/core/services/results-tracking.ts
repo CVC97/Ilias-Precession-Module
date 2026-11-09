@@ -13,6 +13,7 @@ export interface QuestionResult {
     selectedAnswers: string[];
     correctAnswers: string[];
     questionText?: string;
+    questionRevision?: string;
     selectedAnswerTexts?: string[];
     correctAnswerTexts?: string[];
     timestamp: number;
@@ -118,7 +119,7 @@ export class ResultsTracking {
         isCorrect: boolean,
         selectedAnswers: string[],
         correctAnswers: string[],
-        meta?: { questionText?: string; selectedAnswerTexts?: string[]; correctAnswerTexts?: string[] }
+        meta?: { questionText?: string; questionRevision?: string; selectedAnswerTexts?: string[]; correctAnswerTexts?: string[] }
     ) {
         if (!this.currentModuleId) {
             console.warn('No module started. Call startModule() first.');
@@ -144,9 +145,11 @@ export class ResultsTracking {
             attemptNo = existingResult.attemptCount;
             existingResult.isCorrect = isCorrect;
             existingResult.selectedAnswers = selectedAnswers;
+            existingResult.correctAnswers = correctAnswers;
             existingResult.timestamp = Date.now();
             existingResult.timestampISO = new Date().toISOString();
             if (meta?.questionText !== undefined) existingResult.questionText = meta.questionText;
+            if (meta?.questionRevision !== undefined) existingResult.questionRevision = meta.questionRevision;
             if (meta?.selectedAnswerTexts !== undefined) existingResult.selectedAnswerTexts = meta.selectedAnswerTexts;
             if (meta?.correctAnswerTexts !== undefined) existingResult.correctAnswerTexts = meta.correctAnswerTexts;
             
@@ -161,6 +164,7 @@ export class ResultsTracking {
                 selectedAnswers,
                 correctAnswers,
                 questionText: meta?.questionText,
+                questionRevision: meta?.questionRevision,
                 selectedAnswerTexts: meta?.selectedAnswerTexts,
                 correctAnswerTexts: meta?.correctAnswerTexts,
                 timestamp: Date.now(),
@@ -176,9 +180,8 @@ export class ResultsTracking {
             console.log('RESLOG:', result);
         }
 
-        if (isCorrect) {
-            moduleProgress.questionsCorrect++;
-        }
+        moduleProgress.questionsAnswered = moduleProgress.results.length;
+        moduleProgress.questionsCorrect = moduleProgress.results.filter(result => result.isCorrect).length;
 
         this.outbox.add({
             kind: 'learning',
@@ -190,6 +193,7 @@ export class ResultsTracking {
             correctAnswer: correctAnswers,
             texts: {
                 questionText: meta?.questionText,
+                questionRevision: meta?.questionRevision,
                 answerTexts: meta?.selectedAnswerTexts,
                 correctAnswerTexts: meta?.correctAnswerTexts
             },
@@ -319,6 +323,7 @@ export class ResultsTracking {
                 selectedAnswers:     row.answer ?? [],
                 correctAnswers:      row.correctAnswer ?? [],
                 questionText:        row.texts?.questionText,
+                questionRevision:    row.texts?.questionRevision,
                 selectedAnswerTexts: row.texts?.answerTexts,
                 correctAnswerTexts:  row.texts?.correctAnswerTexts,
                 timestamp:           row.answeredAt,

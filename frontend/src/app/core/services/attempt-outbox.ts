@@ -17,6 +17,7 @@ export interface AttemptRow {
     answer: any;
     correctAnswer: any;
     texts: {
+        questionRevision?: string;
         questionText?: string;
         questionInstruction?: string;
         answerTexts?: string[];

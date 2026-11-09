@@ -5,6 +5,8 @@
     "src/test-providers.ts",
     "src/testing/**/*.ts",
     "src/app/shared/evaluation/multiple-choice-feedback.spec.ts",
+    "src/app/shared/evaluation/question-revision.spec.ts",
+    "src/app/core/services/results-tracking.spec.ts",
     "src/app/shared/evaluation/multiple-choice/multiple-choice.spec.ts",
     "src/app/shared/evaluation/multiple-choice-image/multiple-choice-image.spec.ts",
     "src/app/shared/evaluation/image-choice/image-choice.spec.ts",

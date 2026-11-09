@@ -1,6 +1,9 @@
 <div class="evaluation-container" [class]="containerId" [class.disabled]="isCorrect">    
     <div class="evaluation-content">
         <h3 class="evaluation-question" [innerHTML]="question"></h3>
+        @if (hasRevisedQuestion) {
+            <p role="status">Diese Aufgabe wurde überarbeitet. Ihre frühere Antwort wird nicht auf die neue Fassung übertragen. Bitte bearbeiten Sie die Aufgabe erneut.</p>
+        }
         
         <div class="evaluation-options">
             <label class="evaluation-option" 

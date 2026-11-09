@@ -20,6 +20,7 @@ export const pendulumText1c = `
     $D = -m_p g d \\sin\\varphi$ aus. Das gesamte Trägheitsmoment um die Radachse setzt sich aus dem des Rades ($I$, gesucht)
     und dem des Pendelgewichts ($I_p$) zusammen. Die Bewegungsgleichung lautet damit
     $$(I + I_p)\\,\\ddot{\\varphi} = -m_p g d\\,\\sin\\varphi.$$
+    Die Lagerreibung wird dabei vernachlässigt; das Rad allein sei um seine Radachse ausgewuchtet.
     Für kleine Auslenkungen ist $\\sin\\varphi \\approx \\varphi$, und es ergibt sich eine harmonische Schwingung mit der Periodendauer $T$:
 `;
 
@@ -56,7 +57,7 @@ export const pendulumText2a = `
 
 export const pendulumText2b = `
     Viele Perioden auf einmal messen verringert den Einfluss der Reaktionszeit. Zwei gegenüberliegende Positionen
-    heben eine Unwucht des Rades heraus. Kleine Auslenkungen halten die Näherung $\\sin\\varphi \\approx \\varphi$ gültig.
+    vermindern den Einfluss einer kleinen Unwucht in erster Näherung. Kleine Auslenkungen halten die Näherung $\\sin\\varphi \\approx \\varphi$ gültig.
 `;
 
 export const pendulumText2c = `

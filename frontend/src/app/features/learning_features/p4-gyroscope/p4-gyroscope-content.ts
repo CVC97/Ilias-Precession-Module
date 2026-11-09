@@ -28,8 +28,11 @@ export const gyroText1c = `
 `;
 
 export const gyroText1d = `
-    Sind $I_1$ und $I_2$ verschieden, ist $\\vec{L}$ nicht parallel zu $\\vec{\\omega}$.
-    Nur wenn sich der Kreisel genau um seine Figurenachse dreht ($\\omega_2 = 0$), fallen alle drei Achsen zusammen.
+    Sind $I_1$ und $I_2$ verschieden und beide Komponenten der Winkelgeschwindigkeit ungleich null,
+    ist $\\vec{L}$ nicht parallel zu $\\vec{\\omega}$.
+    Dreht sich der Kreisel genau um seine Figurenachse ($\\omega_2 = 0$), fallen alle drei Achsen zusammen.
+    Auch eine reine Drehung um eine andere Hauptträgheitsachse kann $\\vec{L}$ und $\\vec{\\omega}$ parallel machen;
+    dann fallen sie jedoch nicht mit der Figurenachse zusammen.
 `;
 
 
@@ -49,7 +52,9 @@ export const gyroText2b = `
 `;
 
 export const gyroText2c = `
-    <strong>Schneller Kreisel:</strong> Ist $I_1\\omega_1 \\gg I_2\\omega_2$, liegt $\\vec{L}$ nahezu auf der Figurenachse, und es gilt
+    <strong>Schneller Kreisel:</strong> Ist $I_1\\omega_1 \\gg I_2\\omega_2$, liegt $\\vec{L}$ nahezu auf der Figurenachse.
+    Ist außerdem die Querbewegung langsam gegenüber der Raddrehung ($\\omega_2 \\ll \\omega_1$),
+    liegt auch $\\vec{\\omega}$ nahe an ihr. Für den Drehimpuls gilt dann
     $$\\vec{L} \\approx I_1\\,\\vec{\\omega}_R,$$
     wobei $\\vec{\\omega}_R$ die Drehung des Rades um seine Achse ist. Diese <strong>Näherung für den schnellen Kreisel</strong> verwenden Sie bei der Präzession.
 `;

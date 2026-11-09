@@ -45,9 +45,9 @@ export const setupText2a = `
 `;
 
 export const setupText2b = `
-    Ist der Kreisel ausbalanciert, liegt sein Schwerpunkt genau im Unterstützungspunkt.
-    Die Gewichtskraft greift dann im Unterstützungspunkt an und hat keinen Hebelarm:
-    Sie übt kein Drehmoment $\\vec{D}$ auf den Kreisel aus. Erst ein Zusatzgewicht erzeugt ein Drehmoment, und zwar ein genau bekanntes.
+    Beim ideal ausbalancierten Kreisel verläuft die Wirkungslinie der gesamten Gewichtskraft durch den Unterstützungspunkt.
+    Ihr Hebelarm zu diesem Punkt verschwindet, sodass die Schwerkraft kein Drehmoment $\\vec{D}$ um ihn ausübt.
+    Ein angehängtes Zusatzgewicht erzeugt dann das beabsichtigte Drehmoment. Reibung wird in dieser Betrachtung vernachlässigt.
 `;
 
 export const setupText2c = `
@@ -79,7 +79,8 @@ export const setupText3b = `
 
 export const setupText3c = `
     Bevor es an die Physik geht, verschaffen Sie sich einen ersten Eindruck davon, wie sich ein Kreisel bewegt.
-    Beantworten Sie dazu zuerst die folgende Frage aus Ihrer Erwartung heraus, und probieren Sie es dann in der Simulation aus.
+    Probieren Sie die Simulation aus und beantworten Sie anschließend die Frage anhand Ihrer Beobachtung.
+    Vergleichen Sie die Bewegung auch mit dem zuvor gezeigten Video.
 `;
 
 export const setupText3d = `

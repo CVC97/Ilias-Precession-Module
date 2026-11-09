@@ -7,6 +7,8 @@ export interface ImageOption {
     value: string;
     imageSrc: string;
     label?: string;
+    /** Describes the depicted geometry without judging whether it is the solution. */
+    alt?: string;
 }
 
 export interface AdaptiveAnswerHint {

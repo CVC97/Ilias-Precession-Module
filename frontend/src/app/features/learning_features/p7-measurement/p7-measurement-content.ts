@@ -4,15 +4,17 @@ export const measureText1a = `
     Reibung in den Lagern und der Luftwiderstand bremsen das Rad ständig ab: Seine Winkelgeschwindigkeit $\\omega_R$ nimmt während jeder Messung ab.
     Nach $\\omega_P = m_z g r/(I\\omega_R)$ wird die Präzession dabei schneller.
     Für die Auswertung brauchen Sie aber zu jeder Präzessionsmessung den passenden Wert von $\\omega_R$.<br><br>
-    Deshalb messen Sie die Umlaufdauer $T_R$ unmittelbar <strong>vor und nach</strong> der Präzessionsmessung und verwenden den Mittelwert.
-    Nimmt $\\omega_R$ während der kurzen Messung ungefähr gleichmäßig ab, entspricht der Mittelwert gerade dem Wert
-    in der Mitte der Messung.
+    Deshalb messen Sie die Umlaufdauer $T_R$ unmittelbar <strong>vor und nach</strong> der Präzessionsmessung.
+    Rechnen Sie beide Werte mit $\\omega_R=2\\pi/T_R$ in Winkelgeschwindigkeiten um.
+    Deren Mittelwert ist bei annähernd gleichmäßiger Abnahme ein Näherungswert für die Mitte der Messung.
+    Er ist nicht exakt gleich $2\\pi$ geteilt durch die gemittelte Periodendauer; bei geringer relativer Änderung
+    unterscheiden sich beide Verfahren erst in zweiter Ordnung.
 `;
 
 export const measureText1b = `
     <strong>Halbe Präzessionsumdrehung:</strong> Mit der Stoppuhr messen Sie die Zeit $t_{1/2}$ für eine halbe Präzessionsumdrehung;
     die Präzessionsdauer ist dann $T_P = 2\\,t_{1/2}$. Je kürzer die Messung, desto weniger ändert sich $\\omega_R$ währenddessen,
-    und desto besser passt der Mittelwert aus den beiden Messungen von $T_R$.
+    und desto besser ist die Zuordnung über die beiden Messungen von $T_R$.
 `;
 
 
@@ -48,14 +50,17 @@ export const measureText3a = `
     <ul>
         <li><strong>Ausbalancieren:</strong> Bleibt ohne Zusatzgewicht ein Rest-Drehmoment, präzediert der Kreisel schon ohne Belastung,
             und alle gemessenen $\\omega_P$ sind verfälscht. Prüfen Sie, ob der Kreisel ohne Zusatzgewicht mit waagrechter Achse in Ruhe bleibt.</li>
-        <li><strong>Abstand $r$:</strong> $I$ ist proportional zu $r$. Messen Sie den Abstand der Kerbe vom Unterstützungspunkt sorgfältig.</li>
+        <li><strong>Abstand $r$:</strong> Der berechnete Wert $I=m_zgr/(\\omega_P\\omega_R)$ ist bei festgehaltenen übrigen Messwerten proportional zum eingesetzten $r$.
+            Messen Sie den Abstand der Kerbe vom Unterstützungspunkt sorgfältig. Eine verzerrte Messung erzeugt einen systematischen Fehler;
+            auch die Unsicherheit eines unverzerrten Messwerts trägt zur Unsicherheit von $I$ bei.</li>
         <li><strong>Schneller Kreisel:</strong> Die Formel beruht auf der Näherung für den schnellen Kreisel, $\\omega_P \\ll \\omega_R$. Wählen Sie $\\omega_R$ nicht zu klein
             und das Zusatzgewicht nicht zu groß.</li>
         <li><strong>Umlaufdauer $T_R$:</strong> Halten Sie den Kreisel für diese Messung so, dass der Streifen am Rad durch die Lichtschranke läuft.</li>
-        <li><strong>Stoppuhr:</strong> Mehrere Messungen von $T_P$ verringern den Einfluss Ihrer Reaktionszeit.</li>
+        <li><strong>Stoppuhr:</strong> Mehrere Messungen von $T_P$ können zufällige Anteile Ihrer Reaktionszeit beim Mitteln verringern.
+            Eine gleichbleibende Verzögerung wird durch Wiederholen allein nicht beseitigt.</li>
     </ul>
     Eine leichte Neigung der Achse ist dagegen unkritisch: Wie Sie im Abschnitt „Präzession“ gesehen haben,
-    kürzt sich der Neigungswinkel heraus.
+    kürzt sich der Neigungswinkel in der Näherung für den schnellen, gleichmäßig präzedierenden Kreisel heraus.
 `;
 
 export const measureText3b = `

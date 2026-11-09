@@ -2,7 +2,7 @@
 // Generic port of the Pohl module's question checks: templates, report registry
 // and question files must agree, and feedback must follow the module's conventions.
 // Add each new learning page to PAGES.
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import * as p1Questions from './p1-setup/p1-setup-questions';
 import * as p2Questions from './p2-rotation/p2-rotation-questions';
 import * as p3Questions from './p3-pendulum/p3-pendulum-questions';
@@ -11,7 +11,11 @@ import * as p5Questions from './p5-precession/p5-precession-questions';
 import * as p6Questions from './p6-nutation/p6-nutation-questions';
 import * as p7Questions from './p7-measurement/p7-measurement-questions';
 import { PAGE_REGISTRY } from '../../core/services/learning-report-registry';
-import { AdaptiveAnswerHint, AnyQuestion } from '../../shared/evaluation/question.types';
+import { AdaptiveAnswerHint, AnyQuestion, SingleChoiceQuestion } from '../../shared/evaluation/question.types';
+import { SingleChoice } from '../../shared/evaluation/single-choice/single-choice';
+import { ResultsTracking } from '../../core/services/results-tracking';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import katex from 'katex';
 import { buildSelectionErrorMessage } from '../../shared/evaluation/multiple-choice-feedback';
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -145,12 +149,107 @@ describe('learning-question data', () => {
                 }
                 const triggered = new Set(mismatches.flatMap(o => byAnswer.get(o.value)!)
                     .map(h => h.conceptId ?? h.message));
+                const ordered = [...triggered].map(id => concepts.get(id)!)
+                    .sort((left, right) => (left.order ?? 0) - (right.order ?? 0));
+                let lastPosition = -1;
+                for (const hint of ordered) {
+                    const position = message.indexOf(hint.message);
+                    expect(position).toBeGreaterThan(lastPosition);
+                    lastPosition = position;
+                }
+                expect(message.split('<br><br>').length - 1).toBeLessThanOrEqual(3);
+                expect(message).not.toMatch(/answer\d|Antwort(?:möglichkeit)?\s*\d+/i);
                 for (const [id, hint] of concepts) {
                     if (triggered.has(id)) expect(message.split(hint.message)).toHaveLength(2);
                     else expect(message).not.toContain(hint.message);
                 }
                 expect(message).toContain(`Anzahl der Fehler: ${mismatches.length}.`);
             }
+        }
+    );
+
+    it('keeps the approved physical distinctions and controlled comparisons explicit', () => {
+        expect(p4Questions.question1.correctAnswer).toBe('answer3');
+        expect(p4Questions.question1.question).toContain('I_2=2I_1');
+        expect(Math.atan(2) * 180 / Math.PI).toBeCloseTo(63.435, 2);
+        expect(p4Questions.question2.question).toContain('\\omega_2\\ne0');
+        expect(p5Questions.question2.question).toContain('ohne überlagerte Nutation');
+        expect(p5Questions.question4.question).toContain('flachere Gerade');
+        expect(p5Questions.question4.options.map(o => o.label).join(' ')).not.toContain('m_z g r');
+        expect(p6Questions.question3.question).toContain('zurückgesetzte');
+        expect(p7Questions.question4.answerFeedback!['answer1']).not.toEqual(p7Questions.question4.answerFeedback!['answer2']);
+        expect(Math.PI / 12).toBeCloseTo(0.26, 2);
+        expect(0.2 / (10 * 2) * 100).toBe(1);
+    });
+
+    it('places the opening observation after the simulation in the lesson and report order', () => {
+        const template = readFileSync(join(process.cwd(),
+            'src/app/features/learning_features/p1-setup/p1-setup.html'), 'utf8');
+        expect(template.indexOf('presetId="p1-explore"')).toBeLessThan(template.indexOf('[questionId]="question4.questionId"'));
+        const blocks = PAGE_REGISTRY.find(page => page.route === '/learning/p1-setup' && page.page === 3)!.blocks;
+        const task = blocks.findIndex(block => block.type === 'text' && block.html.includes('Regler unter der Simulation'));
+        const question = blocks.findIndex(block => block.type === 'question' && block.questionId === p1Questions.question4.questionId);
+        expect(task).toBeGreaterThanOrEqual(0);
+        expect(task).toBeLessThan(question);
+    });
+
+    it.each(definitions)('$questionId contains valid mathematical expressions', question => {
+        function check(value: unknown): void {
+            if (typeof value === 'string') {
+                for (const match of value.matchAll(/\$\$([\s\S]*?)\$\$|\$([^$\n]+?)\$/g)) {
+                    expect(() => katex.renderToString(match[1] ?? match[2], { throwOnError: true })).not.toThrow();
+                }
+            } else if (Array.isArray(value)) value.forEach(check);
+            else if (value && typeof value === 'object') Object.values(value).forEach(check);
+        }
+        check(question);
+    });
+});
+
+describe('all single-choice learning questions in the rendered component', () => {
+    let fixture: ComponentFixture<SingleChoice> | undefined;
+    const tracking = { getQuestionResult: vi.fn(), trackQuestionResult: vi.fn() };
+    beforeEach(async () => {
+        tracking.getQuestionResult.mockReturnValue(undefined);
+        tracking.trackQuestionResult.mockClear();
+        await TestBed.configureTestingModule({
+            imports: [SingleChoice], providers: [{ provide: ResultsTracking, useValue: tracking }]
+        }).compileComponents();
+        vi.useFakeTimers();
+    });
+    afterEach(() => {
+        fixture?.destroy();
+        vi.clearAllTimers();
+        vi.useRealTimers();
+    });
+    it.each(definitions.filter((q): q is SingleChoiceQuestion => 'correctAnswer' in q))(
+        '$questionId handles empty, every wrong option, success and success locking', question => {
+            fixture = TestBed.createComponent(SingleChoice);
+            for (const [name, value] of Object.entries(question)) fixture.componentRef.setInput(name, value);
+            fixture.detectChanges();
+            const component = fixture.componentInstance;
+            const displayed = () => {
+                fixture!.changeDetectorRef.markForCheck();
+                fixture!.detectChanges();
+                return fixture!.nativeElement.querySelector('.evaluation-result').textContent.trim();
+            };
+            component.evaluateAnswer();
+            expect(component.resultMessage.toString()).toContain('Bitte wählen Sie eine Antwort aus.');
+            for (const option of question.options.filter(o => o.value !== question.correctAnswer)) {
+                const radio = [...fixture.nativeElement.querySelectorAll('input')].find(input => input.value === option.value)!;
+                radio.click();
+                component.evaluateAnswer();
+                expect(component.isCorrect).toBe(false);
+                expect(displayed()).toBe(question.answerFeedback![option.value]);
+            }
+            const correct = [...fixture.nativeElement.querySelectorAll('input')].find(input => input.value === question.correctAnswer)!;
+            correct.click();
+            component.evaluateAnswer();
+            expect(component.isCorrect).toBe(true);
+            expect(displayed()).toBe(question.successMessage);
+            const count = tracking.trackQuestionResult.mock.calls.length;
+            component.evaluateAnswer();
+            expect(tracking.trackQuestionResult).toHaveBeenCalledTimes(count);
         }
     );
 });
