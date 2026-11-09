@@ -4,6 +4,7 @@ import { SingleChoice } from './single-choice';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { ShuffleOrder } from '../../../core/services/shuffle-order';
 import { afterEach, expect, it, vi } from 'vitest';
+import { questionRevision } from '../question-revision';
 
 describe('SingleChoice', () => {
   let component: SingleChoice;
@@ -23,6 +24,7 @@ describe('SingleChoice', () => {
     fixture = TestBed.createComponent(SingleChoice);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('questionId', 'phase-test');
+    fixture.componentRef.setInput('question', 'Direction?');
     fixture.componentRef.setInput('containerId', 'phase-test-container');
     fixture.componentRef.setInput('options', [{ value: 'current', label: 'Current' }, { value: 'old', label: 'Old' }]);
     fixture.componentRef.setInput('correctAnswer', 'current');
@@ -41,7 +43,8 @@ describe('SingleChoice', () => {
   });
 
   it('re-evaluates saved success against the revised answer key', () => {
-    tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['old'] });
+    tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['old'],
+      questionRevision: questionRevision(component.question, component.options) });
     fixture.detectChanges();
     expect(component.isCorrect).toBe(false);
     expect(component.resultMessage.toString()).toContain('The old key no longer matches the physical relation.');
@@ -66,10 +69,21 @@ describe('SingleChoice', () => {
   });
 
   it('restores current success and the selected radio', () => {
-    tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['current'] });
+    tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['current'],
+      questionRevision: questionRevision(component.question, component.options) });
     fixture.detectChanges(); vi.advanceTimersByTime(100); fixture.detectChanges();
     expect(component.isCorrect).toBe(true);
     expect(fixture.nativeElement.querySelector('input[value="current"]').checked).toBe(true);
     expect(component.resultMessage.toString()).toContain('Physical explanation.');
+  });
+
+  it('does not reuse a selection after the task was rewritten', () => {
+    tracking.trackQuestionResult.mockClear();
+    tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['old'], questionText: 'Earlier task' });
+    fixture.detectChanges();
+    expect(component.hasRevisedQuestion).toBe(true);
+    expect(component.selectedValue).toBe('');
+    expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('überarbeitet');
+    expect(tracking.trackQuestionResult).not.toHaveBeenCalled();
   });
 });

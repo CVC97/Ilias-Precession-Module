@@ -5,6 +5,7 @@ import { ResultsTracking } from '../../../core/services/results-tracking';
 import { ShuffleOrder } from '../../../core/services/shuffle-order';
 import { isSolutionsMode } from '../../../core/services/report-mode';
 import { QuestionOption } from '../question.types';
+import { canRestoreAnswer, questionRevision } from '../question-revision';
 
 
 
@@ -43,6 +44,7 @@ export class SingleChoice implements OnInit {
     isCorrect = false;
     resultMessage: SafeHtml = '';
     selectedValue: string = '';
+    hasRevisedQuestion = false;
 
 
     constructor(
@@ -81,6 +83,10 @@ export class SingleChoice implements OnInit {
         const previousResult = this.trackingService.getQuestionResult(this.questionId);
 
         if (previousResult) {
+            if (!canRestoreAnswer(previousResult, this.question, this.options)) {
+                this.hasRevisedQuestion = true;
+                return;
+            }
             this.showResult = true;
             this.selectedValue = previousResult.selectedAnswers[0] ?? '';
             // Re-evaluate saved selections against the current question's answer key.
@@ -117,6 +123,8 @@ export class SingleChoice implements OnInit {
 
 
     evaluateAnswer() {
+        if (this.isCorrect) return;
+        this.hasRevisedQuestion = false;
         const radios = document.querySelectorAll(
             `.${this.containerId} input[type="radio"]`
         );
@@ -140,6 +148,7 @@ export class SingleChoice implements OnInit {
             [this.correctAnswer],
             {
                 questionText:        this.question,
+                questionRevision:    questionRevision(this.question, this.options),
                 selectedAnswerTexts: selectedAnswerText ? [selectedAnswerText] : [],
                 correctAnswerTexts:  [correctAnswerText],
             }

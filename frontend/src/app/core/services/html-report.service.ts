@@ -110,7 +110,7 @@ ${blocksHtml}
             }
             case 'image': {
                 const src = imageCache.get(block.src) ?? block.src;
-                const captionHtml = block.caption ? `<figcaption class="img-caption">${block.caption}</figcaption>` : '';
+                const captionHtml = block.caption ? `<figcaption class="img-caption">${this.renderLatex(block.caption)}</figcaption>` : '';
                 return `<figure class="block-image"><img src="${src}" alt="${this.esc(block.alt)}">${captionHtml}</figure>`;
             }
             case 'spoiler': {

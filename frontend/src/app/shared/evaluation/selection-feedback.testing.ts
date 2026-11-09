@@ -6,6 +6,7 @@ import { MultipleChoiceImage } from './multiple-choice-image/multiple-choice-ima
 import { ImageChoice } from './image-choice/image-choice';
 import { ResultsTracking } from '../../core/services/results-tracking';
 import { ShuffleOrder } from '../../core/services/shuffle-order';
+import { questionRevision } from './question-revision';
 
 export function selectionFeedbackTests(componentType: Type<MultipleChoice | MultipleChoiceImage | ImageChoice>) {
     describe(`${componentType.name} selection feedback lifecycle`, () => {
@@ -43,6 +44,12 @@ export function selectionFeedbackTests(componentType: Type<MultipleChoice | Mult
             fixture.changeDetectorRef.markForCheck();
             fixture.detectChanges();
             return fixture.nativeElement.querySelector('.evaluation-result').textContent.trim();
+        }
+
+        function savedSelection(isCorrect: boolean, selectedAnswers: string[]) {
+            const c = fixture.componentInstance;
+            return { isCorrect, selectedAnswers,
+                questionRevision: questionRevision(c.question, c.options, c instanceof MultipleChoiceImage ? c.imageSrc : undefined) };
         }
 
         it('handles selection and evaluation through the rendered controls', () => {
@@ -95,7 +102,7 @@ export function selectionFeedbackTests(componentType: Type<MultipleChoice | Mult
 
         it.each([true, false])('restores feedback with saved isCorrect=%s', savedCorrect => {
             const selected = savedCorrect ? ['a', 'b'] : ['a', 'wrong'];
-            tracking.getQuestionResult.mockReturnValue({ isCorrect: savedCorrect, selectedAnswers: selected });
+            tracking.getQuestionResult.mockReturnValue(savedSelection(savedCorrect, selected));
             fixture.detectChanges();
             expect(fixture.componentInstance.selectedValues).toEqual(new Set(selected));
             expect(fixture.componentInstance.isCorrect).toBe(savedCorrect);
@@ -106,7 +113,7 @@ export function selectionFeedbackTests(componentType: Type<MultipleChoice | Mult
         });
 
         it('rechecks saved success against the current key and clears feedback when edited', () => {
-            tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['a'] });
+            tracking.getQuestionResult.mockReturnValue(savedSelection(true, ['a']));
             fixture.detectChanges();
             expect(fixture.componentInstance.isCorrect).toBe(false);
             expect(visibleMessage()).toBe('Anzahl der Fehler: 1.Hint B.');
@@ -117,10 +124,42 @@ export function selectionFeedbackTests(componentType: Type<MultipleChoice | Mult
         });
 
         it('keeps completed feedback and selection stable on revisit', () => {
-            tracking.getQuestionResult.mockReturnValue({ isCorrect: true, selectedAnswers: ['a', 'b'] });
+            tracking.getQuestionResult.mockReturnValue(savedSelection(true, ['a', 'b']));
             fixture.detectChanges(); fixture.componentInstance.toggleSelection('wrong');
             expect(fixture.componentInstance.selectedValues).toEqual(new Set(['a', 'b']));
             expect(visibleMessage()).toBe('Anzahl der Fehler: 0.Physical explanation.');
+        });
+
+        it('asks for a fresh answer to changed content and preserves the previous evidence until submission', () => {
+            const previous = { isCorrect: true, selectedAnswers: ['a', 'b'], questionText: 'Earlier task' };
+            tracking.getQuestionResult.mockReturnValue(previous);
+            fixture.detectChanges();
+            const c = fixture.componentInstance;
+            expect(c.hasRevisedQuestion).toBe(true);
+            expect(c.selectedValues.size).toBe(0);
+            expect(fixture.nativeElement.querySelector('[role="status"]').textContent).toContain('überarbeitet');
+            expect(tracking.trackQuestionResult).not.toHaveBeenCalled();
+            expect(previous.questionText).toBe('Earlier task');
+            c.toggleSelection('a'); c.toggleSelection('b'); c.evaluateAnswer();
+            expect(c.hasRevisedQuestion).toBe(false);
+            expect(tracking.trackQuestionResult).toHaveBeenCalledWith(
+                'feedback-test', true, ['a', 'b'], ['a', 'b'],
+                expect.objectContaining({ questionRevision: expect.stringMatching(/^q1-/) })
+            );
+            c.evaluateAnswer();
+            expect(tracking.trackQuestionResult).toHaveBeenCalledTimes(1);
+        });
+
+        it('restores matching content fingerprints without recording a new attempt', () => {
+            const c = fixture.componentInstance;
+            const image = c instanceof MultipleChoiceImage ? c.imageSrc : undefined;
+            tracking.getQuestionResult.mockReturnValue({
+                isCorrect: true, selectedAnswers: ['a', 'b'],
+                questionRevision: questionRevision(c.question, c.options, image)
+            });
+            fixture.detectChanges();
+            expect(c.isCorrect).toBe(true);
+            expect(tracking.trackQuestionResult).not.toHaveBeenCalled();
         });
     });
 }

@@ -41,6 +41,27 @@ describe('ResultsTracking', () => {
     ]);
   });
 
+  it('updates the latest key and counts on retry while preserving historical outbox evidence', () => {
+    const tracking = asStudent('student-a');
+    tracking.startModule('mod');
+    tracking.trackQuestionResult('q', true, ['old'], ['old'], {
+      questionText: 'Old task', questionRevision: 'q1-old', correctAnswerTexts: ['Old answer']
+    });
+    tracking.trackQuestionResult('q', false, ['old'], ['current'], {
+      questionText: 'Current task', questionRevision: 'q1-current', correctAnswerTexts: ['Current answer']
+    });
+    expect(tracking.getModuleResults('mod')).toMatchObject({ questionsAnswered: 1, questionsCorrect: 0 });
+    expect(tracking.getQuestionResult('q')).toMatchObject({
+      correctAnswers: ['current'], questionRevision: 'q1-current', attemptCount: 2
+    });
+    const attempts = TestBed.inject(AttemptOutbox).getAll();
+    expect(attempts[0]).toMatchObject({ correctAnswer: ['old'], texts: { questionText: 'Old task', questionRevision: 'q1-old' } });
+    expect(attempts[1]).toMatchObject({ correctAnswer: ['current'], texts: { questionRevision: 'q1-current' } });
+    tracking.trackQuestionResult('q', true, ['current'], ['current']);
+    tracking.trackQuestionResult('q', true, ['current'], ['current']);
+    expect(tracking.getModuleResults('mod')?.questionsCorrect).toBe(1);
+  });
+
   it('does not inherit the answers of another student on the same browser', () => {
     const a = asStudent('student-a');
     a.startModule('mod');
@@ -66,6 +87,14 @@ describe('ResultsTracking', () => {
       expect(result.attemptCount).toBe(2);
       expect(result.questionText).toBe('Frage?');
       expect(result.selectedAnswerTexts).toEqual(['Antwort']);
+    });
+
+    it('restores revision metadata from backend texts', () => {
+      const row = backendRow(2, true);
+      row.texts.questionRevision = 'q1-current';
+      service.restoreFromBackend([row]);
+      service.startModule('mod');
+      expect(service.getQuestionResult('q')?.questionRevision).toBe('q1-current');
     });
 
     it('keeps a newer local attempt that was not saved yet', () => {

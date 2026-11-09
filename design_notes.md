@@ -181,9 +181,9 @@ Registering a learning page: README, *Adding a Learning Page*. Beyond that:
 
 ## 10 Open items
 
-- **Video check (Carlo):** watch the p1 video for Auswertung spoilers (slope, I₃/I₁). If it shows the precession, it gives away `p1-setup-4-erwartung` two pages later: reword that question's messages and `setupText3c` ("aus Ihrer Erwartung heraus").
+- **Video check (Carlo):** watch the p1 video for Auswertung spoilers (slope, I₃/I₁). The question revision on branch `fragen` makes `p1-setup-4-erwartung` an observation after the simulation, so seeing precession in the earlier video no longer conflicts with a prediction task.
 - **Metallic stand in the sim:** `ModuleBase.mat` has exactly ω's colour; requested from the sim repo (`ModuleTower.mat` as the model). Afterwards bump `sim.version`.
-- **Spoiler check (Carlo):** question `p5-precession-4-steigung` asks for the slope m_z g r / I of ω_P vs. 1/ω_R. Remove it if it's too much help for the Auswertung.
+- **Slope question revised (`fragen`):** `p5-precession-4-steigung` compares two slopes qualitatively at fixed mass and lever arm. The explicit coefficient is no longer an answer option or success message. The nutation-slope interpretation remains for the Auswertung.
 - **Physics details not verifiable from the material** (Carlo to confirm): pendulum part (wheel clamped, pendulum weight screwed in, two opposite positions because of unbalance); light barrier one interruption per turn; the notch side of the add-on weight; the reason for timing half a precession turn (`measureText1b` gives only the friction argument); nutation measured on the balanced gyroscope.
 - **Sim polish:** p7's trail (thin light grey on the light stage) has weak contrast; the mouse wheel over the sim zooms instead of scrolling the page; no touch rotation on phones/tablets; p4 at 1000 rpm: the disk can hide the short arrows in some phases (re-check with the new camera); the Push sign quirk; `precessionArc`/`precessionVector` can be deleted sim-side.
 - **QA not done systematically:** load time first visit vs. cached, memory when switching sub-pages and segments repeatedly.

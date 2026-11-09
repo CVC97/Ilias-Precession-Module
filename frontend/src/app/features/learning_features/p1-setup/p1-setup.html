@@ -92,6 +92,10 @@
 
                     <p [innerHTML]="setupText3c"></p>
 
+                    <p [innerHTML]="setupText3d"></p>
+
+                    <app-sim-embed presetId="p1-explore"></app-sim-embed>
+
                     <app-single-choice
                         [questionId]="question4.questionId"
                         [question]="question4.question"
@@ -103,10 +107,6 @@
                         [incorrectMessage]="question4.incorrectMessage"
                         (onAnswerEvaluated)="onQuestion4Answered($event)">
                     </app-single-choice>
-
-                    <p [innerHTML]="setupText3d"></p>
-
-                    <app-sim-embed presetId="p1-explore"></app-sim-embed>
 
                     <p [innerHTML]="setupText3e"></p>
                 </div>

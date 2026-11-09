@@ -4,6 +4,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { ResultsTracking } from '../../../core/services/results-tracking';
 import { ShuffleOrder } from '../../../core/services/shuffle-order';
+import { question1 } from '../../../features/learning_features/p2-rotation/p2-rotation-questions';
 
 selectionFeedbackTests(ImageChoice);
 
@@ -93,5 +94,14 @@ describe('ImageChoice checkbox keyboard selection', () => {
         expect(toggle).toHaveBeenCalledTimes(2);
         expect(component.selectedValues).toEqual(new Set(['a', 'b']));
         expectConsistent();
+    });
+    it('gives every rotation diagram and its checkbox a descriptive accessible name', () => {
+        fixture.componentRef.setInput('options', question1.options);
+        component.shuffledOptions = question1.options;
+        refresh();
+        expect(inputs().map(input => input.getAttribute('aria-label'))).toEqual(question1.options.map(option => option.alt));
+        const images = [...fixture.nativeElement.querySelectorAll('img')] as HTMLImageElement[];
+        expect(images.map(image => image.alt)).toEqual(question1.options.map(option => option.alt));
+        expect(images.every(image => !image.alt.startsWith('Option '))).toBe(true);
     });
 });

@@ -2,144 +2,221 @@ import { SingleChoiceQuestion, MultipleChoiceQuestion } from '../../../shared/ev
 
 export const question1: MultipleChoiceQuestion = {
     "questionId": "p1-setup-1-kreisel-teile",
-    "question": "Ein Zusatzgewicht ist an der Achse eingehängt, und der Kreisel bewegt sich als Ganzes um den Unterstützungspunkt. Welche Teile bewegen sich dabei mit?",
+    "question": "Der Kreisel schwenkt mit eingehängtem Zusatzgewicht um den Unterstützungspunkt. Welche Teile folgen dieser Bewegung des ganzen Kreisels? Betrachten Sie hier nicht die zusätzliche Drehung des Rades um seine eigene Achse.",
     "options": [
-        { "value": "answer1", "label": "Rad" },
-        { "value": "answer2", "label": "Achse" },
-        { "value": "answer3", "label": "Ausgleichsgewicht" },
-        { "value": "answer4", "label": "eingehängtes Zusatzgewicht" },
-        { "value": "answer5", "label": "Lichtschranke" },
-        { "value": "answer6", "label": "Stoppuhr" },
-        { "value": "answer7", "label": "Pendelgewichte (nicht eingeschraubt)" }
+        {
+            "value": "answer1",
+            "label": "Rad"
+        },
+        {
+            "value": "answer2",
+            "label": "Achse"
+        },
+        {
+            "value": "answer3",
+            "label": "Ausgleichsgewicht"
+        },
+        {
+            "value": "answer4",
+            "label": "eingehängtes Zusatzgewicht"
+        },
+        {
+            "value": "answer5",
+            "label": "Lichtschranke"
+        },
+        {
+            "value": "answer6",
+            "label": "Stoppuhr"
+        },
+        {
+            "value": "answer7",
+            "label": "Pendelgewichte (nicht eingeschraubt)"
+        }
     ],
     "correctAnswers": [
-        "answer1", "answer2", "answer3", "answer4"
+        "answer1",
+        "answer2",
+        "answer3",
+        "answer4"
     ],
     "containerId": "question1-container",
-    "successMessage": "Rad, Achse, Ausgleichsgewicht und das eingehängte Zusatzgewicht bilden zusammen den beweglichen Kreisel. Die übrigen Teile stehen fest auf dem Tisch.",
-    "incompleteMessage": "Überlegen Sie für jedes Teil, ob es mit der Achse verbunden ist oder getrennt davon auf dem Tisch steht.",
-    "incorrectMessage": "Überlegen Sie für jedes Teil, ob es mit der Achse verbunden ist oder getrennt davon auf dem Tisch steht.",
+    "successMessage": "Das Rad folgt mit seiner Lagerung der schwenkenden Achse; Ausgleichsgewicht und Zusatzgewicht bewegen sich ebenfalls mit. Die getrennt aufgestellten Messgeräte und die nicht eingeschraubten Pendelgewichte gehören nicht zu diesem bewegten System.",
+    "incompleteMessage": "Verfolgen Sie in der Aufbauzeichnung, welche Teile von der schwenkenden Achse getragen werden.",
+    "incorrectMessage": "Verfolgen Sie in der Aufbauzeichnung, welche Teile von der schwenkenden Achse getragen werden.",
     "answerFeedback": {
         "answer1": {
-            "conceptId": "attached-to-axle",
+            "conceptId": "carried-by-axle",
             "order": 1,
-            "message": "Alles, was fest mit der Achse verbunden ist oder an ihr hängt, bewegt sich mit, wenn sich die Achse um den Unterstützungspunkt dreht."
+            "message": "Betrachten Sie die Lagerung des Rades und die Befestigung der Gewichte. Welche Teile werden von der Achse getragen, auch wenn sich das Rad zusätzlich in seiner Lagerung dreht?",
+            "paragraphId": "reasoning"
         },
         "answer2": {
-            "conceptId": "attached-to-axle",
+            "conceptId": "carried-by-axle",
             "order": 1,
-            "message": "Alles, was fest mit der Achse verbunden ist oder an ihr hängt, bewegt sich mit, wenn sich die Achse um den Unterstützungspunkt dreht."
+            "message": "Betrachten Sie die Lagerung des Rades und die Befestigung der Gewichte. Welche Teile werden von der Achse getragen, auch wenn sich das Rad zusätzlich in seiner Lagerung dreht?",
+            "paragraphId": "reasoning"
         },
         "answer3": {
-            "conceptId": "attached-to-axle",
+            "conceptId": "carried-by-axle",
             "order": 1,
-            "message": "Alles, was fest mit der Achse verbunden ist oder an ihr hängt, bewegt sich mit, wenn sich die Achse um den Unterstützungspunkt dreht."
+            "message": "Betrachten Sie die Lagerung des Rades und die Befestigung der Gewichte. Welche Teile werden von der Achse getragen, auch wenn sich das Rad zusätzlich in seiner Lagerung dreht?",
+            "paragraphId": "reasoning"
         },
         "answer4": {
-            "conceptId": "attached-to-axle",
+            "conceptId": "carried-by-axle",
             "order": 1,
-            "message": "Alles, was fest mit der Achse verbunden ist oder an ihr hängt, bewegt sich mit, wenn sich die Achse um den Unterstützungspunkt dreht."
+            "message": "Betrachten Sie die Lagerung des Rades und die Befestigung der Gewichte. Welche Teile werden von der Achse getragen, auch wenn sich das Rad zusätzlich in seiner Lagerung dreht?",
+            "paragraphId": "reasoning"
         },
         "answer5": {
-            "conceptId": "standing-on-table",
+            "conceptId": "separate-instruments",
             "order": 2,
-            "message": "Die Messgeräte stehen auf eigenen Stativen bzw. auf dem Tisch. Sie messen die Bewegung, ohne an ihr teilzunehmen."
+            "message": "Prüfen Sie, ob das jeweilige Messgerät an der schwenkenden Achse befestigt ist oder unabhängig von ihr aufgestellt wird.",
+            "paragraphId": "equipment"
         },
         "answer6": {
-            "conceptId": "standing-on-table",
+            "conceptId": "separate-instruments",
             "order": 2,
-            "message": "Die Messgeräte stehen auf eigenen Stativen bzw. auf dem Tisch. Sie messen die Bewegung, ohne an ihr teilzunehmen."
+            "message": "Prüfen Sie, ob das jeweilige Messgerät an der schwenkenden Achse befestigt ist oder unabhängig von ihr aufgestellt wird.",
+            "paragraphId": "equipment"
         },
         "answer7": {
-            "conceptId": "pendulum-weights",
+            "conceptId": "unused-weights",
             "order": 3,
-            "message": "Die Pendelgewichte werden nur für den Pendelversuch in das Rad geschraubt, nicht für den Präzessionsversuch."
+            "message": "Beachten Sie den angegebenen Zustand der Pendelgewichte: Sind sie in diesem Versuchsteil überhaupt am Kreisel befestigt?",
+            "paragraphId": "equipment"
         }
     }
 };
 
 export const question2: SingleChoiceQuestion = {
     "questionId": "p1-setup-2-ausgleichsgewicht",
-    "question": "Wozu dient das Ausgleichsgewicht?",
+    "question": "Der Kreisel trägt noch kein Zusatzgewicht. Wozu verschieben Sie das Ausgleichsgewicht auf der Achse? Vernachlässigen Sie die Reibung.",
     "options": [
-        { "value": "answer1", "label": "Es bremst das Rad, damit es nicht zu schnell rotiert." },
-        { "value": "answer2", "label": "Es verschiebt den Schwerpunkt des Kreisels in den Unterstützungspunkt, sodass die Gewichtskraft kein Drehmoment $\\vec{D}$ auf den Kreisel ausübt." },
-        { "value": "answer3", "label": "Es erzeugt das Drehmoment $\\vec{D}$, das den Kreisel im Versuch in Bewegung setzt." },
-        { "value": "answer4", "label": "Es vergrößert das Trägheitsmoment $I$ des Rades, damit der Kreisel stabiler läuft." }
+        {
+            "value": "answer1",
+            "label": "Es bremst das Rad, damit es nicht zu schnell rotiert."
+        },
+        {
+            "value": "answer2",
+            "label": "Es verschiebt den Schwerpunkt des Kreisels in den Unterstützungspunkt, sodass die Gewichtskraft kein Drehmoment $\\vec{D}$ auf den Kreisel ausübt."
+        },
+        {
+            "value": "answer3",
+            "label": "Es erzeugt das Drehmoment $\\vec{D}$, das den Kreisel im Versuch in Bewegung setzt."
+        },
+        {
+            "value": "answer4",
+            "label": "Es vergrößert das Trägheitsmoment $I$ des Rades, damit der Kreisel stabiler läuft."
+        }
     ],
     "correctAnswer": "answer2",
     "containerId": "question2-container",
-    "successMessage": "Der ausbalancierte Kreisel ist frei von Drehmomenten durch die Schwerkraft. Das Drehmoment $\\vec{D}$ im Versuch stammt allein vom Zusatzgewicht – und ist dadurch genau bekannt.",
+    "successMessage": "Beim ausbalancierten Kreisel verläuft die Wirkungslinie der gesamten Gewichtskraft durch den Unterstützungspunkt. Ihr Drehmoment $\\vec{D}$ um diesen Punkt verschwindet. Ein später angehängtes Zusatzgewicht erzeugt dann das beabsichtigte zusätzliche Drehmoment.",
     "incorrectMessage": "Lesen Sie noch einmal nach, was „ausbalanciert“ für den Schwerpunkt des Kreisels bedeutet.",
     "answerFeedback": {
-        "answer1": "Das Ausgleichsgewicht sitzt auf der Achse, nicht am Rad, und berührt das Rad nicht. Bremsend wirkt im Versuch nur die Reibung.",
-        "answer3": "Ein Drehmoment $\\vec{D}$ entsteht durch eine Kraft mit Hebelarm. Fragen Sie sich, wo der Schwerpunkt des ausbalancierten Kreisels liegt und welchen Hebelarm die Gewichtskraft dann hat.",
-        "answer4": "Das Ausgleichsgewicht dreht sich nicht mit dem Rad um dessen Achse. Für das Trägheitsmoment $I$ des Rades spielt es keine Rolle."
+        "answer1": "Überlegen Sie, ob das Verschieben des Gewichts die Drehung des Rades abbremst oder die Lage des Schwerpunkts verändert.",
+        "answer3": "Zeichnen Sie die Gewichtskraft des gesamten Kreisels und den Unterstützungspunkt ein. Welchen Hebelarm soll diese Kraft nach dem Ausbalancieren haben?",
+        "answer4": "Unterscheiden Sie die Drehung des Rades um seine eigene Achse vom Schwenken des ganzen Kreisels. Wird beim Verschieben des Ausgleichsgewichts Masse innerhalb des Rades umverteilt?"
     }
 };
 
 export const question3: MultipleChoiceQuestion = {
     "questionId": "p1-setup-3-messgeraete",
-    "question": "Welche Aussagen zu den Messungen sind richtig?",
+    "question": "Welche Aussagen ordnen den Messgeräten ihre Messaufgabe und den Gewichten ihre Funktion im Versuch zu?",
     "options": [
-        { "value": "answer1", "label": "Mit der Lichtschranke wird die Umlaufdauer $T_R$ des Rades gemessen." },
-        { "value": "answer2", "label": "Mit der Stoppuhr wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen." },
-        { "value": "answer3", "label": "Mit der Lichtschranke wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen." },
-        { "value": "answer4", "label": "Die Pendelgewichte werden beim Präzessionsversuch an die Achse gehängt und erzeugen das Drehmoment $\\vec{D}$." },
-        { "value": "answer5", "label": "Das Zusatzgewicht hängt im Abstand $r$ vom Unterstützungspunkt und erzeugt ein bekanntes Drehmoment $\\vec{D}$." }
+        {
+            "value": "answer1",
+            "label": "Mit der Lichtschranke wird die Umlaufdauer $T_R$ des Rades gemessen."
+        },
+        {
+            "value": "answer2",
+            "label": "Mit der Stoppuhr wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen."
+        },
+        {
+            "value": "answer3",
+            "label": "Mit der Lichtschranke wird die Dauer der langsamen Bewegung des ganzen Kreisels gemessen."
+        },
+        {
+            "value": "answer4",
+            "label": "Die Pendelgewichte werden beim Präzessionsversuch an die Achse gehängt und erzeugen das Drehmoment $\\vec{D}$."
+        },
+        {
+            "value": "answer5",
+            "label": "Das Zusatzgewicht hängt im Abstand $r$ vom Unterstützungspunkt und erzeugt ein bekanntes Drehmoment $\\vec{D}$."
+        }
     ],
     "correctAnswers": [
-        "answer1", "answer2", "answer5"
+        "answer1",
+        "answer2",
+        "answer5"
     ],
     "containerId": "question3-container",
-    "successMessage": "Die schnelle Drehung des Rades wird elektronisch gemessen, die langsame Bewegung des ganzen Kreisels von Hand. Das Drehmoment $\\vec{D}$ liefert das Zusatzgewicht.",
-    "incompleteMessage": "Ordnen Sie jedem Messgerät die Bewegung zu, für die es geeignet ist: die schnelle Drehung des Rades oder die langsame Bewegung des ganzen Kreisels.",
-    "incorrectMessage": "Ordnen Sie jedem Messgerät die Bewegung zu, für die es geeignet ist: die schnelle Drehung des Rades oder die langsame Bewegung des ganzen Kreisels.",
+    "successMessage": "Die Lichtschranke erfasst die Umlaufdauer $T_R$ der schnellen Raddrehung. Mit der Stoppuhr werden die langsameren Bewegungen vermessen. Das eingehängte Zusatzgewicht erzeugt das Drehmoment $\\vec{D}$; die eingeschraubten Pendelgewichte werden im Pendelversuch verwendet.",
+    "incompleteMessage": "Verfolgen Sie, welches Bauteil das Messsignal auslöst und wo die jeweiligen Gewichte befestigt werden.",
+    "incorrectMessage": "Verfolgen Sie, welches Bauteil das Messsignal auslöst und wo die jeweiligen Gewichte befestigt werden.",
     "answerFeedback": {
         "answer1": {
-            "conceptId": "fast-vs-slow",
+            "conceptId": "light-barrier",
             "order": 1,
-            "message": "Das Rad dreht sich so schnell, dass Sie die Umdrehungen nicht mit dem Auge zählen können. Die Bewegung des ganzen Kreisels dagegen ist langsam genug für die Stoppuhr."
-        },
-        "answer2": {
-            "conceptId": "fast-vs-slow",
-            "order": 1,
-            "message": "Das Rad dreht sich so schnell, dass Sie die Umdrehungen nicht mit dem Auge zählen können. Die Bewegung des ganzen Kreisels dagegen ist langsam genug für die Stoppuhr."
+            "message": "Der Papierstreifen am Rad unterbricht den Lichtstrahl. Welcher wiederkehrenden Bewegung entspricht der Abstand zwischen zwei solchen Signalen?",
+            "paragraphId": "reasoning"
         },
         "answer3": {
-            "conceptId": "fast-vs-slow",
+            "conceptId": "light-barrier",
             "order": 1,
-            "message": "Das Rad dreht sich so schnell, dass Sie die Umdrehungen nicht mit dem Auge zählen können. Die Bewegung des ganzen Kreisels dagegen ist langsam genug für die Stoppuhr."
+            "message": "Der Papierstreifen am Rad unterbricht den Lichtstrahl. Welcher wiederkehrenden Bewegung entspricht der Abstand zwischen zwei solchen Signalen?",
+            "paragraphId": "reasoning"
+        },
+        "answer2": {
+            "conceptId": "stopwatch",
+            "order": 2,
+            "message": "Vergleichen Sie, welche Bewegung Sie mit dem Auge über einen festgelegten Winkel verfolgen und von Hand zeitlich erfassen können.",
+            "paragraphId": "reasoning"
         },
         "answer4": {
-            "conceptId": "weights",
-            "order": 2,
-            "message": "Unterscheiden Sie die beiden Gewichtssorten: Die einen hängen an der Achse, die anderen werden in das Rad geschraubt. Welche gehören zu welchem Versuchsteil?"
+            "conceptId": "weight-functions",
+            "order": 3,
+            "message": "Ordnen Sie die Befestigung der Gewichte zu: Gewindeloch im Rad oder Kerbe an der Achse. Welche Bewegung wird jeweils untersucht?",
+            "paragraphId": "weights"
         },
         "answer5": {
-            "conceptId": "weights",
-            "order": 2,
-            "message": "Unterscheiden Sie die beiden Gewichtssorten: Die einen hängen an der Achse, die anderen werden in das Rad geschraubt. Welche gehören zu welchem Versuchsteil?"
+            "conceptId": "weight-functions",
+            "order": 3,
+            "message": "Ordnen Sie die Befestigung der Gewichte zu: Gewindeloch im Rad oder Kerbe an der Achse. Welche Bewegung wird jeweils untersucht?",
+            "paragraphId": "weights"
         }
     }
 };
 
 export const question4: SingleChoiceQuestion = {
     "questionId": "p1-setup-4-erwartung",
-    "question": "Das Rad des ausbalancierten Kreisels rotiert schnell, die Achse liegt waagrecht. Nun hängen Sie auf einer Seite ein Zusatzgewicht an die Achse. Was erwarten Sie?",
+    "question": "Beobachten Sie in der Simulation den schnell rotierenden, zunächst ausbalancierten Kreisel. Hängen Sie mit dem Regler ein Zusatzgewicht an. Welche Beschreibung trifft auf die Bewegung der Achse bei hoher Winkelgeschwindigkeit $\\omega_R$ am besten zu?",
     "options": [
-        { "value": "answer1", "label": "Die Achse kippt auf der Seite des Zusatzgewichts nach unten, wie bei einer Balkenwaage." },
-        { "value": "answer2", "label": "Die Achse bleibt nahezu waagrecht und dreht sich langsam seitlich um die senkrechte Richtung." },
-        { "value": "answer3", "label": "Es passiert nichts: Die Achse bleibt in Ruhe, weil das Rad sie stabilisiert." },
-        { "value": "answer4", "label": "Das Rad rotiert schneller, die Achse bleibt in Ruhe." }
+        {
+            "value": "answer1",
+            "label": "Die Achse kippt auf der Seite des Zusatzgewichts nach unten, wie bei einer Balkenwaage."
+        },
+        {
+            "value": "answer2",
+            "label": "Die Achse bleibt nahezu waagrecht und dreht sich langsam seitlich um die senkrechte Richtung."
+        },
+        {
+            "value": "answer3",
+            "label": "Es passiert nichts: Die Achse bleibt in Ruhe, weil das Rad sie stabilisiert."
+        },
+        {
+            "value": "answer4",
+            "label": "Das Rad rotiert schneller, die Achse bleibt in Ruhe."
+        }
     ],
     "correctAnswer": "answer2",
     "containerId": "question4-container",
-    "successMessage": "Genau das passiert: Der Kreisel weicht dem Drehmoment seitlich aus. Diese Bewegung heißt Präzession. Probieren Sie es unten in der Simulation aus.",
-    "incorrectMessage": "Das wäre eine plausible Erwartung, aber der rotierende Kreisel verhält sich anders. Probieren Sie es unten in der Simulation aus und vergleichen Sie mit Ihrer Erwartung.",
+    "successMessage": "Die Achse schwenkt seitlich um die Senkrechte und bleibt dabei näherungsweise waagrecht. Diese Bewegung heißt Präzession. Im weiteren Lernweg erklären Sie sie mithilfe des Drehimpulses und des Drehmoments.",
+    "incorrectMessage": "Beobachten Sie bei hoher Drehzahl einige Sekunden lang das Achsenende und vergleichen Sie seine Bahn mit den Beschreibungen.",
     "answerFeedback": {
-        "answer1": "So verhält sich der Kreisel, solange das Rad stillsteht. Mit schnell rotierendem Rad passiert etwas anderes. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut.",
-        "answer3": "Das Rad stabilisiert die Achse zwar gegen Kippen, aber das Drehmoment $\\vec{D}$ des Zusatzgewichts bleibt nicht ohne Wirkung. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut.",
-        "answer4": "Das Zusatzgewicht hängt an der Achse und übt kein Drehmoment $\\vec{D}$ um die Achse des Rades aus. Seine Wirkung zeigt sich in der Bewegung der Achse. Probieren Sie es unten in der Simulation aus und wählen Sie dann erneut."
+        "answer1": "Beobachten Sie die Bewegung über mehrere Sekunden: Sinkt die belastete Seite nur nach unten, oder wandert das Achsenende auch seitlich um das Stativ?",
+        "answer3": "Nutzen Sie einen festen Punkt am Stativ als Bezug. Bleibt das Achsenende relativ zu diesem Punkt tatsächlich am selben Ort?",
+        "answer4": "Unterscheiden Sie die schnelle Raddrehung von der langsameren Bewegung der ganzen Achse. Welche dieser Bewegungen verändert sich beim Anhängen?"
     }
 };

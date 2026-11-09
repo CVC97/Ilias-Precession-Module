@@ -85,7 +85,8 @@ export const precessionText3b = `
 `;
 
 export const precessionText3c = `
-    Die Simulation startet den Kreisel jedes Mal genau mit der passenden Präzessionsgeschwindigkeit.
+    Beim Zurücksetzen startet die Simulation den schnellen Kreisel mit der passenden Präzessionsgeschwindigkeit.
+    Änderungen an den Reglern setzen die laufende Bewegung dagegen fort.
     Lässt man ihn dagegen einfach los, nickt die Achse zusätzlich auf und ab.
     Diese Bewegung ist die Nutation – Thema des nächsten Abschnitts.
 `;

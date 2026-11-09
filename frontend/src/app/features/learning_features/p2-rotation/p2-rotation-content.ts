@@ -84,10 +84,11 @@ export const rotationText3c = `
     entsteht, wenn eine Kraft $\\vec{F}$ am Ort $\\vec{r}$ (gemessen vom Drehpunkt) angreift.
     Als <a data-glossary="cross-product" class="glossary-link">Kreuzprodukt</a>
     steht es senkrecht auf $\\vec{r}$ und $\\vec{F}$; sein Betrag ist $D = rF\\sin\\alpha$.<br><br>
-    In einem kurzen Zeitabschnitt $\\Delta t$ ändert sich der Drehimpuls um $\\Delta\\vec{L} = \\vec{D}\\,\\Delta t$.
+    In einem kurzen Zeitabschnitt $\\Delta t$ ändert sich der Drehimpuls näherungsweise um $\\Delta\\vec{L} = \\vec{D}\\,\\Delta t$.
     Der neue Drehimpuls ist die Vektorsumme $\\vec{L} + \\Delta\\vec{L}$. Daraus folgen zwei Grenzfälle:
     <ul>
-        <li><strong>$\\vec{D}$ parallel zu $\\vec{L}$:</strong> $\\Delta\\vec{L}$ verlängert oder verkürzt $\\vec{L}$.
+        <li><strong>$\\vec{D}$ entlang der Richtung von $\\vec{L}$:</strong> Ein paralleles Drehmoment vergrößert den Betrag $L$,
+            ein antiparalleles verkleinert ihn.
             Der Körper dreht sich schneller oder langsamer, die Achse bleibt, wo sie ist.
             So bringen Sie mit der Antriebsschnur das Rad auf eine hohe Winkelgeschwindigkeit, und so bremst die Reibung es wieder ab.</li>
         <li><strong>$\\vec{D}$ senkrecht zu $\\vec{L}$:</strong> $\\Delta\\vec{L}$ steht senkrecht auf $\\vec{L}$.
@@ -103,7 +104,8 @@ export const rotationText3d = `
 `;
 
 export const rotationText3e = `
-    Im Versuch liefert das Zusatzgewicht genau so ein Drehmoment senkrecht zum Drehimpuls.
+    Bei der gleichmäßigen Präzession eines schnellen Kreisels liefert das Zusatzgewicht näherungsweise
+    ein Drehmoment senkrecht zum Drehimpuls.
     Was daraus folgt, sehen Sie im Abschnitt „Präzession“. Zuvor lernen Sie auf den nächsten beiden Seiten,
     wie man das Trägheitsmoment $I$ des Rades mit einem Pendel misst.
 `;
