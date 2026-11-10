@@ -42,7 +42,8 @@
         </details>
 
         <div class="home-paths">
-            <section class="path-card">
+            <!-- The whole card is the link. To bring the button back: <section class="path-card…"> instead of <a …>, and uncomment the button below. -->
+            <a class="path-card" routerLink="/learning/p1-setup">
                 <div class="path-card-body">
                     <h3 class="path-card-title">Ihr Weg durch das Lernmodul</h3>
                     <p class="path-card-focus">Vom Versuchsaufbau über die Physik zur Messung</p>
@@ -60,9 +61,9 @@
                             </li>
                         }
                     </ol>
-                    <a routerLink="/learning/p1-setup" class="btn path-card-btn">Lernmodul starten</a>
+                    <!-- <a routerLink="/learning/p1-setup" class="btn path-card-btn">Lernmodul starten</a> -->
                 </div>
-            </section>
+            </a>
         </div>
 
         <p class="home-goal">

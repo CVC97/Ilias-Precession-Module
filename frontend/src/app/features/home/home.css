@@ -31,7 +31,8 @@
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.path-card:hover {
+.path-card:hover,
+.path-card:focus-visible {
     background: var(--surface-option-hover);
     border-color: var(--path-accent);
 }
@@ -103,12 +104,25 @@
     background: var(--path-accent);
 }
 
+/* the whole card is the link (the button is commented out in home.html) */
+a.path-card {
+    color: var(--text-primary);
+    font-weight: 400;
+    text-decoration: none;
+}
+
+a.path-card:focus-visible {
+    outline: 3px solid var(--uni-blau-3);
+    outline-offset: 3px;
+}
+
+/* the button at the card's bottom (commented out, see home.html)
 .path-card-btn,
 .path-card-btn:hover {
     margin-top: auto;
     width: 100%;
     border: 3px solid var(--path-accent);
-}
+} */
 
 /* ── Goal ────────────────────────────────────────────────────────────────── */
 .home-goal {
