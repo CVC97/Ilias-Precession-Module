@@ -65,6 +65,7 @@ export class NavBar implements OnInit, OnDestroy {
         if (path.startsWith('/learning/p5')) return 'p5-precession';
         if (path.startsWith('/learning/p6')) return 'p6-nutation';
         if (path.startsWith('/learning/p7')) return 'p7-measurement';
+        if (path.startsWith('/learning/p8')) return 'p8-deepening';
         if (path.startsWith('/target/')) return 'target';
         return null;
     }

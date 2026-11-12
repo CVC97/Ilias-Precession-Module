@@ -5,6 +5,7 @@ import * as p4Content from '../../features/learning_features/p4-gyroscope/p4-gyr
 import * as p5Content from '../../features/learning_features/p5-precession/p5-precession-content';
 import * as p6Content from '../../features/learning_features/p6-nutation/p6-nutation-content';
 import * as p7Content from '../../features/learning_features/p7-measurement/p7-measurement-content';
+import * as p8Content from '../../features/learning_features/p8-deepening/p8-deepening-content';
 
 export type TextStyle = 'normal' | 'lamp' | 'glossary';
 
@@ -262,6 +263,22 @@ export const PAGE_REGISTRY: PageDefinition[] = [
             { type: 'text', html: p7Content.measureText3a },
             { type: 'question', questionId: 'p7-measurement-4-fehlerquellen' },
             { type: 'text', html: p7Content.measureText3b },
+        ],
+    },
+
+    // ── Vertiefung ───────────────────────────────────────────────────────
+    {
+        route: '/learning/p8-deepening', page: 1,
+        title: 'Vertiefung', subtitle: 'Freies Experimentieren',
+        blocks: [
+            { type: 'text', html: p8Content.deepeningText1a },
+        ],
+    },
+    {
+        route: '/learning/p8-deepening', page: 2,
+        title: 'Vertiefung', subtitle: 'Kreisel im Kosmos',
+        blocks: [
+            { type: 'text', html: p8Content.deepeningText2a },
         ],
     },
 ];

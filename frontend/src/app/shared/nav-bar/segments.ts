@@ -68,4 +68,12 @@ export const SEGMENTS: SegmentDef[] = [
             { label: '(3/3) - Weitere Fehlerquellen', route: '/learning/p7-measurement', queryParams: { page: '3' } },
         ]
     },
+    {
+        id: 'p8-deepening', label: 'Vertiefung',
+        icon: 'M8 1.5a6.5 6.5 0 1 0 0 13a6.5 6.5 0 1 0 0-13zM8 2.8a5.2 5.2 0 1 1 0 10.4a5.2 5.2 0 1 1 0-10.4zM8 2.8a2.7 5.2 0 1 0 0 10.4a2.7 5.2 0 1 0 0-10.4zM8 2.8a1.4 5.2 0 1 1 0 10.4a1.4 5.2 0 1 1 0-10.4zM2.8 7.35v1.3h10.4v-1.3z',
+        subpages: [
+            { label: '(1/2) - Freies Experimentieren', route: '/learning/p8-deepening', queryParams: { page: '1' } },
+            { label: '(2/2) - Kreisel im Kosmos', route: '/learning/p8-deepening', queryParams: { page: '2' } },
+        ]
+    },
 ];

@@ -35,6 +35,7 @@ const PAGES: { directory: string; prefix: string; questions: Record<string, AnyQ
     { directory: 'p5-precession', prefix: 'p5-precession-', questions: p5Questions },
     { directory: 'p6-nutation', prefix: 'p6-nutation-', questions: p6Questions },
     { directory: 'p7-measurement', prefix: 'p7-measurement-', questions: p7Questions },
+    // p8-deepening joins once its matching task has questions
 ];
 
 const definitions = PAGES.flatMap(page => Object.values(page.questions));

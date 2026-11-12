@@ -29,6 +29,7 @@ import { P4Gyroscope } from './features/learning_features/p4-gyroscope/p4-gyrosc
 import { P5Precession } from './features/learning_features/p5-precession/p5-precession';
 import { P6Nutation } from './features/learning_features/p6-nutation/p6-nutation';
 import { P7Measurement } from './features/learning_features/p7-measurement/p7-measurement';
+import { P8Deepening } from './features/learning_features/p8-deepening/p8-deepening';
 
 // target features
 import { TarPrecession } from './features/target_features/tar-precession/tar-precession';
@@ -62,6 +63,7 @@ export const routes: Routes = [
     { path: 'learning/p5-precession',      component: P5Precession,        title: 'Präzession' },
     { path: 'learning/p6-nutation',        component: P6Nutation,          title: 'Nutation' },
     { path: 'learning/p7-measurement',     component: P7Measurement,       title: 'Messstrategie und Fehlerquellen' },
+    { path: 'learning/p8-deepening',       component: P8Deepening,         title: 'Vertiefung' },
 
     // target pages
     { path: 'target/tar-precession', component: TarPrecession, title: 'Abschluss: Kreiselpräzession' },

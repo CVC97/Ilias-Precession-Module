@@ -85,7 +85,7 @@ describe('NavBar', () => {
     it('numbers the segments in the markers, not in the labels', async () => {
         await openAt('/learning/p5-precession?page=2');
         const markers = [...fixture.nativeElement.querySelectorAll('.seg-list > .nav-row .nav-marker')] as HTMLElement[];
-        expect(markers.map(marker => marker.textContent!.trim())).toEqual(['1', '2', '3', '', '', '']);
+        expect(markers.map(marker => marker.textContent!.trim())).toEqual(['1', '2', '3', '', '', '', '']);
         expect(row('Einstieg').textContent).not.toContain('1.');
     });
 

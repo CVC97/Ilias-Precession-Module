@@ -64,6 +64,7 @@ export class SummaryService {
         'p5-precession-module':                 '[3] Der Kreisel: Präzession',
         'p6-nutation-module':                   '[3] Der Kreisel: Nutation',
         'p7-measurement-module':                'Messstrategie und Fehlerquellen',
+        'p8-deepening-module':                  'Vertiefung',
     };
 
     private readonly TEST_LABELS: Record<string, string> = {
@@ -77,6 +78,7 @@ export class SummaryService {
         '/learning/p5-precession':              3,
         '/learning/p6-nutation':                3,
         '/learning/p7-measurement':             3,
+        '/learning/p8-deepening':               2,
     };
 
     // the Trägheitsmoment route holds pages 4 and 5 of Grundlagen der Rotation
@@ -93,6 +95,7 @@ export class SummaryService {
         '/learning/p5-precession':                                      '[3] Der Kreisel: Präzession',
         '/learning/p6-nutation':                                        '[3] Der Kreisel: Nutation',
         '/learning/p7-measurement':                                     'Messstrategie und Fehlerquellen',
+        '/learning/p8-deepening':                                       'Vertiefung',
 
         '/target/tar-precession':                                       '[Tar] Abschluss Kreiselpräzession',
     };

@@ -209,7 +209,7 @@ export class P7Measurement implements OnInit, AfterViewInit, OnDestroy {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         const page = Number(this.currentView.replace('measure', ''));
         if (page === 3) {
-            this.router.navigate(['/target/tar-precession']);
+            this.router.navigate(['/learning/p8-deepening']);
             return;
         }
         this.currentView = `measure${page + 1}`;

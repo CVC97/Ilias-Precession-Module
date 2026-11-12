@@ -4,7 +4,6 @@ import { DevModeService } from '../../../core/services/dev-mode';
 import { SummaryService, SummaryData, SummaryQuestion } from '../../../core/services/summary.service';
 import { HtmlReportService } from '../../../core/services/html-report.service';
 import { Router } from '@angular/router';
-import { SimEmbed } from '../../../shared/sim-embed/sim-embed';
 
 
 
@@ -22,7 +21,7 @@ export interface ModuleGroup {
 
 @Component({
     selector: 'app-tar-precession',
-    imports: [SimEmbed],
+    imports: [],
     templateUrl: './tar-precession.html',
     styleUrl: './tar-precession.css',
 })
@@ -108,6 +107,6 @@ export class TarPrecession implements OnInit {
 
     goBack(): void {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-        this.router.navigate(['/learning/p7-measurement'], { queryParams: { page: '3' } });
+        this.router.navigate(['/learning/p8-deepening'], { queryParams: { page: '2' } });
     }
 }
